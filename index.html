@@ -189,12 +189,12 @@ img{display:block;max-width:100%;}
   background:var(--panel);
   overflow:hidden;
 }
-.avatar-ring img{width:58%;opacity:.95;}
-@media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr;text-align:center;}
-  .hero p{margin-inline:auto;}
-  .hero-cta{justify-content:center;}
-  .avatar-ring{width:220px;height:220px;margin-top:20px;}
+.avatar-ring img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:.95;
 }
 
 /* ---------- section shell ---------- */
