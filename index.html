@@ -143,7 +143,7 @@ main{
 }
 .col-left{
   flex:0 0 auto;
-  width:260px;
+  width:320px;
   max-width:100%;
 }
 .col-right{
@@ -200,6 +200,8 @@ p.tag{
   display:flex;
   flex-direction:column;
   gap:10px;
+  max-width:400px;
+  margin-left:auto;
 }
 .link{
   display:flex;
@@ -262,6 +264,19 @@ p.tag{
   color:#4B4E55;
   font-size:11px;
 }
+@media (max-width:640px){
+  .row{
+    flex-direction:column;
+    gap:20px;
+  }
+  .col-left{
+    width:100%;
+  }
+  .links{
+    max-width:100%;
+    margin-left:0;
+  }
+}
 </style>
 </head>
 <body>
@@ -278,7 +293,7 @@ p.tag{
 <main>
   <div class="wrap">
     <div class="row">
-      <div class="col-left">
+      <div class="col-left" style="width:fit-content;">
         <div class="card">
           <div class="avatar"><img src="plythonic.png" alt="Plythonic"></div>
         </div>
@@ -290,7 +305,7 @@ p.tag{
     </div>
 
     <div class="row">
-      <div class="col-left">
+      <div class="col-left" style="width:420px;">
         <div class="right-title">Platformalar</div>
         <p>Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.</p>
       </div>
