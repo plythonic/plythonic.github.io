@@ -266,15 +266,37 @@ p.tag{
 }
 @media (max-width:640px){
   .row{
-    flex-direction:column;
-    gap:20px;
+    gap:16px;
   }
-  .col-left{
-    width:100%;
+  .col-right{
+    min-width:0;
+  }
+  .avatar{
+    width:26vw;
+    height:26vw;
+    margin-bottom:0;
+  }
+  .right-title{
+    font-size:13px;
+    margin-bottom:6px;
+  }
+  .row p{
+    font-size:12px;
+    line-height:1.6;
   }
   .links{
     max-width:100%;
     margin-left:0;
+    gap:8px;
+  }
+  .link{
+    padding:10px 12px;
+    font-size:13px;
+  }
+  .link .ic,
+  .link .ic svg{
+    width:16px;
+    height:16px;
   }
 }
 </style>
@@ -305,7 +327,7 @@ p.tag{
     </div>
 
     <div class="row">
-      <div class="col-left" style="width:420px;">
+      <div class="col-left" style="width:47%;">
         <div class="right-title">Platformalar</div>
         <p>Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.</p>
       </div>
