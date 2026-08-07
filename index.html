@@ -264,51 +264,32 @@ p.tag{
   color:#4B4E55;
   font-size:11px;
 }
-@media (max-width:640px){
-  .row{
-    gap:14px;
-    flex-wrap:nowrap;
-  }
-  .col-left{
-    flex-shrink:0;
-  }
-  .col-right{
-    min-width:0;
-    flex:1 1 0;
-  }
-  .avatar{
-    width:26vw;
-    height:26vw;
-    margin-bottom:0;
-  }
-  .right-title{
-    font-size:13px;
-    margin-bottom:6px;
-  }
-  .row p{
-    font-size:12px;
-    line-height:1.6;
-  }
-  .links{
-    max-width:100%;
-    margin-left:0;
-    gap:8px;
-  }
-  .link{
-    padding:10px 12px;
-    font-size:13px;
-  }
-  .link .ic,
-  .link .ic svg{
-    width:16px;
-    height:16px;
-  }
+#scale-wrap{
+  position:relative;
+  z-index:2;
+  width:100%;
+  overflow:hidden;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+#scale-inner{
+  width:900px;
+  max-width:none;
+  margin:0 auto;
+  transform-origin:top left;
+  display:flex;
+  flex-direction:column;
+  flex:1;
 }
 </style>
 </head>
 <body>
 
 <canvas id="matrix"></canvas>
+
+<div id="scale-wrap">
+<div id="scale-inner">
 
 <header class="site-header">
   <a class="brand" href="#">
@@ -367,6 +348,34 @@ p.tag{
 <footer class="site-footer">
   <div class="footer-bottom">© 2026 Plythonic</div>
 </footer>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var outer = document.getElementById('scale-wrap');
+  var inner = document.getElementById('scale-inner');
+  var BASE = 900;
+
+  function apply(){
+    inner.style.transform = 'none';
+    var w = window.innerWidth;
+    var naturalHeight = inner.offsetHeight;
+    if(w < BASE){
+      var scale = w / BASE;
+      inner.style.transform = 'scale(' + scale + ')';
+      outer.style.height = (naturalHeight * scale) + 'px';
+    } else {
+      outer.style.height = 'auto';
+    }
+  }
+
+  window.addEventListener('resize', apply);
+  window.addEventListener('load', apply);
+  apply();
+})();
+</script>
 
 <script>
 (function(){
