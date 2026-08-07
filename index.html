@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plythonic</title>
 <meta name="description" content="Plythonic — Discord bot developeri.">
+<link rel="icon" type="image/png" href="plythonic.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -69,10 +70,12 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:13px;
-  color:var(--blue);
+  overflow:hidden;
+}
+.brand .mark img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 .brand .word{
   font-family:var(--font-d);
@@ -174,10 +177,12 @@ main{
   align-items:center;
   justify-content:center;
   margin:0 0 22px;
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:34px;
-  color:var(--blue);
+  overflow:hidden;
+}
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 h1{
   font-family:var(--font-d);
@@ -265,7 +270,7 @@ p.tag{
 
 <header class="site-header">
   <a class="brand" href="#">
-    <span class="mark">P</span>
+    <span class="mark"><img src="plythonic.png" alt="Plythonic"></span>
     <span class="word">Plythonic</span>
   </a>
 </header>
@@ -275,7 +280,7 @@ p.tag{
     <div class="row">
       <div class="col-left">
         <div class="card">
-          <div class="avatar">P</div>
+          <div class="avatar"><img src="plythonic.png" alt="Plythonic"></div>
           <h1>Plythonic</h1>
           <p class="tag">Discord bot developeri</p>
         </div>
