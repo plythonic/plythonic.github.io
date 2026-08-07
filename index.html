@@ -266,10 +266,15 @@ p.tag{
 }
 @media (max-width:640px){
   .row{
-    gap:16px;
+    gap:14px;
+    flex-wrap:nowrap;
+  }
+  .col-left{
+    flex-shrink:0;
   }
   .col-right{
     min-width:0;
+    flex:1 1 0;
   }
   .avatar{
     width:26vw;
