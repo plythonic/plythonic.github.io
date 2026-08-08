@@ -47,7 +47,7 @@ body{
   z-index:2;
   display:flex;
   align-items:center;
-  justify-content:flex-start;
+  justify-content:space-between;
   padding:20px 12px;
   max-width:900px;
   width:100%;
@@ -97,6 +97,115 @@ body{
 }
 .header-links a:hover{
   color:var(--ink);
+}
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.icon-btn{
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:border-color .2s,color .2s,transform .2s;
+}
+.icon-btn:hover{
+  border-color:var(--blue);
+  color:var(--ink);
+}
+.icon-btn:active{
+  transform:scale(.92);
+}
+.icon-btn svg{width:16px;height:16px;}
+.icon-btn.spin svg{
+  animation:spin-once .5s ease;
+}
+@keyframes spin-once{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+.lang-switch{
+  position:relative;
+}
+.lang-current{
+  height:34px;
+  padding:0 12px;
+  border-radius:9px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:12.5px;
+  letter-spacing:.03em;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  transition:border-color .2s;
+}
+.lang-current:hover{
+  border-color:var(--blue);
+}
+.lang-current svg{
+  width:11px;
+  height:11px;
+  color:var(--muted);
+  transition:transform .2s;
+}
+.lang-switch.open .lang-current svg{
+  transform:rotate(180deg);
+}
+.lang-menu{
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:6px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:96px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-4px);
+  transition:opacity .15s,transform .15s,visibility .15s;
+  z-index:5;
+}
+.lang-switch.open .lang-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.lang-menu button{
+  background:transparent;
+  border:none;
+  color:var(--muted);
+  font-family:var(--font-b);
+  font-weight:500;
+  font-size:12.5px;
+  text-align:left;
+  padding:8px 10px;
+  border-radius:7px;
+  cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.lang-menu button:hover{
+  background:rgba(255,255,255,.05);
+  color:var(--ink);
+}
+.lang-menu button.active{
+  color:var(--blue);
+  background:rgba(59,130,246,.1);
 }
 .cta{
   display:inline-flex;
@@ -307,6 +416,15 @@ p.tag{
     padding-top:6px !important;
     padding-left:0 !important;
   }
+  .icon-btn{
+    width:30px;
+    height:30px;
+  }
+  .lang-current{
+    height:30px;
+    padding:0 9px;
+    font-size:11.5px;
+  }
 }
 </style>
 </head>
@@ -319,6 +437,23 @@ p.tag{
     <span class="mark"><img src="plythonic.png" alt="Plythonic"></span>
     <span class="word">Plythonic</span>
   </a>
+  <div class="header-actions">
+    <button class="icon-btn" id="restartBtn" type="button" title="Yenilə" aria-label="Yenilə">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.36"/><path d="M21 4v5h-5"/></svg>
+    </button>
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-current" id="langCurrent" type="button" aria-haspopup="true" aria-expanded="false">
+        <span id="langCurrentLabel">AZ</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <button type="button" data-lang="az" class="active">Azərbaycanca</button>
+        <button type="button" data-lang="en">English</button>
+        <button type="button" data-lang="tr">Türkçe</button>
+        <button type="button" data-lang="ru">Русский</button>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -329,16 +464,16 @@ p.tag{
           <div class="avatar"><img src="plythonic.png" alt="Plythonic"></div>
         </div>
       </div>
-      <div class="col-right about-right" style="padding-top:26px;padding-left:4.7%;">
-        <div class="right-title">Haqqımda</div>
-        <p>Salam, mən Plythonicəm. Discord serverləri üçün moderasiya, ticket dəstək, qoruma, əyləncə sistemi olan botlar hazırlayıram. Hazırda Plython adlı public botum aktivdir — serverinə əlavə edib rahatlıqla işlət və həzz al!</p>
+      <div class="col-right about-right" style="padding-top:26px;padding-left:5.1%;padding-right:0;max-width:100%;">
+        <div class="right-title" data-i18n="about_title">Haqqımda</div>
+        <p data-i18n="about_text">Salam, mən Plythonicəm. Discord serverləri üçün moderasiya, ticket dəstək, qoruma, əyləncə sistemi olan botlar hazırlayıram. Hazırda Plython adlı public botum aktivdir — serverinə əlavə edib rahatlıqla işlət və həzz al!</p>
       </div>
     </div>
 
     <div class="row">
       <div class="col-left" style="width:47%;">
-        <div class="right-title">Platformalar</div>
-        <p>Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün yalnız istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.</p>
+        <div class="right-title" data-i18n="platforms_title">Platformalar</div>
+        <p data-i18n="platforms_text">Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün yalnız istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.</p>
       </div>
       <div class="col-right">
         <div class="links">
@@ -417,6 +552,86 @@ p.tag{
   }
 
   setInterval(draw, 45);
+})();
+
+(function(){
+  var translations = {
+    az:{
+      about_title:"Haqqımda",
+      about_text:"Salam, mən Plythonicəm. Discord serverləri üçün moderasiya, ticket dəstək, qoruma, əyləncə sistemi olan botlar hazırlayıram. Hazırda Plython adlı public botum aktivdir — serverinə əlavə edib rahatlıqla işlət və həzz al!",
+      platforms_title:"Platformalar",
+      platforms_text:"Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün yalnız istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.",
+      label:"AZ"
+    },
+    en:{
+      about_title:"About",
+      about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection, and fun systems for servers. My public bot Plython is currently active — add it to your server and enjoy!",
+      platforms_title:"Platforms",
+      platforms_text:"You can reach me through the platforms listed here. Just click on whichever platform you'd like.",
+      label:"EN"
+    },
+    tr:{
+      about_title:"Hakkımda",
+      about_text:"Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif — sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin!",
+      platforms_title:"Platformlar",
+      platforms_text:"Buradaki platformlardan benimle iletişime geçebilirsin. Bunun için istediğin platformun üzerine tıklaman yeterli.",
+      label:"TR"
+    },
+    ru:{
+      about_title:"Обо мне",
+      about_text:"Привет, я Plythonic. Я разрабатываю ботов для Discord с модерацией, тикет-поддержкой, защитой и развлекательными функциями. Сейчас активен мой публичный бот Plython — добавь его на свой сервер и наслаждайся!",
+      platforms_title:"Платформы",
+      platforms_text:"Здесь вы можете связаться со мной через указанные платформы. Просто нажмите на нужную платформу.",
+      label:"RU"
+    }
+  };
+
+  var langSwitch = document.getElementById('langSwitch');
+  var langCurrent = document.getElementById('langCurrent');
+  var langCurrentLabel = document.getElementById('langCurrentLabel');
+  var langMenu = document.getElementById('langMenu');
+  var restartBtn = document.getElementById('restartBtn');
+
+  function applyLang(lang){
+    var dict = translations[lang] || translations.az;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(dict[key]) el.textContent = dict[key];
+    });
+    langCurrentLabel.textContent = dict.label;
+    document.documentElement.lang = lang;
+    langMenu.querySelectorAll('button').forEach(function(btn){
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    localStorage.setItem('plythonic-lang', lang);
+  }
+
+  langCurrent.addEventListener('click', function(e){
+    e.stopPropagation();
+    var isOpen = langSwitch.classList.toggle('open');
+    langCurrent.setAttribute('aria-expanded', isOpen);
+  });
+
+  langMenu.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      applyLang(btn.getAttribute('data-lang'));
+      langSwitch.classList.remove('open');
+      langCurrent.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', function(){
+    langSwitch.classList.remove('open');
+    langCurrent.setAttribute('aria-expanded', 'false');
+  });
+
+  restartBtn.addEventListener('click', function(){
+    restartBtn.classList.add('spin');
+    setTimeout(function(){ location.reload(); }, 300);
+  });
+
+  var savedLang = localStorage.getItem('plythonic-lang');
+  applyLang(savedLang && translations[savedLang] ? savedLang : 'az');
 })();
 </script>
 
