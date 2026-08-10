@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plythonic</title>
 <meta name="description" content="Plythonic — Discord bot developeri.">
-<link rel="icon" type="image/png" href="plythonic.png" id="faviconLink">
+<link rel="icon" type="image/png" href="logo.png" id="faviconLink">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -552,45 +552,6 @@ p.tag{
   }
 
   setInterval(draw, 45);
-})();
-
-/* ---------- CIRCULAR FAVICON ---------- */
-(function(){
-  var faviconLink = document.getElementById('faviconLink');
-  var srcUrl = faviconLink.getAttribute('href');
-  var img = new Image();
-  img.crossOrigin = "anonymous";
-  img.onload = function(){
-    var size = 64;
-    var canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-    var ctx = canvas.getContext('2d');
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
-
-    var scale = Math.max(size / img.width, size / img.height);
-    var w = img.width * scale;
-    var h = img.height * scale;
-    var x = (size - w) / 2;
-    var y = (size - h) / 2;
-    ctx.drawImage(img, x, y, w, h);
-    ctx.restore();
-
-    try{
-      faviconLink.href = canvas.toDataURL('image/png');
-    }catch(e){
-      /* Canvas tainted (e.g. file:// or cross-origin without CORS) -> keep original favicon */
-    }
-  };
-  img.onerror = function(){
-    /* Image failed to load, keep original favicon href */
-  };
-  img.src = srcUrl;
 })();
 
 (function(){
