@@ -242,7 +242,7 @@ main{
 /* about card */
 .about-row{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:24px;
 }
 .avatar-wrap{
@@ -252,7 +252,7 @@ main{
 .avatar{
   width:96px;
   height:96px;
-  border-radius:10px 42% 42% 42%;
+  border-radius:24px;
   background:#0E0F13;
   border:1px solid var(--line);
   overflow:hidden;
@@ -343,6 +343,40 @@ main{
   transform:translate(2px,-2px);
 }
 
+/* projects card */
+.project-row{
+  display:flex;
+  align-items:flex-start;
+  gap:24px;
+}
+.project-logo{
+  width:96px;
+  height:96px;
+  border-radius:24px;
+  background:#0E0F13;
+  border:1px solid var(--line);
+  overflow:hidden;
+  flex-shrink:0;
+}
+.project-logo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.project-info h2{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:19px;
+  letter-spacing:-.01em;
+  margin-bottom:3px;
+}
+.project-info p{
+  color:var(--muted);
+  font-size:14.5px;
+  line-height:1.7;
+}
+
 /* ---------- FOOTER ---------- */
 .site-footer{
   position:relative;
@@ -365,12 +399,16 @@ main{
   .divider{margin:0 18px;}
   .card-body{padding:18px;}
   .about-row{gap:16px;}
-  .avatar{width:74px;height:74px;}
+  .avatar{width:74px;height:74px;border-radius:18px;}
   .presence{width:15px;height:15px;border-width:2.5px;}
   .about-content h1{font-size:18px;}
   .about-content .role{font-size:12px;}
   .about-content p{font-size:13px;}
   .link{padding:11px 13px;font-size:13px;}
+  .project-row{gap:14px;}
+  .project-logo{width:74px;height:74px;border-radius:18px;}
+  .project-info h2{font-size:16px;}
+  .project-info p{font-size:13px;}
   .icon-btn{width:30px;height:30px;}
   .lang-current{height:30px;padding:0 9px;font-size:11px;}
 }
@@ -421,7 +459,21 @@ main{
           <div class="about-content">
             <h1>Plythonic</h1>
             <div class="role">Discord Bot Developer</div>
-            <p data-i18n="about_text">Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin!</p>
+            <p data-i18n="about_text">Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="title" data-i18n="projects_title">Projelerim</span></div>
+      <div class="divider"></div>
+      <div class="card-body">
+        <div class="project-row">
+          <div class="project-logo"><img src="plython.png" alt="Plython"></div>
+          <div class="project-info">
+            <h2>Plython</h2>
+            <p data-i18n="projects_text">Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.</p>
           </div>
         </div>
       </div>
@@ -515,21 +567,30 @@ main{
   var translations = {
     en:{
       about_title:"About",
-      about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection, and fun systems for servers. My public bot Plython is currently active, add it to your server and enjoy!",
+      about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection, and fun systems for servers. My public bot Plython is currently active, add it to your server and enjoy! I love writing code and building new systems, so I keep updating my bots and adding new features regularly. If you run into any issues or have suggestions, feel free to reach out through the platforms below.",
+      projects_title:"Projects",
+      projects_text:"Plython is a full-featured Discord bot I built to make server management easier. Alongside moderation, welcomer, and AFK systems, it also brings music, economy, giveaways, and ticket support together in one place. Automatic antispam and antinuke systems keep your server protected from abuse and spam without any manual setup. It's actively running right now and keeps getting new features over time.",
       platforms_title:"Platforms",
       platforms_text:"You can reach me through the platforms listed here. Just click on whichever platform you'd like.",
       label:"EN"
     },
     tr:{
       about_title:"Hakkımda",
-      about_text:"Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin!",
+      about_text:"Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.",
+      projects_title:"Projelerim",
+      projects_text:"Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.",
       platforms_title:"Platformlar",
       platforms_text:"Buradaki platformlardan benimle iletişime geçebilirsin. Bunun için istediğin platformun üzerine tıklaman yeterli.",
       label:"TR"
     },
     ru:{
       about_title:"Обо мне",
-      about_text:"Привет, я Plythonic. Я разрабатываю ботов для Discord с модерацией, тикет-поддержкой, защитой и развлекательными функциями. Сейчас активен мой публичный бот Plython, добавь его на свой сервер и наслаждайся!",
+      about_text:"Привет, я Plythonic. Я разрабатываю ботов для Discord с модерацией, тикет-поддержкой, защитой и развлекательными функциями. Сейчас активен мой публичный бот Plython, добавь его на свой сервер и наслаждайся! Мне нравится писать код и создавать новые системы, поэтому я постоянно обновляю своих ботов и добавляю новые функции. Если у тебя возникнут вопросы или пожелания, ты можешь связаться со мной через платформы ниже.",
+      projects_title:"Проекты",
+      projects_text:"Plython — это многофункциональный Discord-бот, который я разработал для удобного управления сервером. Помимо систем модерации, приветствия и AFK, он объединяет музыку, экономику, розыгрыши и тикет-поддержку в одном месте. Автоматические системы antispam и antinuke защищают сервер от спама и злоупотреблений без ручной настройки. Бот активно работает прямо сейчас и постоянно пополняется новыми функциями.",
+      feat_mod:"Модерация",
+      feat_welcome:"Приветствие",
+      feat_afk:"AFK-система",
       platforms_title:"Платформы",
       platforms_text:"Здесь вы можете связаться со мной через указанные платформы. Просто нажмите на нужную платформу.",
       label:"RU"
@@ -568,7 +629,7 @@ main{
       langSwitch.classList.remove('open');
       langCurrent.setAttribute('aria-expanded', 'false');
     });
-  }); 
+  });
 
   document.addEventListener('click', function(){
     langSwitch.classList.remove('open');
