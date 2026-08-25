@@ -27,7 +27,7 @@ html.light{
   --ink:#0B0C0F;
   --muted:#6B6E76;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
 body{
   background:var(--bg);
@@ -40,6 +40,12 @@ body{
   display:flex;
   flex-direction:column;
   transition:background .25s,color .25s;
+  touch-action:manipulation;
+  -webkit-touch-callout:none;
+}
+button,a,.link,.icon-btn,.lang-current,.lang-menu button{
+  -webkit-tap-highlight-color:transparent;
+  outline:none;
 }
 ::selection{background:rgba(59,130,246,.35);color:#fff;}
 
@@ -302,16 +308,6 @@ main{
   object-fit:cover;
   display:block;
 }
-.presence{
-  position:absolute;
-  bottom:-2px;
-  right:-2px;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:var(--green);
-  border:3px solid var(--panel);
-}
 .about-content h1{
   font-family:var(--font-d);
   font-weight:700;
@@ -499,7 +495,6 @@ main{
         <div class="about-row">
           <div class="avatar-wrap">
             <div class="avatar"><img src="plythonic.png" alt="Plythonic"></div>
-            <span class="presence"></span>
           </div>
           <div class="about-content">
             <div class="name-row">
