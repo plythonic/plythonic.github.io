@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -394,13 +394,13 @@ main{
     </button>
     <div class="lang-switch" id="langSwitch">
       <button class="lang-current" id="langCurrent" type="button" aria-haspopup="true" aria-expanded="false">
-        <span id="langCurrentLabel">AZ</span>
+        <span id="langCurrentLabel">TR</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="lang-menu" id="langMenu">
-        <button type="button" data-lang="az" class="active">Azərbaycanca</button>
+        <button type="button" data-lang="az">Azərbaycanca</button>
         <button type="button" data-lang="en">English</button>
-        <button type="button" data-lang="tr">Türkçe</button>
+        <button type="button" data-lang="tr" class="active">Türkçe</button>
         <button type="button" data-lang="ru">Русский</button>
       </div>
     </div>
@@ -411,7 +411,7 @@ main{
   <div class="wrap">
 
     <div class="card">
-      <div class="card-head"><span class="title" data-i18n="about_title">Haqqımda</span></div>
+      <div class="card-head"><span class="title" data-i18n="about_title">Hakkımda</span></div>
       <div class="divider"></div>
       <div class="card-body">
         <div class="about-row">
@@ -422,17 +422,17 @@ main{
           <div class="about-content">
             <h1>Plythonic</h1>
             <div class="role">Discord Bot Developer</div>
-            <p data-i18n="about_text">Salam, mən Plythonicəm. Discord serverləri üçün moderasiya, ticket dəstək, qoruma, əyləncə sistemi olan botlar hazırlayıram. Hazırda Plython adlı botum aktivdir, serverinə əlavə edib rahatlıqla işlət və həzz al!</p>
+            <p data-i18n="about_text">Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin!</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><span class="title" data-i18n="platforms_title">Platformalar</span></div>
+      <div class="card-head"><span class="title" data-i18n="platforms_title">Platformlar</span></div>
       <div class="divider"></div>
       <div class="card-body">
-        <p class="contact-note" data-i18n="platforms_text">Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün yalnız istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.</p>
+        <p class="contact-note" data-i18n="platforms_text">Buradaki platformlardan benimle iletişime geçebilirsin. Bunun için istediğin platformun üzerine tıklaman yeterli.</p>
         <div class="links">
           <a class="link" href="https://discord.gg/acrKtExDAk">
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5c-2 .6-3.6 1.6-5 3-1.6 3.6-2.3 7.6-2 11.5 1.8 1.5 3.8 2.5 6 3l1.2-2"/><path d="M16 4.5c2 .6 3.6 1.6 5 3 1.6 3.6 2.3 7.6 2 11.5-1.8 1.5-3.8 2.5-6 3l-1.2-2"/><path d="M8 15.5c2.8 1.3 5.2 1.3 8 0"/><circle cx="9" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
@@ -561,7 +561,7 @@ main{
     langMenu.querySelectorAll('button').forEach(function(btn){
       btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
-    localStorage.setItem('plythonic-lang', lang);
+    localStorage.setItem('plythonic-lang-v2', lang);
   }
 
   langCurrent.addEventListener('click', function(e){
@@ -588,8 +588,8 @@ main{
     setTimeout(function(){ location.reload(); }, 300);
   });
 
-  var savedLang = localStorage.getItem('plythonic-lang');
-  applyLang(savedLang && translations[savedLang] ? savedLang : 'az');
+  var savedLang = localStorage.getItem('plythonic-lang-v2');
+  applyLang(savedLang && translations[savedLang] ? savedLang : 'tr');
 })();
 </script>
 
