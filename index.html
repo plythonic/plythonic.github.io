@@ -20,6 +20,13 @@
   --font-d:'Space Grotesk',sans-serif;
   --font-b:'Inter',sans-serif;
 }
+html.light{
+  --bg:#F5F6F8;
+  --panel:#FFFFFF;
+  --line:#E2E4E8;
+  --ink:#0B0C0F;
+  --muted:#6B6E76;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
 body{
@@ -32,6 +39,7 @@ body{
   overflow-x:hidden;
   display:flex;
   flex-direction:column;
+  transition:background .25s,color .25s;
 }
 ::selection{background:rgba(59,130,246,.35);color:#fff;}
 
@@ -121,6 +129,10 @@ body{
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
+#themeBtn .icon-sun{display:none;}
+#themeBtn .icon-moon{display:block;}
+html.light #themeBtn .icon-sun{display:block;}
+html.light #themeBtn .icon-moon{display:none;}
 .lang-switch{
   position:relative;
 }
@@ -220,6 +232,7 @@ main{
   background:var(--panel);
   border:1px solid var(--line);
   border-radius:14px;
+  transition:background .25s,border-color .25s;
 }
 .card-head{
   padding:18px 26px;
@@ -253,7 +266,7 @@ main{
   width:96px;
   height:96px;
   border-radius:24px;
-  background:#0E0F13;
+  background:var(--panel);
   border:1px solid var(--line);
   overflow:hidden;
 }
@@ -308,7 +321,7 @@ main{
   display:flex;
   align-items:center;
   gap:12px;
-  background:#0E0F13;
+  background:var(--panel);
   border:1px solid var(--line);
   padding:13px 15px;
   border-radius:10px;
@@ -353,7 +366,7 @@ main{
   width:96px;
   height:96px;
   border-radius:24px;
-  background:#0E0F13;
+  background:var(--panel);
   border:1px solid var(--line);
   overflow:hidden;
   flex-shrink:0;
@@ -428,6 +441,10 @@ main{
     <span class="word">Plythonic</span>
   </a>
   <div class="header-actions">
+    <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
+    </button>
     <button class="icon-btn" id="restartBtn" type="button" title="Yenilə" aria-label="Yenilə">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.36"/><path d="M21 4v5h-5"/></svg>
     </button>
@@ -524,6 +541,7 @@ main{
   var chars = "01{}<>/=+*#[]();$%&PLYTHONIC".split("");
   var fontSize = 15;
   var columns, drops, dpr;
+  var fadeRGB = "2,3,4";
 
   function setup(){
     dpr = window.devicePixelRatio || 1;
@@ -541,7 +559,7 @@ main{
   window.addEventListener('resize', setup);
 
   function draw(){
-    ctx.fillStyle = "rgba(2,3,4,0.12)";
+    ctx.fillStyle = "rgba(" + fadeRGB + ",0.12)";
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
     ctx.font = fontSize + "px 'JetBrains Mono', monospace";
@@ -562,6 +580,27 @@ main{
   }
 
   setInterval(draw, 45);
+
+  var themeBtn = document.getElementById('themeBtn');
+  function applyTheme(theme){
+    if(theme === 'light'){
+      document.documentElement.classList.add('light');
+      fadeRGB = "245,246,248";
+      ctx.fillStyle = "rgba(245,246,248,1)";
+    } else {
+      document.documentElement.classList.remove('light');
+      fadeRGB = "2,3,4";
+      ctx.fillStyle = "rgba(2,3,4,1)";
+    }
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    localStorage.setItem('plythonic-theme', theme);
+  }
+  themeBtn.addEventListener('click', function(){
+    var next = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+    applyTheme(next);
+  });
+  var savedTheme = localStorage.getItem('plythonic-theme');
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
 })();
 
 (function(){
