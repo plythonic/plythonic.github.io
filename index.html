@@ -398,9 +398,8 @@ main{
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="lang-menu" id="langMenu">
-        <button type="button" data-lang="az">Azərbaycanca</button>
-        <button type="button" data-lang="en">English</button>
         <button type="button" data-lang="tr" class="active">Türkçe</button>
+        <button type="button" data-lang="en">English</button>
         <button type="button" data-lang="ru">Русский</button>
       </div>
     </div>
@@ -514,13 +513,6 @@ main{
 
 (function(){
   var translations = {
-    az:{
-      about_title:"Haqqımda",
-      about_text:"Salam, mən Plythonicəm. Discord serverləri üçün moderasiya, ticket dəstək, qoruma, əyləncə sistemi olan botlar hazırlayıram. Hazırda Plython adlı botum aktivdir, serverinə əlavə edib rahatlıqla işlət və həzz al!",
-      platforms_title:"Platformalar",
-      platforms_text:"Burada verilən platformalardan mənimlə əlaqəyə keçə bilərsiniz. Bunun üçün yalnız istədiyiniz platformanın üstünə klikləməyiniz kifayətdir.",
-      label:"AZ"
-    },
     en:{
       about_title:"About",
       about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection, and fun systems for servers. My public bot Plython is currently active, add it to your server and enjoy!",
@@ -551,7 +543,7 @@ main{
   var restartBtn = document.getElementById('restartBtn');
 
   function applyLang(lang){
-    var dict = translations[lang] || translations.az;
+    var dict = translations[lang] || translations.tr;
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       var key = el.getAttribute('data-i18n');
       if(dict[key]) el.textContent = dict[key];
