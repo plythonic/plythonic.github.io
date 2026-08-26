@@ -11,8 +11,9 @@
 <style>
 :root{
   --bg:#020304;
-  --panel:#0B0C0F;
-  --line:#1D2026;
+  --panel:#12141B;
+  --panel-solid:#0E1016;
+  --line:#2A2E38;
   --ink:#F2F3F5;
   --muted:#8A8D95;
   --blue:#3B82F6;
@@ -23,6 +24,7 @@
 html.light{
   --bg:#F5F6F8;
   --panel:#FFFFFF;
+  --panel-solid:#FFFFFF;
   --line:#E2E4E8;
   --ink:#0B0C0F;
   --muted:#6B6E76;
@@ -69,7 +71,11 @@ button,a,.link,.icon-btn,.lang-current,.lang-menu button{
   width:90%;
   max-width:1400px;
   margin:0 auto;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(255,255,255,.35);
+  background:var(--bg);
+}
+html.light .site-header{
+  border-bottom:1px solid rgba(0,0,0,.4);
 }
 .brand{
   display:flex;
@@ -83,7 +89,7 @@ button,a,.link,.icon-btn,.lang-current,.lang-menu button{
   width:30px;
   height:30px;
   border-radius:9px 40% 40% 40%;
-  background:var(--panel);
+  background:var(--panel-solid);
   border:1px solid var(--line);
   display:flex;
   align-items:center;
@@ -111,7 +117,7 @@ button,a,.link,.icon-btn,.lang-current,.lang-menu button{
   width:34px;
   height:34px;
   border-radius:9px;
-  background:var(--panel);
+  background:var(--panel-solid);
   border:1px solid var(--line);
   color:var(--muted);
   display:flex;
@@ -146,7 +152,7 @@ html.light #themeBtn .icon-moon{display:none;}
   height:34px;
   padding:0 12px;
   border-radius:9px;
-  background:var(--panel);
+  background:var(--panel-solid);
   border:1px solid var(--line);
   color:var(--ink);
   font-family:var(--font-b);
@@ -175,7 +181,7 @@ html.light #themeBtn .icon-moon{display:none;}
   position:absolute;
   top:calc(100% + 8px);
   right:0;
-  background:var(--panel);
+  background:var(--panel-solid);
   border:1px solid var(--line);
   border-radius:10px;
   padding:6px;
@@ -188,6 +194,7 @@ html.light #themeBtn .icon-moon{display:none;}
   transform:translateY(-4px);
   transition:opacity .15s,transform .15s,visibility .15s;
   z-index:5;
+  box-shadow:0 12px 30px -10px rgba(0,0,0,.6);
 }
 .lang-switch.open .lang-menu{
   opacity:1;
@@ -235,13 +242,21 @@ main{
 
 /* single card, single divider line, no console styling */
 .card{
-  background:var(--panel);
-  border:1px solid var(--line);
+  background:rgba(18,20,27,.12);
+  backdrop-filter:blur(10px) saturate(1.3);
+  -webkit-backdrop-filter:blur(10px) saturate(1.3);
+  border:1px solid rgba(255,255,255,.35);
   border-radius:14px;
+  box-shadow:0 24px 60px -24px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
   transition:background .25s,border-color .25s;
   opacity:0;
   transform:translateY(18px);
   animation:card-in .6s cubic-bezier(.22,.61,.36,1) forwards;
+}
+html.light .card{
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(0,0,0,.4);
+  box-shadow:0 12px 30px -18px rgba(0,0,0,.18);
 }
 .card:nth-child(1){animation-delay:.05s;}
 .card:nth-child(2){animation-delay:.18s;}
@@ -263,8 +278,11 @@ main{
 }
 .divider{
   height:1px;
-  background:var(--line);
+  background:rgba(255,255,255,.35);
   margin:0 26px;
+}
+html.light .divider{
+  background:rgba(0,0,0,.4);
 }
 .card-body{
   padding:26px;
@@ -298,9 +316,13 @@ main{
   width:96px;
   height:96px;
   border-radius:24px;
-  background:var(--panel);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.35);
   overflow:hidden;
+}
+html.light .avatar{
+  background:rgba(0,0,0,.02);
+  border:1px solid rgba(0,0,0,.4);
 }
 .avatar img{
   width:100%;
@@ -336,19 +358,25 @@ main{
   display:flex;
   align-items:center;
   gap:12px;
-  background:var(--panel);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,.015);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.35);
   padding:13px 15px;
   border-radius:10px;
   color:var(--ink);
   text-decoration:none;
   font-size:14.5px;
   font-weight:500;
-  transition:border-color .2s,transform .2s;
+  transition:border-color .2s,transform .2s,background .2s;
 }
 .link:hover{
   border-color:var(--blue);
   transform:translateY(-1px);
+}
+html.light .link{
+  background:rgba(0,0,0,.015);
+  border:1px solid rgba(0,0,0,.4);
 }
 .link .ic{
   width:19px;
@@ -381,10 +409,14 @@ main{
   width:96px;
   height:96px;
   border-radius:24px;
-  background:var(--panel);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.35);
   overflow:hidden;
   flex-shrink:0;
+}
+html.light .project-logo{
+  background:rgba(0,0,0,.02);
+  border:1px solid rgba(0,0,0,.4);
 }
 .project-logo img{
   width:100%;
@@ -418,8 +450,12 @@ main{
   max-width:1400px;
   margin:0 auto;
   padding:20px 20px 30px;
-  border-top:1px solid var(--line);
+  border-top:1px solid rgba(255,255,255,.35);
   text-align:center;
+  background:var(--bg);
+}
+html.light .site-footer{
+  border-top:1px solid rgba(0,0,0,.4);
 }
 .footer-bottom{
   color:#4B4E55;
@@ -460,7 +496,7 @@ main{
 
 <header class="site-header">
   <a class="brand" href="#">
-    <span class="mark"><img src="plythonic.png" alt="Plythonic"></span>
+    <span class="mark"><img src="plythonic.png" alt="" onerror="this.style.display=&#39;none&#39;"></span>
     <span class="word">Plythonic</span>
   </a>
   <div class="header-actions">
@@ -494,7 +530,7 @@ main{
       <div class="card-body">
         <div class="about-row">
           <div class="avatar-wrap">
-            <div class="avatar"><img src="plythonic.png" alt="Plythonic"></div>
+            <div class="avatar"><img src="plythonic.png" alt="" onerror="this.style.display=&#39;none&#39;"></div>
           </div>
           <div class="about-content">
             <div class="name-row">
@@ -513,7 +549,7 @@ main{
       <div class="divider"></div>
       <div class="card-body">
         <div class="project-row">
-          <div class="project-logo"><img src="plython.png" alt="Plython"></div>
+          <div class="project-logo"><img src="plython.png" alt="" onerror="this.style.display=&#39;none&#39;"></div>
           <div class="project-info">
             <div class="name-row">
               <h2>Plython</h2>
