@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plythonic</title>
-<meta name="description" content="Plythonic — Discord bot developeri.">
+<title>Panel — Plythonic</title>
+<meta name="description" content="Plythonic — Müşteri Paneli.">
 <link rel="icon" type="image/png" href="logo.png" id="faviconLink">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -119,7 +119,7 @@ html.light .site-header{
   border-radius:9px;
   background:var(--panel-solid);
   border:1px solid rgba(255,255,255,.35);
-  color:var(--muted);
+  color:var(--blue);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -131,7 +131,7 @@ html.light .icon-btn{
 }
 .icon-btn:hover{
   border-color:var(--blue);
-  color:var(--ink);
+  color:var(--blue);
 }
 .icon-btn:active{
   transform:scale(.92);
@@ -177,7 +177,7 @@ html.light .lang-current{
 .lang-current svg{
   width:11px;
   height:11px;
-  color:var(--muted);
+  color:var(--blue);
   transition:transform .2s;
 }
 .lang-switch.open .lang-current svg{
@@ -237,7 +237,7 @@ main{
   flex:1;
   display:flex;
   justify-content:center;
-  padding:56px 20px;
+  padding:40px 20px 56px;
   position:relative;
   z-index:1;
 }
@@ -246,18 +246,49 @@ main{
   max-width:1400px;
   display:flex;
   flex-direction:column;
-  gap:28px;
+  gap:20px;
 }
 
-/* single card, single divider line, no console styling */
+.page-head{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  opacity:0;
+  transform:translateY(12px);
+  animation:card-in .5s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.page-head::before{
+  content:"";
+  position:absolute;
+  top:-40px;
+  left:-40px;
+  width:260px;
+  height:200px;
+  background:radial-gradient(circle,rgba(59,130,246,.14),transparent 70%);
+  pointer-events:none;
+  z-index:-1;
+}
+.page-head h1{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:24px;
+  letter-spacing:-.01em;
+}
+.page-head p{
+  color:var(--muted);
+  font-size:13.5px;
+}
+
+/* generic glass card, reused everywhere */
 .card{
   background:rgba(18,20,27,.12);
   backdrop-filter:blur(14px) saturate(1.4);
   -webkit-backdrop-filter:blur(14px) saturate(1.4);
   border:1px solid rgba(255,255,255,.35);
-  border-radius:14px;
+  border-radius:16px;
   box-shadow:0 24px 60px -24px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
-  transition:background .25s,border-color .25s;
+  transition:background .25s,border-color .25s,transform .2s;
   opacity:0;
   transform:translateY(18px);
   animation:card-in .6s cubic-bezier(.22,.61,.36,1) forwards;
@@ -269,36 +300,129 @@ html.light .card{
   border:1px solid rgba(0,0,0,.4);
   box-shadow:0 12px 30px -18px rgba(0,0,0,.18);
 }
-.card:nth-child(1){animation-delay:.05s;}
-.card:nth-child(2){animation-delay:.18s;}
-.card:nth-child(3){animation-delay:.31s;}
+.stat-grid .card:nth-child(1){animation-delay:.08s;}
+.stat-grid .card:nth-child(2){animation-delay:.14s;}
+.stat-grid .card:nth-child(3){animation-delay:.2s;}
+.stat-grid .card:nth-child(4){animation-delay:.26s;}
+.panel-grid .card:nth-child(1){animation-delay:.32s;}
+.panel-grid .card:nth-child(2){animation-delay:.38s;}
 @keyframes card-in{
   to{
     opacity:1;
     transform:translateY(0);
   }
 }
+
+/* stat cards */
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.stat-card{
+  padding:22px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  gap:6px;
+  min-height:88px;
+}
+.stat-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(59,130,246,.4);
+}
+.stat-label{
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.05em;
+  color:var(--muted);
+}
+.stat-value-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.stat-value{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:24px;
+  letter-spacing:-.01em;
+}
+.stat-icon{
+  width:32px;
+  height:32px;
+  border-radius:9px;
+  background:rgba(59,130,246,.1);
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.stat-icon svg{width:16px;height:16px;}
+.stat-sub{
+  color:var(--muted);
+  font-size:12.5px;
+}
+
+/* main + sidebar layout */
+.panel-grid{
+  display:grid;
+  grid-template-columns:1fr 280px;
+  gap:14px;
+  align-items:stretch;
+  flex:1;
+}
+.panel-grid > .card{
+  display:flex;
+  flex-direction:column;
+}
+.panel-grid > .card > .card-body{
+  flex:1;
+}
 .card-head{
-  padding:18px 26px;
+  padding:16px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 .card-head .title{
   font-family:var(--font-d);
   font-weight:600;
-  font-size:18.5px;
+  font-size:15.5px;
   color:var(--ink);
+}
+.head-actions{
+  display:flex;
+  gap:6px;
+}
+.head-actions .icon-btn{
+  width:29px;
+  height:29px;
+  border-radius:8px;
+  color:var(--blue);
+}
+.head-actions .icon-btn.active{
+  border-color:var(--blue);
+  color:var(--blue);
+  background:rgba(59,130,246,.1);
 }
 .divider{
   height:1px;
   background:rgba(255,255,255,.35);
-  margin:0 26px;
+  margin:0 22px;
 }
 html.light .divider{
   background:rgba(0,0,0,.4);
 }
 .card-body{
-  padding:26px;
+  padding:22px;
 }
 
+/* empty state */
 /* verified badge */
 .verified-badge{
   display:inline-flex;
@@ -313,56 +437,123 @@ html.light .divider{
   gap:7px;
 }
 
-/* about card */
-.about-row{
+/* about / project profile blocks reused inside "Hizmetlerim" card */
+.profile-row{
   display:flex;
   align-items:flex-start;
   gap:24px;
 }
-.avatar-wrap{
-  position:relative;
-  flex-shrink:0;
-}
-.avatar{
+.profile-logo{
   width:96px;
   height:96px;
   border-radius:24px;
   background:rgba(255,255,255,.02);
   border:1px solid rgba(255,255,255,.35);
   overflow:hidden;
+  flex-shrink:0;
 }
-html.light .avatar{
+html.light .profile-logo{
   background:rgba(0,0,0,.02);
   border:1px solid rgba(0,0,0,.4);
 }
-.avatar img{
+.profile-logo img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
 }
-.about-content h1{
+.profile-info h2{
   font-family:var(--font-d);
   font-weight:700;
-  font-size:21px;
+  font-size:19px;
   letter-spacing:-.01em;
 }
-.about-content .role{
+.profile-info .role{
   font-size:13px;
   color:var(--blue);
   margin:3px 0 10px;
   font-weight:500;
 }
-.about-content p{
+.profile-info p{
   color:var(--muted);
   font-size:14.5px;
   line-height:1.7;
 }
+.profile-panel{display:none;}
+.profile-panel.active{display:block;}
+@media (max-width:400px){
+  .profile-row{flex-direction:column;align-items:flex-start;}
+}
 
-/* platforms card */
-.links{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+.empty-state{
+  position:relative;
+  min-height:260px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:5px;
+  overflow:hidden;
+}
+.empty-state::before{
+  content:"";
+  position:absolute;
+  top:-30%;
+  left:50%;
+  transform:translateX(-50%);
+  width:280px;
+  height:280px;
+  background:radial-gradient(circle,rgba(59,130,246,.12),transparent 70%);
+  pointer-events:none;
+}
+.empty-icon{
+  position:relative;
+  width:50px;
+  height:50px;
+  border-radius:14px;
+  background:rgba(59,130,246,.1);
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+}
+.empty-icon svg{width:22px;height:22px;}
+.empty-state h3{
+  position:relative;
+  font-family:var(--font-d);
+  font-weight:600;
+  font-size:15.5px;
+}
+.empty-state p{
+  position:relative;
+  color:var(--muted);
+  font-size:13px;
+  max-width:260px;
+}
+.btn-primary{
+  position:relative;
+  margin-top:12px;
+  height:36px;
+  padding:0 16px;
+  border-radius:9px;
+  border:none;
+  background:var(--blue);
+  color:#fff;
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:13px;
+  cursor:pointer;
+  transition:filter .2s,transform .2s;
+}
+.btn-primary:hover{filter:brightness(1.1);}
+.btn-primary:active{transform:scale(.97);}
+
+/* social links (sidebar) */
+.social-links{
+  display:flex;
+  flex-direction:column;
   gap:8px;
 }
 .link{
@@ -373,12 +564,12 @@ html.light .avatar{
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,.35);
-  padding:13px 15px;
+  padding:11px 13px;
   border-radius:10px;
   color:var(--ink);
   text-decoration:none;
-  font-size:14.5px;
-  font-weight:500;
+  font-size:13px;
+  font-weight:600;
   transition:border-color .2s,transform .2s,background .2s;
 }
 .link:hover{
@@ -390,15 +581,15 @@ html.light .link{
   border:1px solid rgba(0,0,0,.4);
 }
 .link .ic{
-  width:19px;
-  height:19px;
+  width:17px;
+  height:17px;
   flex-shrink:0;
   color:var(--blue);
   display:flex;
   align-items:center;
   justify-content:center;
 }
-.link .ic svg{width:19px;height:19px;}
+.link .ic svg{width:17px;height:17px;}
 .link .label{flex:1;}
 .link .arrow{
   color:var(--blue);
@@ -410,48 +601,64 @@ html.light .link{
   transform:translate(2px,-2px);
 }
 
-/* projects card */
-.project-row{
+/* sidebar column wrapper so multiple cards can stack */
+.sidebar-col{
   display:flex;
-  align-items:flex-start;
-  gap:24px;
+  flex-direction:column;
+  gap:14px;
+  height:100%;
 }
-.project-logo{
-  width:96px;
-  height:96px;
-  border-radius:24px;
-  background:rgba(255,255,255,.02);
+.sidebar-col .card{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.sidebar-col .card-body{
+  flex:1;
+}
+
+/* quick actions sidebar */
+.quick-actions .card-body{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:14px;
+}
+.qa-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.35);
-  overflow:hidden;
-  flex-shrink:0;
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:13px;
+  padding:11px 13px;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:left;
+  transition:border-color .2s,transform .2s,background .2s;
 }
-html.light .project-logo{
-  background:rgba(0,0,0,.02);
+html.light .qa-btn{
+  background:rgba(0,0,0,.015);
   border:1px solid rgba(0,0,0,.4);
 }
-.project-logo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+.qa-btn:hover{
+  border-color:var(--blue);
+  transform:translateY(-1px);
 }
-.project-info h2{
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:19px;
-  letter-spacing:-.01em;
-}
-.project-info .verified-role{
-  font-size:13px;
+.qa-btn .ic{
+  width:17px;
+  height:17px;
   color:var(--blue);
-  margin:3px 0 10px;
-  font-weight:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
 }
-.project-info p{
-  color:var(--muted);
-  font-size:14.5px;
-  line-height:1.7;
-}
+.qa-btn .ic svg{width:17px;height:17px;}
 
 /* ---------- FOOTER ---------- */
 .site-footer{
@@ -476,31 +683,25 @@ html.light .footer-bottom{
   color:rgba(0,0,0,.5);
 }
 
+@media (max-width:980px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .panel-grid{grid-template-columns:1fr;}
+}
 @media (max-width:640px){
   .site-header,.wrap,.site-footer{width:94%;}
-  .wrap{gap:20px;}
-  .card-head{padding:14px 18px;}
-  .divider{margin:0 18px;}
-  .card-body{padding:18px;}
-  .about-row{gap:16px;}
-  .avatar{width:74px;height:74px;border-radius:18px;}
-  .presence{width:15px;height:15px;border-width:2.5px;}
-  .about-content h1{font-size:18px;}
-  .about-content .role{font-size:12px;}
-  .about-content p{font-size:13px;}
-  .link{padding:11px 13px;font-size:13px;}
-  .links{grid-template-columns:1fr;}
-  .project-row{gap:14px;}
-  .project-logo{width:74px;height:74px;border-radius:18px;}
-  .project-info h2{font-size:16px;}
-  .project-info .verified-role{font-size:12px;}
-  .project-info p{font-size:13px;}
+  .wrap{gap:16px;}
+  .stat-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .stat-card{padding:15px 15px 13px;}
+  .stat-value{font-size:20px;}
+  .page-head h1{font-size:20px;}
+  .card-head{padding:13px 16px;}
+  .divider{margin:0 16px;}
+  .card-body{padding:16px;}
   .icon-btn{width:30px;height:30px;}
   .lang-current{height:30px;padding:0 9px;font-size:11px;}
-  .verified-badge svg{width:14px;height:14px;}
 }
-@media (max-width:400px){
-  .about-row,.project-row{flex-direction:column;align-items:flex-start;}
+@media (max-width:460px){
+  .stat-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -510,7 +711,7 @@ html.light .footer-bottom{
 
 <header class="site-header">
   <a class="brand" href="#">
-    <span class="mark"><img src="plythonic.png" alt="" onerror="this.style.display=&#39;none&#39;"></span>
+    <span class="mark"><img src="plythonic.png" alt="" onerror="this.style.display='none'"></span>
     <span class="word">Plythonic</span>
   </a>
   <div class="header-actions">
@@ -538,69 +739,108 @@ html.light .footer-bottom{
 <main>
   <div class="wrap">
 
-    <div class="card">
-      <div class="card-head"><span class="title" data-i18n="about_title">Hakkımda</span></div>
-      <div class="divider"></div>
-      <div class="card-body">
-        <div class="about-row">
-          <div class="avatar-wrap">
-            <div class="avatar"><img src="plythonic.png" alt="" onerror="this.style.display=&#39;none&#39;"></div>
-          </div>
-          <div class="about-content">
-            <div class="name-row">
-              <h1>Plythonic</h1>
-              <span class="verified-badge"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M 12.0 1.8 L 14.07 4.27 L 17.1 3.17 L 17.66 6.34 L 20.83 6.9 L 19.73 9.93 L 22.2 12.0 L 19.73 14.07 L 20.83 17.1 L 17.66 17.66 L 17.1 20.83 L 14.07 19.73 L 12.0 22.2 L 9.93 19.73 L 6.9 20.83 L 6.34 17.66 L 3.17 17.1 L 4.27 14.07 L 1.8 12.0 L 4.27 9.93 L 3.17 6.9 L 6.34 6.34 L 6.9 3.17 L 9.93 4.27 Z"/><path d="M9.8 12.4l1.6 1.6 3.2-3.6" fill="none" stroke="var(--panel)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-            <div class="role">Discord Bot Developer</div>
-            <p data-i18n="about_text">Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.</p>
-          </div>
-        </div>
+    <div class="page-head">
+      <h1 data-i18n="page_title">Genel Bakış</h1>
+      <p data-i18n="page_sub">Hesabınızın özeti.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="card stat-card">
+        <span class="stat-value" data-i18n="soon_value">Yakında</span>
+        <span class="stat-sub" data-i18n="soon_sub">Hazır olacak</span>
+      </div>
+
+      <div class="card stat-card">
+        <span class="stat-value" data-i18n="soon_value">Yakında</span>
+        <span class="stat-sub" data-i18n="soon_sub">Hazır olacak</span>
+      </div>
+
+      <div class="card stat-card">
+        <span class="stat-value" data-i18n="soon_value">Yakında</span>
+        <span class="stat-sub" data-i18n="soon_sub">Hazır olacak</span>
+      </div>
+
+      <div class="card stat-card">
+        <span class="stat-value" data-i18n="soon_value">Yakında</span>
+        <span class="stat-sub" data-i18n="soon_sub">Hazır olacak</span>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-head"><span class="title" data-i18n="projects_title">Projelerim</span></div>
-      <div class="divider"></div>
-      <div class="card-body">
-        <div class="project-row">
-          <div class="project-logo"><img src="plython.png" alt="" onerror="this.style.display=&#39;none&#39;"></div>
-          <div class="project-info">
-            <div class="name-row">
-              <h2>Plython</h2>
-              <span class="verified-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M 12.0 1.8 L 14.07 4.27 L 17.1 3.17 L 17.66 6.34 L 20.83 6.9 L 19.73 9.93 L 22.2 12.0 L 19.73 14.07 L 20.83 17.1 L 17.66 17.66 L 17.1 20.83 L 14.07 19.73 L 12.0 22.2 L 9.93 19.73 L 6.9 20.83 L 6.34 17.66 L 3.17 17.1 L 4.27 14.07 L 1.8 12.0 L 4.27 9.93 L 3.17 6.9 L 6.34 6.34 L 6.9 3.17 L 9.93 4.27 Z"/><path d="M9.8 12.4l1.6 1.6 3.2-3.6" fill="none" stroke="var(--panel)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div class="panel-grid">
+      <div class="card">
+        <div class="card-head">
+          <span class="title" id="profileTitle" data-i18n="about_title">Hakkımda</span>
+          <div class="head-actions">
+            <button class="icon-btn active" type="button" id="viewPersonBtn" title="Hakkımda" aria-label="Hakkımda">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg>
+            </button>
+            <button class="icon-btn" type="button" id="viewBotBtn" title="Plython" aria-label="Plython">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-body">
+          <div class="profile-panel active" id="aboutPanel">
+            <div class="profile-row">
+              <div class="profile-logo"><img src="plythonic.png" alt="" onerror="this.style.display='none'"></div>
+              <div class="profile-info">
+                <div class="name-row">
+                  <h2>Plythonic</h2>
+                  <span class="verified-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M 12.0 1.8 L 14.07 4.27 L 17.1 3.17 L 17.66 6.34 L 20.83 6.9 L 19.73 9.93 L 22.2 12.0 L 19.73 14.07 L 20.83 17.1 L 17.66 17.66 L 17.1 20.83 L 14.07 19.73 L 12.0 22.2 L 9.93 19.73 L 6.9 20.83 L 6.34 17.66 L 3.17 17.1 L 4.27 14.07 L 1.8 12.0 L 4.27 9.93 L 3.17 6.9 L 6.34 6.34 L 6.9 3.17 L 9.93 4.27 Z"/><path d="M9.8 12.4l1.6 1.6 3.2-3.6" fill="none" stroke="var(--panel)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="role" data-i18n="about_role">Discord Bot Developer</div>
+                <p data-i18n="about_text">Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.</p>
+              </div>
             </div>
-            <div class="verified-role" data-i18n="verified_bot">Doğrulanmış Discord Botu</div>
-            <p data-i18n="projects_text">Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.</p>
+          </div>
+
+          <div class="profile-panel" id="projectPanel">
+            <div class="profile-row">
+              <div class="profile-logo"><img src="plython.png" alt="" onerror="this.style.display='none'"></div>
+              <div class="profile-info">
+                <div class="name-row">
+                  <h2>Plython</h2>
+                  <span class="verified-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M 12.0 1.8 L 14.07 4.27 L 17.1 3.17 L 17.66 6.34 L 20.83 6.9 L 19.73 9.93 L 22.2 12.0 L 19.73 14.07 L 20.83 17.1 L 17.66 17.66 L 17.1 20.83 L 14.07 19.73 L 12.0 22.2 L 9.93 19.73 L 6.9 20.83 L 6.34 17.66 L 3.17 17.1 L 4.27 14.07 L 1.8 12.0 L 4.27 9.93 L 3.17 6.9 L 6.34 6.34 L 6.9 3.17 L 9.93 4.27 Z"/><path d="M9.8 12.4l1.6 1.6 3.2-3.6" fill="none" stroke="var(--panel)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="role" data-i18n="verified_bot">Doğrulanmış Discord Botu</div>
+                <p data-i18n="projects_text">Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <div class="card-head"><span class="title" data-i18n="platforms_title">Platformlar</span></div>
-      <div class="divider"></div>
-      <div class="card-body">
-        <div class="links">
-          <a class="link" href="https://discord.gg/acrKtExDAk">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5c-2 .6-3.6 1.6-5 3-1.6 3.6-2.3 7.6-2 11.5 1.8 1.5 3.8 2.5 6 3l1.2-2"/><path d="M16 4.5c2 .6 3.6 1.6 5 3 1.6 3.6 2.3 7.6 2 11.5-1.8 1.5-3.8 2.5-6 3l-1.2-2"/><path d="M8 15.5c2.8 1.3 5.2 1.3 8 0"/><circle cx="9" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
-            <span class="label">Discord</span>
-            <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
-          </a>
-          <a class="link" href="https://www.instagram.com/">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
-            <span class="label">Instagram</span>
-            <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
-          </a>
-          <a class="link" href="https://github.com/">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 1.7 5.4 2 5.4 2a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 8.4c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V19"/></svg></span>
-            <span class="label">GitHub</span>
-            <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
-          </a>
-          <a class="link" href="https://www.youtube.com/">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5v-5z" fill="currentColor" stroke="none"/></svg></span>
-            <span class="label">YouTube</span>
-            <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
-          </a>
+      <div class="sidebar-col">
+        <div class="card">
+          <div class="card-head">
+            <span class="title" data-i18n="social_title">Sosyal Ağlar</span>
+          </div>
+          <div class="divider"></div>
+          <div class="card-body">
+            <div class="social-links">
+              <a class="link" href="https://discord.gg/acrKtExDAk" target="_blank" rel="noopener">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5c-2 .6-3.6 1.6-5 3-1.6 3.6-2.3 7.6-2 11.5 1.8 1.5 3.8 2.5 6 3l1.2-2"/><path d="M16 4.5c2 .6 3.6 1.6 5 3 1.6 3.6 2.3 7.6 2 11.5-1.8 1.5-3.8 2.5-6 3l-1.2-2"/><path d="M8 15.5c2.8 1.3 5.2 1.3 8 0"/><circle cx="9" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+                <span class="label">Discord</span>
+                <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
+              </a>
+              <a class="link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+                <span class="label">Instagram</span>
+                <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
+              </a>
+              <a class="link" href="https://github.com/" target="_blank" rel="noopener">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 1.7 5.4 2 5.4 2a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 8.4c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V19"/></svg></span>
+                <span class="label">GitHub</span>
+                <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
+              </a>
+              <a class="link" href="https://www.youtube.com/" target="_blank" rel="noopener">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5v-5z" fill="currentColor" stroke="none"/></svg></span>
+                <span class="label">YouTube</span>
+                <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -686,33 +926,81 @@ html.light .footer-bottom{
 (function(){
   var translations = {
     en:{
-      about_title:"About",
-      about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection, and fun systems for servers. My public bot Plython is currently active, add it to your server and enjoy! I love writing code and building new systems, so I keep updating my bots and adding new features regularly. If you run into any issues or have suggestions, feel free to reach out through the platforms below.",
-      projects_title:"Projects",
-      projects_text:"Plython is a full-featured Discord bot I built to make server management easier. Alongside moderation, welcomer, and AFK systems, it also brings music, economy, giveaways, and ticket support together in one place. Automatic antispam and antinuke systems keep your server protected from abuse and spam without any manual setup. It's actively running right now and keeps getting new features over time.",
-      platforms_title:"Platforms",
+      page_title:"Overview",
+      page_sub:"Your account summary.",
+      stat_balance:"BALANCE",
+      stat_services:"ACTIVE SERVICES",
+      stat_tickets:"OPEN TICKETS",
+      stat_invoices:"UNPAID INVOICES",
+      soon_value:"Coming soon",
+      soon_sub:"This feature will be ready soon",
+      services_title:"My Services",
+      empty_title:"No services yet",
+      empty_text:"Order your first service.",
+      empty_cta:"Order Now",
+      about_title:"About Me",
+      about_role:"Discord Bot Developer",
+      about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection and fun systems. My public bot Plython is active — add it to your server and enjoy it! I love coding and building new systems, so I keep updating my bots and adding new features. Feel free to reach out through these platforms with any issue or suggestion.",
+      projects_title:"Plython",
       verified_bot:"Verified Discord Bot",
+      projects_text:"Plython is a full-featured Discord bot I built to make daily server management easier. Alongside moderation, welcome and AFK systems, it offers music, economy, giveaways and ticket support all in one. It keeps your server safe with automatic antispam/antinuke protection. It's actively used and constantly developed with new features.",
+      qa_title:"Quick Actions",
+      qa_topup:"Top up balance",
+      qa_buy:"Buy a new service",
+      qa_ticket:"Open a support ticket",
+      social_title:"Social Networks",
       label:"EN"
     },
     tr:{
+      page_title:"Genel Bakış",
+      page_sub:"Hesabınızın özeti.",
+      stat_balance:"BAKİYE",
+      stat_services:"AKTİF HİZMETLER",
+      stat_tickets:"AÇIK DESTEK TALEBİ",
+      stat_invoices:"ÖDENMEMİŞ FATURA",
+      soon_value:"Yakında",
+      soon_sub:"Bu özellik yakında hazır olacak",
+      services_title:"Hizmetlerim",
+      empty_title:"Henüz hizmetiniz yok",
+      empty_text:"İlk hizmetinizi sipariş edin.",
+      empty_cta:"Sipariş Et",
       about_title:"Hakkımda",
+      about_role:"Discord Bot Developer",
       about_text:"Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.",
-      projects_title:"Projelerim",
-      projects_text:"Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.",
-      platforms_title:"Platformlar",
+      projects_title:"Plython",
       verified_bot:"Doğrulanmış Discord Botu",
+      projects_text:"Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.",
+      qa_title:"Hızlı İşlemler",
+      qa_topup:"Bakiye yükle",
+      qa_buy:"Yeni hizmet al",
+      qa_ticket:"Destek talebi aç",
+      social_title:"Sosyal Ağlar",
       label:"TR"
     },
     ru:{
+      page_title:"Обзор",
+      page_sub:"Сводка по аккаунту.",
+      stat_balance:"БАЛАНС",
+      stat_services:"АКТИВНЫЕ УСЛУГИ",
+      stat_tickets:"ОТКРЫТЫЕ ЗАЯВКИ",
+      stat_invoices:"НЕОПЛАЧЕННЫЕ СЧЕТА",
+      soon_value:"Скоро",
+      soon_sub:"Эта функция скоро будет готова",
+      services_title:"Мои услуги",
+      empty_title:"Услуг пока нет",
+      empty_text:"Закажите первую услугу.",
+      empty_cta:"Заказать",
       about_title:"Обо мне",
-      about_text:"Привет, я Plythonic. Я разрабатываю ботов для Discord с модерацией, тикет-поддержкой, защитой и развлекательными функциями. Сейчас активен мой публичный бот Plython, добавь его на свой сервер и наслаждайся! Мне нравится писать код и создавать новые системы, поэтому я постоянно обновляю своих ботов и добавляю новые функции. Если у тебя возникнут вопросы или пожелания, ты можешь связаться со мной через платформы ниже.",
-      projects_title:"Проекты",
-      projects_text:"Plython — это многофункциональный Discord-бот, который я разработал для удобного управления сервером. Помимо систем модерации, приветствия и AFK, он объединяет музыку, экономику, розыгрыши и тикет-поддержку в одном месте. Автоматические системы antispam и antinuke защищают сервер от спама и злоупотреблений без ручной настройки. Бот активно работает прямо сейчас и постоянно пополняется новыми функциями.",
-      feat_mod:"Модерация",
-      feat_welcome:"Приветствие",
-      feat_afk:"AFK-система",
-      platforms_title:"Платформы",
+      about_role:"Discord Bot Developer",
+      about_text:"Привет, я Plythonic. Я разрабатываю Discord-ботов с модерацией, тикет-поддержкой, защитой и развлекательными системами. Мой публичный бот Plython активен — добавь его на сервер и наслаждайся! Я люблю писать код и создавать новые системы, поэтому постоянно обновляю ботов и добавляю новые функции. По любым вопросам и предложениям можешь связаться со мной через эти платформы.",
+      projects_title:"Plython",
       verified_bot:"Проверенный Discord-бот",
+      projects_text:"Plython — многофункциональный Discord-бот, созданный для упрощения повседневного управления сервером. Помимо модерации, приветствия и AFK-систем, он предлагает музыку, экономику, розыгрыши и тикет-поддержку. Автоматическая защита antispam/antinuke обеспечивает безопасность сервера. Бот активно используется и постоянно развивается.",
+      qa_title:"Быстрые действия",
+      qa_topup:"Пополнить баланс",
+      qa_buy:"Купить услугу",
+      qa_ticket:"Открыть заявку",
+      social_title:"Социальные сети",
       label:"RU"
     }
   };
@@ -735,6 +1023,37 @@ html.light .footer-bottom{
       btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
     localStorage.setItem('plythonic-lang-v2', lang);
+    var profileTitle = document.getElementById('profileTitle');
+    var botPanelActive = document.getElementById('projectPanel') && document.getElementById('projectPanel').classList.contains('active');
+    if(profileTitle) profileTitle.textContent = botPanelActive ? dict.projects_title : dict.about_title;
+  }
+
+  var viewPersonBtn = document.getElementById('viewPersonBtn');
+  var viewBotBtn = document.getElementById('viewBotBtn');
+  var aboutPanel = document.getElementById('aboutPanel');
+  var projectPanel = document.getElementById('projectPanel');
+  var profileTitle = document.getElementById('profileTitle');
+
+  function showProfile(view){
+    var lang = localStorage.getItem('plythonic-lang-v2');
+    var dict = translations[lang] || translations.tr;
+    if(view === 'bot'){
+      aboutPanel.classList.remove('active');
+      projectPanel.classList.add('active');
+      viewBotBtn.classList.add('active');
+      viewPersonBtn.classList.remove('active');
+      profileTitle.textContent = dict.projects_title;
+    } else {
+      projectPanel.classList.remove('active');
+      aboutPanel.classList.add('active');
+      viewPersonBtn.classList.add('active');
+      viewBotBtn.classList.remove('active');
+      profileTitle.textContent = dict.about_title;
+    }
+  }
+  if(viewPersonBtn && viewBotBtn){
+    viewPersonBtn.addEventListener('click', function(){ showProfile('person'); });
+    viewBotBtn.addEventListener('click', function(){ showProfile('bot'); });
   }
 
   langCurrent.addEventListener('click', function(e){
