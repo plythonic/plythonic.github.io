@@ -398,38 +398,47 @@ html.light .card{
   margin-top:14px;
 }
 
-/* action row (3 placeholder buttons above panel-grid) */
+/* action row (3 buttons merged into one segmented group, top of page) */
 .top-action-row{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
+  display:inline-flex;
+  align-self:flex-end;
+  gap:10px;
   opacity:0;
   transform:translateY(10px);
   animation:card-in .5s cubic-bezier(.22,.61,.36,1) forwards;
 }
 .top-action-btn{
-  height:32px;
-  padding:0 14px;
+  width:34px;
+  height:34px;
   border-radius:9px;
-  border:1px solid rgba(255,255,255,.35);
   background:var(--panel-solid);
-  color:var(--ink);
-  font-family:var(--font-b);
-  font-weight:600;
-  font-size:12px;
+  border:1px solid rgba(255,255,255,.35);
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   cursor:pointer;
-  transition:border-color .2s,transform .2s;
+  transition:border-color .2s,color .2s,transform .2s;
 }
 html.light .top-action-btn{
   border:1px solid rgba(0,0,0,.4);
 }
+.top-action-btn .ic{
+  width:16px;
+  height:16px;
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.top-action-btn .ic svg{width:16px;height:16px;}
 .top-action-btn:hover{
   border-color:var(--blue);
-  transform:translateY(-1px);
+  color:var(--blue);
 }
 .top-action-btn:active{
-  transform:scale(.96);
+  transform:scale(.92);
 }
 
 .action-row{
@@ -831,9 +840,15 @@ html.light .footer-bottom{
   <div class="wrap">
 
     <div class="top-action-row">
-      <button class="top-action-btn" type="button">Düymə 1</button>
-      <button class="top-action-btn" type="button">Düymə 2</button>
-      <button class="top-action-btn" type="button">Düymə 3</button>
+      <button class="top-action-btn" type="button" title="Bu Səhifə">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg></span>
+      </button>
+      <button class="top-action-btn" type="button" title="Reklam Ver">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4a1 1 0 0 0 1 1h2l4 4V5L6 9H4a1 1 0 0 0-1 1z"/><path d="M15 8.5a4 4 0 0 1 0 7"/><path d="M17.5 6a7.5 7.5 0 0 1 0 12"/></svg></span>
+      </button>
+      <button class="top-action-btn" type="button" title="Developer">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3"/><path d="M16 9l4 3-4 3"/><path d="M13.5 6.5l-3 11"/></svg></span>
+      </button>
     </div>
 
     <div class="stat-grid">
