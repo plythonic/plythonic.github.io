@@ -237,7 +237,7 @@ main{
   flex:1;
   display:flex;
   justify-content:center;
-  padding:40px 20px 56px;
+  padding:44px 20px 56px;
   position:relative;
   z-index:1;
 }
@@ -246,13 +246,14 @@ main{
   max-width:1400px;
   display:flex;
   flex-direction:column;
-  gap:20px;
+  gap:14px;
 }
 
 .page-head{
   position:relative;
   display:flex;
   flex-direction:column;
+  align-items:flex-start;
   gap:3px;
   opacity:0;
   transform:translateY(12px);
@@ -269,11 +270,30 @@ main{
   pointer-events:none;
   z-index:-1;
 }
+.page-head-row{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+}
+.page-head-icon{
+  width:44px;
+  height:44px;
+  border-radius:13px;
+  background:rgba(59,130,246,.1);
+  border:1px solid rgba(59,130,246,.35);
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.page-head-icon svg{width:22px;height:22px;}
 .page-head h1{
   font-family:var(--font-d);
   font-weight:700;
-  font-size:24px;
+  font-size:19px;
   letter-spacing:-.01em;
+  margin-top:-2px;
 }
 .page-head p{
   color:var(--muted);
@@ -374,7 +394,79 @@ html.light .card{
   grid-template-columns:1fr 280px;
   gap:14px;
   align-items:stretch;
-  flex:1;
+  flex:0.85 1 auto;
+  margin-top:14px;
+}
+
+/* action row (3 placeholder buttons above panel-grid) */
+.top-action-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  opacity:0;
+  transform:translateY(10px);
+  animation:card-in .5s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.top-action-btn{
+  height:32px;
+  padding:0 14px;
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.35);
+  background:var(--panel-solid);
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:12px;
+  cursor:pointer;
+  transition:border-color .2s,transform .2s;
+}
+html.light .top-action-btn{
+  border:1px solid rgba(0,0,0,.4);
+}
+.top-action-btn:hover{
+  border-color:var(--blue);
+  transform:translateY(-1px);
+}
+.top-action-btn:active{
+  transform:scale(.96);
+}
+
+.action-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  opacity:0;
+  transform:translateY(14px);
+  animation:card-in .55s cubic-bezier(.22,.61,.36,1) forwards;
+  animation-delay:.28s;
+}
+.action-btn{
+  flex:1 1 0;
+  min-width:140px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.35);
+  background:rgba(18,20,27,.12);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:13.5px;
+  cursor:pointer;
+  transition:border-color .2s,transform .2s,background .2s;
+}
+html.light .action-btn{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(0,0,0,.4);
+}
+.action-btn:hover{
+  border-color:var(--blue);
+  transform:translateY(-2px);
+}
+.action-btn:active{
+  transform:scale(.97);
 }
 .panel-grid > .card{
   display:flex;
@@ -422,7 +514,6 @@ html.light .divider{
   padding:22px;
 }
 
-/* empty state */
 /* verified badge */
 .verified-badge{
   display:inline-flex;
@@ -739,9 +830,10 @@ html.light .footer-bottom{
 <main>
   <div class="wrap">
 
-    <div class="page-head">
-      <h1 data-i18n="page_title">Genel Bakış</h1>
-      <p data-i18n="page_sub">Hesabınızın özeti.</p>
+    <div class="top-action-row">
+      <button class="top-action-btn" type="button">Düymə 1</button>
+      <button class="top-action-btn" type="button">Düymə 2</button>
+      <button class="top-action-btn" type="button">Düymə 3</button>
     </div>
 
     <div class="stat-grid">
