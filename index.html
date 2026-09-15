@@ -579,6 +579,9 @@ html.light .profile-logo{
   font-size:14.5px;
   line-height:1.7;
 }
+.profile-text p + p{
+  margin-top:12px;
+}
 .profile-panel{display:none;}
 .profile-panel.active{display:block;}
 @media (max-width:400px){
@@ -895,7 +898,12 @@ html.light .footer-bottom{
                   <span class="verified-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M 12.0 1.8 L 14.07 4.27 L 17.1 3.17 L 17.66 6.34 L 20.83 6.9 L 19.73 9.93 L 22.2 12.0 L 19.73 14.07 L 20.83 17.1 L 17.66 17.66 L 17.1 20.83 L 14.07 19.73 L 12.0 22.2 L 9.93 19.73 L 6.9 20.83 L 6.34 17.66 L 3.17 17.1 L 4.27 14.07 L 1.8 12.0 L 4.27 9.93 L 3.17 6.9 L 6.34 6.34 L 6.9 3.17 L 9.93 4.27 Z"/><path d="M9.8 12.4l1.6 1.6 3.2-3.6" fill="none" stroke="var(--panel)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </div>
                 <div class="role" data-i18n="about_role">Discord Bot Developer</div>
-                <p data-i18n="about_text">Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.</p>
+                <div class="profile-text" data-i18n="about_text">
+                  <p>Merhaba, ben Plythonic. Discord sunucuları için moderasyon, destek bileti, koruma ve eğlence sistemleri barındıran botlar geliştiriyorum.</p>
+                  <p>Bot yazılımına olan ilgim küçük scriptlerle başladı, zamanla bunu ciddi bir tutkuya dönüştürdüm ve artık sunucu yönetimini kolaylaştıran, güvenilir ve kullanışlı sistemler tasarlamaya odaklanıyorum. Şu anda herkese açık botum Plython aktif durumda; sunucuna ekleyip rahatça kullanabilir ve sunduğu özelliklerin keyfini çıkarabilirsin.</p>
+                  <p>Kod yazmayı, yeni sistemler kurgulamayı ve mevcut olanları daha verimli hale getirmeyi seviyorum, bu yüzden botlarımı düzenli olarak güncelliyor, topluluktan gelen geri bildirimlere göre yeni özellikler ekliyorum.</p>
+                  <p>Herhangi bir sorun, öneri ya da iş birliği fikrin varsa, aşağıdaki platformlardan bana ulaşabilirsin. Mesajlarını her zaman değerlendiriyor ve geri dönüş yapmaya çalışıyorum.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -909,7 +917,12 @@ html.light .footer-bottom{
                   <span class="verified-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M 12.0 1.8 L 14.07 4.27 L 17.1 3.17 L 17.66 6.34 L 20.83 6.9 L 19.73 9.93 L 22.2 12.0 L 19.73 14.07 L 20.83 17.1 L 17.66 17.66 L 17.1 20.83 L 14.07 19.73 L 12.0 22.2 L 9.93 19.73 L 6.9 20.83 L 6.34 17.66 L 3.17 17.1 L 4.27 14.07 L 1.8 12.0 L 4.27 9.93 L 3.17 6.9 L 6.34 6.34 L 6.9 3.17 L 9.93 4.27 Z"/><path d="M9.8 12.4l1.6 1.6 3.2-3.6" fill="none" stroke="var(--panel)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </div>
                 <div class="role" data-i18n="verified_bot">Doğrulanmış Discord Botu</div>
-                <p data-i18n="projects_text">Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.</p>
+                <div class="profile-text" data-i18n="projects_text">
+                  <p>Plython, sunucuların günlük yönetimini kolaylaştırmak amacıyla sıfırdan geliştirdiğim, kapsamlı ve sürekli gelişen bir Discord botudur.</p>
+                  <p>Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği tek bir çatı altında topluyor, böylece sunucu sahiplerinin farklı botlar arasında geçiş yapmasına gerek kalmıyor.</p>
+                  <p>Güvenlik konusunda da geride kalmıyor: sunucunu spam, raid ve kötüye kullanıma karşı otomatik olarak koruyan antispam ve antinuke sistemleri sayesinde yetkisiz işlemler anında engelleniyor ve yöneticilere bildirim gönderiliyor. Komutlar sade ve anlaşılır tutulduğu için hem yeni başlayan hem deneyimli sunucu sahipleri kolayca kullanabiliyor.</p>
+                  <p>Plython şu anda birçok sunucuda aktif olarak çalışıyor ve topluluktan gelen taleplere göre sürekli yeni özelliklerle güncelleniyor. Önerilerin varsa Discord sunucumuz üzerinden paylaşabilirsin.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1045,10 +1058,20 @@ html.light .footer-bottom{
       empty_cta:"Order Now",
       about_title:"About Me",
       about_role:"Discord Bot Developer",
-      about_text:"Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection and fun systems. My public bot Plython is active — add it to your server and enjoy it! I love coding and building new systems, so I keep updating my bots and adding new features. Feel free to reach out through these platforms with any issue or suggestion.",
+      about_text:[
+        "Hi, I'm Plythonic. I build Discord bots with moderation, ticket support, protection and fun systems.",
+        "My interest in bot development started with small scripts and grew into a real passion — now I focus on designing reliable, user-friendly systems that make server management easier. My public bot Plython is currently active; add it to your server and enjoy everything it has to offer.",
+        "I love writing code and building new systems, so I keep updating my bots regularly and adding new features based on community feedback.",
+        "If you have any issue, suggestion or collaboration idea, feel free to reach out through the platforms below — I read every message and try to respond."
+      ],
       projects_title:"Plython",
       verified_bot:"Verified Discord Bot",
-      projects_text:"Plython is a full-featured Discord bot I built to make daily server management easier. Alongside moderation, welcome and AFK systems, it offers music, economy, giveaways and ticket support all in one. It keeps your server safe with automatic antispam/antinuke protection. It's actively used and constantly developed with new features.",
+      projects_text:[
+        "Plython is a full-featured Discord bot I built from scratch to make daily server management easier.",
+        "Alongside moderation, welcome and AFK systems, it brings together music, economy, giveaways and ticket support under one roof, so server owners don't need to juggle multiple bots.",
+        "Security is a priority too: automatic antispam and antinuke systems block unauthorized actions instantly and notify admins. Commands are kept simple and clear, so both new and experienced server owners can use it easily.",
+        "Plython is actively running on many servers today and is continuously updated with new features based on community requests. Feel free to share suggestions through our Discord server."
+      ],
       qa_title:"Quick Actions",
       qa_topup:"Top up balance",
       qa_buy:"Buy a new service",
@@ -1071,10 +1094,20 @@ html.light .footer-bottom{
       empty_cta:"Sipariş Et",
       about_title:"Hakkımda",
       about_role:"Discord Bot Developer",
-      about_text:"Merhaba, ben Plythonic'im. Discord sunucuları için moderasyon, destek bileti, koruma, eğlence sistemi olan botlar geliştiriyorum. Şu anda Plython adlı herkese açık botum aktif, sunucuna ekleyip rahatça kullanabilir ve keyfini çıkarabilirsin! Kod yazmayı ve yeni sistemler geliştirmeyi seviyorum, bu yüzden botlarımı sürekli güncelliyor ve yeni özellikler ekliyorum. Herhangi bir sorun ya da öneri için buradaki platformlardan benimle iletişime geçebilirsin.",
+      about_text:[
+        "Merhaba, ben Plythonic. Discord sunucuları için moderasyon, destek bileti, koruma ve eğlence sistemleri barındıran botlar geliştiriyorum.",
+        "Bot yazılımına olan ilgim küçük scriptlerle başladı, zamanla bunu ciddi bir tutkuya dönüştürdüm ve artık sunucu yönetimini kolaylaştıran, güvenilir ve kullanışlı sistemler tasarlamaya odaklanıyorum. Şu anda herkese açık botum Plython aktif durumda; sunucuna ekleyip rahatça kullanabilir ve sunduğu özelliklerin keyfini çıkarabilirsin.",
+        "Kod yazmayı, yeni sistemler kurgulamayı ve mevcut olanları daha verimli hale getirmeyi seviyorum, bu yüzden botlarımı düzenli olarak güncelliyor, topluluktan gelen geri bildirimlere göre yeni özellikler ekliyorum.",
+        "Herhangi bir sorun, öneri ya da iş birliği fikrin varsa, aşağıdaki platformlardan bana ulaşabilirsin. Mesajlarını her zaman değerlendiriyor ve geri dönüş yapmaya çalışıyorum."
+      ],
       projects_title:"Plython",
       verified_bot:"Doğrulanmış Discord Botu",
-      projects_text:"Plython, sunucuların günlük yönetimini kolaylaştırmak için geliştirdiğim kapsamlı bir Discord botudur. Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği bir arada sunuyor. Sunucunu spam ve kötüye kullanıma karşı otomatik olarak koruyan antispam/antinuke sistemleriyle güvenliği ön planda tutuyor. Şu anda aktif olarak kullanılıyor ve sürekli yeni özelliklerle geliştirilmeye devam ediyor.",
+      projects_text:[
+        "Plython, sunucuların günlük yönetimini kolaylaştırmak amacıyla sıfırdan geliştirdiğim, kapsamlı ve sürekli gelişen bir Discord botudur.",
+        "Moderasyon, karşılama ve AFK sistemlerinin yanında; müzik, ekonomi, çekiliş ve destek bileti gibi birçok özelliği tek bir çatı altında topluyor, böylece sunucu sahiplerinin farklı botlar arasında geçiş yapmasına gerek kalmıyor.",
+        "Güvenlik konusunda da geride kalmıyor: sunucunu spam, raid ve kötüye kullanıma karşı otomatik olarak koruyan antispam ve antinuke sistemleri sayesinde yetkisiz işlemler anında engelleniyor ve yöneticilere bildirim gönderiliyor. Komutlar sade ve anlaşılır tutulduğu için hem yeni başlayan hem deneyimli sunucu sahipleri kolayca kullanabiliyor.",
+        "Plython şu anda birçok sunucuda aktif olarak çalışıyor ve topluluktan gelen taleplere göre sürekli yeni özelliklerle güncelleniyor. Önerilerin varsa Discord sunucumuz üzerinden paylaşabilirsin."
+      ],
       qa_title:"Hızlı İşlemler",
       qa_topup:"Bakiye yükle",
       qa_buy:"Yeni hizmet al",
@@ -1097,10 +1130,20 @@ html.light .footer-bottom{
       empty_cta:"Заказать",
       about_title:"Обо мне",
       about_role:"Discord Bot Developer",
-      about_text:"Привет, я Plythonic. Я разрабатываю Discord-ботов с модерацией, тикет-поддержкой, защитой и развлекательными системами. Мой публичный бот Plython активен — добавь его на сервер и наслаждайся! Я люблю писать код и создавать новые системы, поэтому постоянно обновляю ботов и добавляю новые функции. По любым вопросам и предложениям можешь связаться со мной через эти платформы.",
+      about_text:[
+        "Привет, я Plythonic. Я разрабатываю Discord-ботов с модерацией, тикет-поддержкой, защитой и развлекательными системами.",
+        "Мой интерес к разработке ботов начался с небольших скриптов и со временем превратился в настоящее увлечение — теперь я сосредоточен на создании надёжных и удобных систем, упрощающих управление сервером. Мой публичный бот Plython сейчас активен — добавь его на сервер и пользуйся всеми возможностями.",
+        "Я люблю писать код и создавать новые системы, поэтому постоянно обновляю ботов и добавляю новые функции на основе отзывов сообщества.",
+        "По любым вопросам, предложениям или идеям сотрудничества можешь связаться со мной через платформы ниже — я читаю каждое сообщение и стараюсь отвечать."
+      ],
       projects_title:"Plython",
       verified_bot:"Проверенный Discord-бот",
-      projects_text:"Plython — многофункциональный Discord-бот, созданный для упрощения повседневного управления сервером. Помимо модерации, приветствия и AFK-систем, он предлагает музыку, экономику, розыгрыши и тикет-поддержку. Автоматическая защита antispam/antinuke обеспечивает безопасность сервера. Бот активно используется и постоянно развивается.",
+      projects_text:[
+        "Plython — многофункциональный Discord-бот, который я создал с нуля, чтобы упростить повседневное управление сервером.",
+        "Помимо модерации, приветствия и AFK-систем, он объединяет музыку, экономику, розыгрыши и тикет-поддержку в одном месте, избавляя владельцев серверов от необходимости использовать несколько ботов.",
+        "Безопасность также в приоритете: автоматические системы antispam и antinuke мгновенно блокируют несанкционированные действия и уведомляют администраторов. Команды остаются простыми и понятными, поэтому бот легко освоят как новички, так и опытные владельцы серверов.",
+        "Сегодня Plython активно работает на множестве серверов и постоянно пополняется новыми функциями по запросам сообщества. Свои предложения можешь оставить на нашем Discord-сервере."
+      ],
       qa_title:"Быстрые действия",
       qa_topup:"Пополнить баланс",
       qa_buy:"Купить услугу",
@@ -1120,7 +1163,16 @@ html.light .footer-bottom{
     var dict = translations[lang] || translations.tr;
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       var key = el.getAttribute('data-i18n');
-      if(dict[key]) el.textContent = dict[key];
+      if(!dict[key]) return;
+      if(Array.isArray(dict[key])){
+        el.innerHTML = dict[key].map(function(t){
+          var p = document.createElement('p');
+          p.textContent = t;
+          return p.outerHTML;
+        }).join('');
+      } else {
+        el.textContent = dict[key];
+      }
     });
     langCurrentLabel.textContent = dict.label;
     document.documentElement.lang = lang;
