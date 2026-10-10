@@ -655,34 +655,41 @@ html.light .site-footer{
 .view.active{
   display:flex;
 }
-.calc-col{
-  flex:0 1 460px;
-  min-width:300px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.hist-col{
-  flex:0 1 380px;
-  min-width:260px;
-}
-.calc-card{
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
+#viewCalc .content{padding:12px 16px;align-items:stretch;}
+.calc-wrap{flex:1 1 100%;width:100%;min-width:0;display:flex;flex-direction:column;}
+.calc-ide{
   animation-delay:.08s;
+  display:flex;
+  flex-direction:row;
+  height:calc(100vh - 150px);
+  min-height:480px;
+  overflow:hidden;
 }
-.hist-card{
-  animation-delay:.14s;
+.calc-main{
+  flex:1 1 auto;
+  min-width:0;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
+.calc-keys-wrap{flex:1 1 auto;min-height:0;display:flex;gap:14px;}
+.calc-hist{
+  flex:0 0 300px;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  border-left:1px solid rgba(255,255,255,.35);
+}
+html.light .calc-hist{border-left:1px solid rgba(0,0,0,.4);}
 .calc-display{
   background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.35);
   border-radius:10px;
   padding:18px 20px;
   text-align:right;
-  min-height:130px;
+  min-height:120px;
+  flex:0 0 auto;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
@@ -708,12 +715,16 @@ html.light .calc-display{
   word-break:break-all;
 }
 .calc-keys{
+  flex:1 1 0;
+  min-width:0;
   display:grid;
   grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(5,minmax(40px,1fr));
   gap:10px;
 }
 .calc-keys button{
-  height:64px;
+  height:100%;
+  min-height:40px;
   border-radius:10px;
   background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.35);
@@ -737,6 +748,7 @@ html.light .calc-keys button{
   transform:scale(.94);
   border-color:var(--blue);
 }
+.calc-keys .k-sci{font-size:14px;}
 .calc-keys .k-op{color:var(--blue);}
 .calc-keys .k-fn{color:var(--muted);}
 .calc-keys .k-eq{
@@ -765,13 +777,16 @@ html.light .calc-keys button{
 .hist-list{
   display:flex;
   flex-direction:column;
-  max-height:430px;
+  flex:1 1 auto;
+  min-height:0;
   overflow:auto;
 }
 .hist-item{
   padding:13px 20px;
   text-align:right;
+  cursor:pointer;
 }
+.hist-item:hover{background:rgba(59,130,246,.08);}
 .hist-item + .hist-item{
   border-top:1px solid rgba(255,255,255,.15);
 }
@@ -811,8 +826,14 @@ html.light .hist-item + .hist-item{
   .content{padding:20px 14px 28px;}
   .greeting{font-size:17px;}
   .tiles{grid-template-columns:1fr;}
-  .calc-col,.hist-col{flex:1 1 100%;}
   .term-col{flex:1 1 100%;}
+}
+@media (max-width:900px){
+  .calc-ide{flex-direction:column;height:auto;}
+  .calc-hist{flex:none;border-left:none;border-top:1px solid rgba(255,255,255,.35);max-height:260px;}
+  html.light .calc-hist{border-top:1px solid rgba(0,0,0,.4);}
+  .calc-keys-wrap{flex-direction:column;}
+  .calc-keys{grid-template-rows:repeat(5,50px);}
 }
 </style>
 </head>
@@ -938,44 +959,68 @@ html.light .hist-item + .hist-item{
 
     <div class="view" id="viewCalc">
       <div class="content">
-        <section class="calc-col">
-          <div class="card calc-card">
-            <div class="calc-display">
-              <div class="calc-expr" id="calcExpr"></div>
-              <div class="calc-result" id="calcResult">0</div>
+        <section class="calc-wrap">
+          <div class="card calc-ide">
+            <div class="calc-main">
+              <div class="calc-display">
+                <div class="calc-expr" id="calcExpr"></div>
+                <div class="calc-result" id="calcResult">0</div>
+              </div>
+              <div class="calc-keys-wrap" id="calcKeys">
+                <div class="calc-keys">
+                <button type="button" data-k="DEG" class="k-fn k-sci" id="degBtn">DEG</button>
+                <button type="button" data-k="sin" class="k-sci">sin</button>
+                <button type="button" data-k="cos" class="k-sci">cos</button>
+                <button type="button" data-k="tan" class="k-sci">tan</button>
+                <button type="button" data-k="asin" class="k-sci">sin⁻¹</button>
+                <button type="button" data-k="acos" class="k-sci">cos⁻¹</button>
+                <button type="button" data-k="atan" class="k-sci">tan⁻¹</button>
+                <button type="button" data-k="pi" class="k-sci">π</button>
+                <button type="button" data-k="ln" class="k-sci">ln</button>
+                <button type="button" data-k="log" class="k-sci">log</button>
+                <button type="button" data-k="exp" class="k-sci">eˣ</button>
+                <button type="button" data-k="e" class="k-sci">e</button>
+                <button type="button" data-k="sqrt" class="k-sci">√</button>
+                <button type="button" data-k="sq" class="k-sci">x²</button>
+                <button type="button" data-k="^" class="k-sci">xʸ</button>
+                <button type="button" data-k="inv" class="k-sci">1/x</button>
+                <button type="button" data-k="(" class="k-sci">(</button>
+                <button type="button" data-k=")" class="k-sci">)</button>
+                <button type="button" data-k="!" class="k-sci">n!</button>
+                <button type="button" data-k="abs" class="k-sci">|x|</button>
+                </div>
+                <div class="calc-keys">
+                <button type="button" data-k="AC" class="k-fn">AC</button>
+                <button type="button" data-k="DEL" class="k-fn">⌫</button>
+                <button type="button" data-k="%" class="k-fn">%</button>
+                <button type="button" data-k="/" class="k-op">÷</button>
+                <button type="button" data-k="7">7</button>
+                <button type="button" data-k="8">8</button>
+                <button type="button" data-k="9">9</button>
+                <button type="button" data-k="*" class="k-op">×</button>
+                <button type="button" data-k="4">4</button>
+                <button type="button" data-k="5">5</button>
+                <button type="button" data-k="6">6</button>
+                <button type="button" data-k="-" class="k-op">−</button>
+                <button type="button" data-k="1">1</button>
+                <button type="button" data-k="2">2</button>
+                <button type="button" data-k="3">3</button>
+                <button type="button" data-k="+" class="k-op">+</button>
+                <button type="button" data-k="NEG" class="k-fn">±</button>
+                <button type="button" data-k="0">0</button>
+                <button type="button" data-k=".">.</button>
+                <button type="button" data-k="=" class="k-eq">=</button>
+                </div>
+              </div>
             </div>
-            <div class="calc-keys" id="calcKeys">
-              <button type="button" data-k="AC" class="k-fn">AC</button>
-              <button type="button" data-k="DEL" class="k-fn">⌫</button>
-              <button type="button" data-k="%" class="k-fn">%</button>
-              <button type="button" data-k="/" class="k-op">÷</button>
-              <button type="button" data-k="7">7</button>
-              <button type="button" data-k="8">8</button>
-              <button type="button" data-k="9">9</button>
-              <button type="button" data-k="*" class="k-op">×</button>
-              <button type="button" data-k="4">4</button>
-              <button type="button" data-k="5">5</button>
-              <button type="button" data-k="6">6</button>
-              <button type="button" data-k="-" class="k-op">−</button>
-              <button type="button" data-k="1">1</button>
-              <button type="button" data-k="2">2</button>
-              <button type="button" data-k="3">3</button>
-              <button type="button" data-k="+" class="k-op">+</button>
-              <button type="button" data-k="NEG" class="k-fn">±</button>
-              <button type="button" data-k="0">0</button>
-              <button type="button" data-k=".">.</button>
-              <button type="button" data-k="=" class="k-eq">=</button>
+            <div class="calc-hist">
+              <div class="card-head hist-head">
+                <span data-i18n="calc_history">Geçmiş</span>
+                <button class="link-btn" id="histClear" type="button" data-i18n="calc_clear">Temizle</button>
+              </div>
+              <div class="divider"></div>
+              <div class="hist-list" id="histList"></div>
             </div>
-          </div>
-        </section>
-        <section class="hist-col">
-          <div class="card hist-card">
-            <div class="card-head hist-head">
-              <span data-i18n="calc_history">Geçmiş</span>
-              <button class="link-btn" id="histClear" type="button" data-i18n="calc_clear">Temizle</button>
-            </div>
-            <div class="divider"></div>
-            <div class="hist-list" id="histList"></div>
           </div>
         </section>
       </div>
@@ -1266,9 +1311,11 @@ html.light .hist-item + .hist-item{
   setInterval(updateClock, 1000);
   initVisits();
 
-  var calc = {cur:'0', prev:null, op:null, awaiting:false, justEq:false, error:false, expr:''};
-  var opSym = {'+':'+', '-':'−', '*':'×', '/':'÷'};
+  var calc = {expr:'', line:'', res:'0', preview:'0', pvErr:false, justEq:false, error:false, deg:true};
   var calcHistory;
+  var OPS = {'+':'+', '-':'−', '*':'×', '/':'÷', '^':'^'};
+  var FKEYS = {sin:'sin(', cos:'cos(', tan:'tan(', asin:'asin(', acos:'acos(', atan:'atan(', ln:'ln(', log:'log(', exp:'exp(', sqrt:'√(', abs:'abs('};
+  var TOKEN_RE = /(asin\(|acos\(|atan\(|sin\(|cos\(|tan\(|ln\(|log\(|exp\(|abs\(|√\(|.)$/;
 
   function loadHistory(){
     if(calcHistory) return calcHistory;
@@ -1312,53 +1359,190 @@ html.light .hist-item + .hist-item{
       r.textContent = it.res;
       row.appendChild(e);
       row.appendChild(r);
+      row.addEventListener('click', function(){
+        var v = parseFloat(it.res);
+        if(!isFinite(v)) return;
+        calc.error = false;
+        calc.justEq = false;
+        calc.line = '';
+        calc.expr = numToExpr(v);
+        updatePreview();
+        renderCalc();
+      });
       list.appendChild(row);
     });
+  }
+
+  var FUNCS = ['asin','acos','atan','sin','cos','tan','ln','log','exp','abs','√'];
+
+  function closeParens(src){
+    var s = src.replace(/\s+/g, '');
+    var open = (s.match(/\(/g) || []).length - (s.match(/\)/g) || []).length;
+    while(open-- > 0) s += ')';
+    return s;
   }
 
   function fmt(n){
     return String(parseFloat(n.toPrecision(12)));
   }
 
-  function compute(a, op, b){
-    if(op === '+') return a + b;
-    if(op === '-') return a - b;
-    if(op === '*') return a * b;
-    if(op === '/') return b === 0 ? NaN : a / b;
-    return b;
+  function numToExpr(n){
+    return fmt(n).replace(/e\+?(-?\d+)/, function(_, p){ return '×10^(' + p + ')'; }).replace(/-/g, '−');
+  }
+
+  function evaluate(src){
+    var s = closeParens(src);
+    var pos = 0;
+    function peek(){ return s.charAt(pos); }
+    function fail(){ throw new Error('syntax'); }
+    function fact(x){
+      if(x < 0 || x % 1 !== 0 || x > 170) return NaN;
+      var r = 1;
+      for(var i = 2; i <= x; i++) r *= i;
+      return r;
+    }
+    function fn(n, x){
+      var k = calc.deg ? Math.PI / 180 : 1;
+      var r = NaN;
+      switch(n){
+        case 'sin': r = Math.sin(x * k); break;
+        case 'cos': r = Math.cos(x * k); break;
+        case 'tan': r = Math.abs(Math.cos(x * k)) < 1e-12 ? NaN : Math.tan(x * k); break;
+        case 'asin': r = Math.asin(x) / k; break;
+        case 'acos': r = Math.acos(x) / k; break;
+        case 'atan': r = Math.atan(x) / k; break;
+        case 'ln': r = Math.log(x); break;
+        case 'log': r = Math.log10(x); break;
+        case 'exp': r = Math.exp(x); break;
+        case 'abs': r = Math.abs(x); break;
+        case '√': r = Math.sqrt(x); break;
+      }
+      if(/sin|cos|tan/.test(n) && Math.abs(r) < 1e-14) r = 0;
+      return r;
+    }
+    function startsPrimary(){ return /[0-9.(π√a-z]/.test(peek()); }
+    function expr(){
+      var v = term();
+      while(peek() === '+' || peek() === '−'){
+        var o = s.charAt(pos++);
+        var r = term();
+        v = o === '+' ? v + r : v - r;
+      }
+      return v;
+    }
+    function term(){
+      var v = unary();
+      while(true){
+        var c = peek();
+        if(c === '×'){ pos++; v *= unary(); }
+        else if(c === '÷'){ pos++; v /= unary(); }
+        else if(c && startsPrimary()){ v *= unary(); }
+        else break;
+      }
+      return v;
+    }
+    function unary(){
+      var c = peek();
+      if(c === '−'){ pos++; return -unary(); }
+      if(c === '+'){ pos++; return unary(); }
+      return power();
+    }
+    function power(){
+      var b = postfix();
+      if(peek() === '^'){ pos++; return Math.pow(b, unary()); }
+      return b;
+    }
+    function postfix(){
+      var v = primary();
+      while(true){
+        var c = peek();
+        if(c === '!'){ pos++; v = fact(v); }
+        else if(c === '%'){ pos++; v = v / 100; }
+        else break;
+      }
+      return v;
+    }
+    function group(){
+      if(peek() !== '(') fail();
+      pos++;
+      var v = expr();
+      if(peek() !== ')') fail();
+      pos++;
+      return v;
+    }
+    function primary(){
+      var c = peek();
+      if(c === '(') return group();
+      if(c === 'π'){ pos++; return Math.PI; }
+      var m = /^(\d+\.?\d*|\.\d+)/.exec(s.slice(pos));
+      if(m){ pos += m[0].length; return parseFloat(m[0]); }
+      for(var i = 0; i < FUNCS.length; i++){
+        var name = FUNCS[i];
+        if(s.substr(pos, name.length) === name && s.charAt(pos + name.length) === '('){
+          pos += name.length;
+          return fn(name, group());
+        }
+      }
+      if(c === 'e'){ pos++; return Math.E; }
+      fail();
+    }
+    var v = expr();
+    if(pos !== s.length) fail();
+    return v;
+  }
+
+  function updatePreview(){
+    calc.pvErr = false;
+    var e = calc.expr.replace(/[+−×÷^]+$/, '');
+    if(!e){ calc.preview = '0'; return; }
+    try{
+      var v = evaluate(e);
+      if(isFinite(v)) calc.preview = fmt(v); else calc.pvErr = true;
+    }catch(err){}
   }
 
   function renderCalc(){
     var dict = translations[currentLang] || translations.tr;
     var res = document.getElementById('calcResult');
     var ex = document.getElementById('calcExpr');
-    var text = calc.error ? dict.calc_error : calc.cur;
+    var text;
+    if(calc.error) text = dict.calc_error;
+    else if(calc.justEq) text = calc.res;
+    else text = calc.pvErr ? dict.calc_error : calc.preview;
     res.textContent = text;
-    ex.textContent = calc.expr;
+    ex.textContent = calc.justEq ? calc.line : calc.expr;
+    document.getElementById('degBtn').textContent = calc.deg ? 'DEG' : 'RAD';
     var len = text.length;
     res.style.fontSize = len > 16 ? '24px' : len > 12 ? '32px' : len > 9 ? '38px' : '44px';
   }
 
   function resetCalc(){
-    calc.cur = '0';
-    calc.prev = null;
-    calc.op = null;
-    calc.awaiting = false;
+    calc.expr = '';
+    calc.line = '';
+    calc.res = '0';
+    calc.preview = '0';
+    calc.pvErr = false;
     calc.justEq = false;
     calc.error = false;
-    calc.expr = '';
   }
 
-  function startFresh(){
+  function fresh(){
     if(calc.justEq){
-      calc.cur = '0';
       calc.expr = '';
+      calc.line = '';
       calc.justEq = false;
     }
-    if(calc.awaiting){
-      calc.cur = '0';
-      calc.awaiting = false;
+  }
+
+  function continueFromResult(){
+    if(calc.justEq){
+      calc.justEq = false;
+      calc.line = '';
     }
+  }
+
+  function openCount(){
+    return (calc.expr.match(/\(/g) || []).length - (calc.expr.match(/\)/g) || []).length;
   }
 
   function pressKey(k){
@@ -1367,65 +1551,99 @@ html.light .hist-item + .hist-item{
     if(k === 'AC'){
       resetCalc();
     } else if(/^[0-9]$/.test(k)){
-      startFresh();
-      if(calc.cur.replace(/[-.]/g, '').length >= 15) return;
-      calc.cur = calc.cur === '0' ? k : calc.cur + k;
+      fresh();
+      calc.expr += k;
     } else if(k === '.'){
-      startFresh();
-      if(calc.cur.indexOf('.') === -1) calc.cur += '.';
-    } else if(k === '+' || k === '-' || k === '*' || k === '/'){
-      var val = parseFloat(calc.cur);
-      if(calc.op && !calc.awaiting){
-        var r = compute(calc.prev, calc.op, val);
-        if(!isFinite(r)){
-          calc.error = true;
-          calc.expr = '';
-          renderCalc();
-          return;
-        }
-        calc.prev = r;
-        calc.cur = fmt(r);
-      } else if(!calc.op){
-        calc.prev = val;
+      fresh();
+      if(!/\.\d*$/.test(calc.expr)) calc.expr += '.';
+    } else if(OPS[k]){
+      var o = OPS[k];
+      continueFromResult();
+      if(!calc.expr){
+        if(o !== '−') return;
+        calc.expr = '−';
+      } else if(calc.expr === '−' || (/\($/.test(calc.expr) && o !== '−')){
+        return;
+      } else if(o === '−' && /[×÷^(]$/.test(calc.expr)){
+        calc.expr += o;
+      } else if(/[+−×÷^]$/.test(calc.expr)){
+        calc.expr = calc.expr.slice(0, -1) + o;
+      } else {
+        calc.expr += o;
       }
-      calc.op = k;
-      calc.awaiting = true;
-      calc.justEq = false;
-      calc.expr = fmt(calc.prev) + ' ' + opSym[k];
+    } else if(k === '('){
+      fresh();
+      calc.expr += '(';
+    } else if(k === ')'){
+      if(openCount() > 0 && !/[+−×÷^(]$/.test(calc.expr)){
+        continueFromResult();
+        calc.expr += ')';
+      }
+    } else if(k === 'pi'){
+      fresh();
+      calc.expr += 'π';
+    } else if(k === 'e'){
+      fresh();
+      calc.expr += 'e';
+    } else if(FKEYS[k]){
+      fresh();
+      calc.expr += FKEYS[k];
+    } else if(k === '!' || k === '%'){
+      if(calc.expr && !/[+−×÷^(]$/.test(calc.expr)){
+        continueFromResult();
+        calc.expr += k;
+      }
+    } else if(k === 'sq'){
+      if(calc.expr && !/[+−×÷^(]$/.test(calc.expr)){
+        continueFromResult();
+        calc.expr += '^2';
+      }
+    } else if(k === 'inv'){
+      if(calc.expr){
+        continueFromResult();
+        calc.expr = '1÷(' + calc.expr + ')';
+      }
+    } else if(k === 'NEG'){
+      if(calc.expr){
+        continueFromResult();
+        calc.expr = /^−\([^()]*\)$/.test(calc.expr) ? calc.expr.slice(2, -1) : '−(' + calc.expr + ')';
+      }
+    } else if(k === 'DEG'){
+      calc.deg = !calc.deg;
+    } else if(k === 'DEL'){
+      if(calc.justEq){
+        calc.justEq = false;
+        calc.line = '';
+        calc.expr = '';
+      } else {
+        calc.expr = calc.expr.replace(TOKEN_RE, '');
+      }
     } else if(k === '='){
-      if(!calc.op) return;
-      var a = calc.prev;
-      var b = calc.awaiting ? calc.prev : parseFloat(calc.cur);
-      var r2 = compute(a, calc.op, b);
-      if(!isFinite(r2)){
+      if(!calc.expr || calc.justEq) return;
+      var src = calc.expr.replace(/[+−×÷^]+$/, '');
+      var v = NaN;
+      try{ v = evaluate(src); }catch(err){}
+      if(!isFinite(v)){
         calc.error = true;
         calc.expr = '';
+        calc.line = '';
         renderCalc();
         return;
       }
-      var line = fmt(a) + ' ' + opSym[calc.op] + ' ' + fmt(b);
-      loadHistory().unshift({expr:line, res:fmt(r2)});
-      if(calcHistory.length > 8) calcHistory.length = 8;
+      var shown = closeParens(src);
+      loadHistory().unshift({expr:shown, res:fmt(v)});
+      if(calcHistory.length > 50) calcHistory.length = 50;
       saveHistory();
       renderHistory();
-      calc.expr = line + ' =';
-      calc.cur = fmt(r2);
-      calc.prev = null;
-      calc.op = null;
-      calc.awaiting = false;
+      calc.line = shown + ' =';
+      calc.res = fmt(v);
+      calc.expr = numToExpr(v);
       calc.justEq = true;
-    } else if(k === '%'){
-      calc.cur = fmt(parseFloat(calc.cur) / 100);
-      calc.awaiting = false;
-    } else if(k === 'NEG'){
-      if(parseFloat(calc.cur) !== 0){
-        calc.cur = calc.cur.charAt(0) === '-' ? calc.cur.slice(1) : '-' + calc.cur;
-      }
-    } else if(k === 'DEL'){
-      if(calc.justEq || calc.awaiting) return;
-      calc.cur = calc.cur.slice(0, -1);
-      if(calc.cur === '' || calc.cur === '-') calc.cur = '0';
+      calc.pvErr = false;
+      renderCalc();
+      return;
     }
+    if(!calc.justEq) updatePreview();
     renderCalc();
   }
 
@@ -1448,11 +1666,11 @@ html.light .hist-item + .hist-item{
     var k = null;
     if(/^[0-9]$/.test(key)) k = key;
     else if(key === '.' || key === ',') k = '.';
-    else if(key === '+' || key === '-' || key === '*' || key === '/') k = key;
+    else if(key === '+' || key === '-' || key === '*' || key === '/' || key === '^') k = key;
+    else if(key === '(' || key === ')' || key === '!' || key === '%') k = key;
     else if(key === 'Enter' || key === '=') k = '=';
     else if(key === 'Backspace') k = 'DEL';
     else if(key === 'Escape') k = 'AC';
-    else if(key === '%') k = '%';
     if(!k) return;
     e.preventDefault();
     pressKey(k);
