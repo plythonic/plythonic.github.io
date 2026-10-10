@@ -362,8 +362,6 @@ html.light .card{
   border:1px solid rgba(0,0,0,.4);
   box-shadow:0 12px 30px -18px rgba(0,0,0,.18);
 }
-.feed .card:nth-of-type(1){animation-delay:.08s;}
-.feed .card:nth-of-type(2){animation-delay:.16s;}
 .aside .card{animation-delay:.12s;}
 @keyframes card-in{
   to{
@@ -400,24 +398,86 @@ html.light .card{
   font-size:14px;
   padding:12px 2px 0;
 }
-.empty-card{
-  padding:26px 20px;
+.term-card{animation-delay:.08s;}
+.term-head{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:11px 16px;
+  border-bottom:1px solid rgba(255,255,255,.35);
+}
+html.light .term-head{
+  border-bottom:1px solid rgba(0,0,0,.4);
+}
+.term-head .dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--blue);
+}
+.term-head .dot:nth-child(2){opacity:.6;}
+.term-head .dot:nth-child(3){opacity:.3;}
+.term-title{
+  margin-left:8px;
+  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+  font-size:11.5px;
+  color:var(--muted);
+}
+.term-body{
+  padding:16px 18px;
+  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+  font-size:12.5px;
+  line-height:1.9;
+  min-height:190px;
+}
+.t-line{white-space:pre-wrap;word-break:break-word;}
+.t-prompt{color:var(--blue);}
+.t-out{color:var(--muted);}
+.t-cursor{
+  display:inline-block;
+  width:7px;
+  height:14px;
+  margin-left:2px;
+  background:var(--blue);
+  vertical-align:-2px;
+  animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{
+  50%{opacity:0;}
+}
+.tiles{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.tile{
+  padding:16px 18px;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
   gap:4px;
-  min-height:96px;
 }
-.empty-card .v{
+.tile:nth-child(1){animation-delay:.14s;}
+.tile:nth-child(2){animation-delay:.2s;}
+.tile:nth-child(3){animation-delay:.26s;}
+.tile:hover{
+  transform:translateY(-2px);
+  border-color:rgba(59,130,246,.4);
+}
+.tile-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.05em;
+  color:var(--muted);
+}
+.tile-value{
   font-family:var(--font-d);
   font-weight:700;
-  font-size:17px;
+  font-size:22px;
+  letter-spacing:-.01em;
 }
-.empty-card .s{
-  color:var(--muted);
+.tile-sub{
   font-size:11.5px;
+  color:var(--muted);
 }
 .card-head{
   padding:12px 18px;
@@ -508,6 +568,152 @@ html.light .site-footer{
   color:var(--blue);
 }
 
+.view{
+  display:none;
+  flex:1;
+  flex-direction:column;
+}
+.view.active{
+  display:flex;
+}
+.calc-col{
+  flex:0 1 380px;
+  min-width:280px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.hist-col{
+  flex:0 1 300px;
+  min-width:240px;
+  padding-top:46px;
+}
+.calc-card{
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  animation-delay:.08s;
+}
+.hist-card{
+  animation-delay:.14s;
+}
+.calc-display{
+  background:rgba(255,255,255,.015);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:10px;
+  padding:14px 16px;
+  text-align:right;
+  min-height:96px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:4px;
+  overflow:hidden;
+}
+html.light .calc-display{
+  background:rgba(0,0,0,.015);
+  border:1px solid rgba(0,0,0,.4);
+}
+.calc-expr{
+  font-size:12px;
+  color:var(--muted);
+  min-height:16px;
+  word-break:break-all;
+}
+.calc-result{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:34px;
+  letter-spacing:-.01em;
+  line-height:1.15;
+  word-break:break-all;
+}
+.calc-keys{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.calc-keys button{
+  height:50px;
+  border-radius:10px;
+  background:rgba(255,255,255,.015);
+  border:1px solid rgba(255,255,255,.35);
+  color:var(--ink);
+  font-family:var(--font-d);
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  outline:none;
+  transition:border-color .2s,transform .1s,background .2s;
+}
+html.light .calc-keys button{
+  background:rgba(0,0,0,.015);
+  border:1px solid rgba(0,0,0,.4);
+}
+.calc-keys button:hover{
+  border-color:var(--blue);
+}
+.calc-keys button:active,
+.calc-keys button.pressed{
+  transform:scale(.94);
+  border-color:var(--blue);
+}
+.calc-keys .k-op{color:var(--blue);}
+.calc-keys .k-fn{color:var(--muted);}
+.calc-keys .k-eq{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+}
+.calc-keys .k-eq:hover{filter:brightness(1.1);}
+.hist-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.link-btn{
+  background:none;
+  border:none;
+  color:var(--blue);
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:11.5px;
+  cursor:pointer;
+  outline:none;
+}
+.hist-list{
+  display:flex;
+  flex-direction:column;
+  max-height:340px;
+  overflow:auto;
+}
+.hist-item{
+  padding:10px 18px;
+  text-align:right;
+}
+.hist-item + .hist-item{
+  border-top:1px solid rgba(255,255,255,.15);
+}
+html.light .hist-item + .hist-item{
+  border-top:1px solid rgba(0,0,0,.15);
+}
+.hist-expr{
+  font-size:11.5px;
+  color:var(--muted);
+}
+.hist-res{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:15px;
+}
+.hist-empty{
+  padding:22px 18px;
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+}
+
 @media (max-width:980px){
   .sidebar{
     position:fixed;
@@ -524,6 +730,9 @@ html.light .site-footer{
   .site-header{padding:0 12px;}
   .content{padding:20px 14px 28px;}
   .greeting{font-size:17px;}
+  .tiles{grid-template-columns:1fr;}
+  .calc-col,.hist-col{flex:1 1 100%;}
+  .hist-col{padding-top:0;}
 }
 </style>
 </head>
@@ -565,7 +774,7 @@ html.light .site-footer{
 
 <div class="layout">
   <aside class="sidebar" id="sidebar">
-    <a class="nav-item active" href="#">
+    <a class="nav-item active" id="navHome" href="#home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg>
       <span data-i18n="nav_home">Ana Sayfa</span>
     </a>
@@ -575,13 +784,14 @@ html.light .site-footer{
     </a>
     <div class="nav-sep"></div>
     <div class="nav-label" data-i18n="nav_projects">PROJELER</div>
-    <a class="nav-item" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      <span>Plythonic</span>
+    <a class="nav-item" id="navCalc" href="#calculator">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg>
+      <span data-i18n="nav_calc">Hesap Makinesi</span>
     </a>
   </aside>
 
   <main>
+    <div class="view active" id="viewHome">
     <div class="content">
       <section class="feed">
         <div class="greeting">
@@ -589,16 +799,32 @@ html.light .site-footer{
           <span data-i18n="greeting">Hoş geldin, Plythonic!</span>
         </div>
 
-        <div class="section-title" data-i18n="about_title">Hakkımda</div>
-        <div class="card empty-card">
-          <span class="v" data-i18n="soon_value">Yakında</span>
-          <span class="s" data-i18n="soon_sub">Bu özellik yakında hazır olacak</span>
+        <div class="section-title" data-i18n="sec_terminal">Terminal</div>
+        <div class="card term-card">
+          <div class="term-head">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="term-title">plythonic@plython:~</span>
+          </div>
+          <div class="term-body" id="termBody"></div>
         </div>
 
-        <div class="section-title">Plython</div>
-        <div class="card empty-card">
-          <span class="v" data-i18n="soon_value">Yakında</span>
-          <span class="s" data-i18n="soon_sub">Bu özellik yakında hazır olacak</span>
+        <div class="section-title" data-i18n="sec_live">Anlık</div>
+        <div class="tiles">
+          <div class="card tile">
+            <span class="tile-label" data-i18n="tile_clock">SAAT</span>
+            <span class="tile-value" id="clockValue">00:00:00</span>
+            <span class="tile-sub" id="clockSub"></span>
+          </div>
+          <div class="card tile">
+            <span class="tile-label" data-i18n="tile_date">TARİH</span>
+            <span class="tile-value" id="dateValue"></span>
+            <span class="tile-sub" id="dateSub"></span>
+          </div>
+          <div class="card tile">
+            <span class="tile-label" data-i18n="tile_visit">ZİYARET</span>
+            <span class="tile-value" id="visitValue">1</span>
+            <span class="tile-sub" data-i18n="tile_visit_sub">bu cihazda</span>
+          </div>
         </div>
       </section>
 
@@ -632,6 +858,55 @@ html.light .site-footer{
           </div>
         </div>
       </aside>
+    </div>
+    </div>
+    <div class="view" id="viewCalc">
+      <div class="content">
+        <section class="calc-col">
+          <div class="greeting">
+            <span class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg></span>
+            <span data-i18n="calc_title">Hesap Makinesi</span>
+          </div>
+          <div class="card calc-card">
+            <div class="calc-display">
+              <div class="calc-expr" id="calcExpr"></div>
+              <div class="calc-result" id="calcResult">0</div>
+            </div>
+            <div class="calc-keys" id="calcKeys">
+              <button type="button" data-k="AC" class="k-fn">AC</button>
+              <button type="button" data-k="DEL" class="k-fn">⌫</button>
+              <button type="button" data-k="%" class="k-fn">%</button>
+              <button type="button" data-k="/" class="k-op">÷</button>
+              <button type="button" data-k="7">7</button>
+              <button type="button" data-k="8">8</button>
+              <button type="button" data-k="9">9</button>
+              <button type="button" data-k="*" class="k-op">×</button>
+              <button type="button" data-k="4">4</button>
+              <button type="button" data-k="5">5</button>
+              <button type="button" data-k="6">6</button>
+              <button type="button" data-k="-" class="k-op">−</button>
+              <button type="button" data-k="1">1</button>
+              <button type="button" data-k="2">2</button>
+              <button type="button" data-k="3">3</button>
+              <button type="button" data-k="+" class="k-op">+</button>
+              <button type="button" data-k="NEG" class="k-fn">±</button>
+              <button type="button" data-k="0">0</button>
+              <button type="button" data-k=".">.</button>
+              <button type="button" data-k="=" class="k-eq">=</button>
+            </div>
+          </div>
+        </section>
+        <section class="hist-col">
+          <div class="card hist-card">
+            <div class="card-head hist-head">
+              <span data-i18n="calc_history">Geçmiş</span>
+              <button class="link-btn" id="histClear" type="button" data-i18n="calc_clear">Temizle</button>
+            </div>
+            <div class="divider"></div>
+            <div class="hist-list" id="histList"></div>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 </div>
@@ -720,34 +995,90 @@ html.light .site-footer{
     en:{
       nav_home:"Home",
       nav_projects:"PROJECTS",
+      nav_calc:"Calculator",
+      calc_title:"Calculator",
+      calc_history:"History",
+      calc_clear:"Clear",
+      calc_empty:"No calculations yet",
+      calc_error:"Error",
       greeting:"Welcome, Plythonic!",
-      about_title:"About Me",
-      soon_value:"Coming soon",
-      soon_sub:"This feature will be ready soon",
+      sec_terminal:"Terminal",
+      sec_live:"Live",
+      tile_clock:"TIME",
+      tile_date:"DATE",
+      tile_visit:"VISITS",
+      tile_visit_sub:"on this device",
       social_title:"Social Networks",
       label:"EN"
     },
     tr:{
       nav_home:"Ana Sayfa",
       nav_projects:"PROJELER",
+      nav_calc:"Hesap Makinesi",
+      calc_title:"Hesap Makinesi",
+      calc_history:"Geçmiş",
+      calc_clear:"Temizle",
+      calc_empty:"Henüz işlem yok",
+      calc_error:"Hata",
       greeting:"Hoş geldin, Plythonic!",
-      about_title:"Hakkımda",
-      soon_value:"Yakında",
-      soon_sub:"Bu özellik yakında hazır olacak",
+      sec_terminal:"Terminal",
+      sec_live:"Anlık",
+      tile_clock:"SAAT",
+      tile_date:"TARİH",
+      tile_visit:"ZİYARET",
+      tile_visit_sub:"bu cihazda",
       social_title:"Sosyal Ağlar",
       label:"TR"
     },
     ru:{
       nav_home:"Главная",
       nav_projects:"ПРОЕКТЫ",
+      nav_calc:"Калькулятор",
+      calc_title:"Калькулятор",
+      calc_history:"История",
+      calc_clear:"Очистить",
+      calc_empty:"Пока нет вычислений",
+      calc_error:"Ошибка",
       greeting:"Добро пожаловать, Plythonic!",
-      about_title:"Обо мне",
-      soon_value:"Скоро",
-      soon_sub:"Эта функция скоро будет готова",
+      sec_terminal:"Терминал",
+      sec_live:"Сейчас",
+      tile_clock:"ВРЕМЯ",
+      tile_date:"ДАТА",
+      tile_visit:"ВИЗИТЫ",
+      tile_visit_sub:"на этом устройстве",
       social_title:"Социальные сети",
       label:"RU"
     }
   };
+
+  var locales = {tr:'tr-TR',en:'en-US',ru:'ru-RU'};
+  var currentLang = 'tr';
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+
+  function updateClock(){
+    var d = new Date();
+    document.getElementById('clockValue').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+
+  function updateDate(){
+    var d = new Date();
+    var loc = locales[currentLang] || 'tr-TR';
+    document.getElementById('dateValue').textContent = d.toLocaleDateString(loc, {day:'numeric', month:'long'});
+    document.getElementById('dateSub').textContent = d.toLocaleDateString(loc, {weekday:'long'}) + ', ' + d.getFullYear();
+    var tz = '';
+    try{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }catch(e){}
+    document.getElementById('clockSub').textContent = tz;
+  }
+
+  function initVisits(){
+    var n = 1;
+    try{
+      n = (parseInt(localStorage.getItem('plythonic-visits'), 10) || 0) + 1;
+      localStorage.setItem('plythonic-visits', n);
+    }catch(e){}
+    document.getElementById('visitValue').textContent = n;
+  }
 
   var langSwitch = document.getElementById('langSwitch');
   var langCurrent = document.getElementById('langCurrent');
@@ -768,6 +1099,9 @@ html.light .site-footer{
       btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
     localStorage.setItem('plythonic-lang-v2', lang);
+    currentLang = lang;
+    updateDate();
+    renderHistory();
   }
 
   langCurrent.addEventListener('click', function(e){
@@ -805,6 +1139,285 @@ html.light .site-footer{
 
   var savedLang = localStorage.getItem('plythonic-lang-v2');
   applyLang(savedLang && translations[savedLang] ? savedLang : 'tr');
+  updateClock();
+  setInterval(updateClock, 1000);
+  initVisits();
+
+  var calc = {cur:'0', prev:null, op:null, awaiting:false, justEq:false, error:false, expr:''};
+  var opSym = {'+':'+', '-':'−', '*':'×', '/':'÷'};
+  var calcHistory;
+
+  function loadHistory(){
+    if(calcHistory) return calcHistory;
+    calcHistory = [];
+    try{
+      calcHistory = JSON.parse(localStorage.getItem('plythonic-calc-history') || '[]');
+    }catch(e){
+      calcHistory = [];
+    }
+    if(!Array.isArray(calcHistory)) calcHistory = [];
+    return calcHistory;
+  }
+
+  function saveHistory(){
+    try{
+      localStorage.setItem('plythonic-calc-history', JSON.stringify(calcHistory));
+    }catch(e){}
+  }
+
+  function renderHistory(){
+    var list = document.getElementById('histList');
+    if(!list) return;
+    var items = loadHistory();
+    var dict = translations[currentLang] || translations.tr;
+    list.innerHTML = '';
+    if(!items.length){
+      var empty = document.createElement('div');
+      empty.className = 'hist-empty';
+      empty.textContent = dict.calc_empty;
+      list.appendChild(empty);
+      return;
+    }
+    items.forEach(function(it){
+      var row = document.createElement('div');
+      row.className = 'hist-item';
+      var e = document.createElement('div');
+      e.className = 'hist-expr';
+      e.textContent = it.expr;
+      var r = document.createElement('div');
+      r.className = 'hist-res';
+      r.textContent = it.res;
+      row.appendChild(e);
+      row.appendChild(r);
+      list.appendChild(row);
+    });
+  }
+
+  function fmt(n){
+    return String(parseFloat(n.toPrecision(12)));
+  }
+
+  function compute(a, op, b){
+    if(op === '+') return a + b;
+    if(op === '-') return a - b;
+    if(op === '*') return a * b;
+    if(op === '/') return b === 0 ? NaN : a / b;
+    return b;
+  }
+
+  function renderCalc(){
+    var dict = translations[currentLang] || translations.tr;
+    var res = document.getElementById('calcResult');
+    var ex = document.getElementById('calcExpr');
+    var text = calc.error ? dict.calc_error : calc.cur;
+    res.textContent = text;
+    ex.textContent = calc.expr;
+    var len = text.length;
+    res.style.fontSize = len > 16 ? '20px' : len > 12 ? '26px' : len > 9 ? '30px' : '34px';
+  }
+
+  function resetCalc(){
+    calc.cur = '0';
+    calc.prev = null;
+    calc.op = null;
+    calc.awaiting = false;
+    calc.justEq = false;
+    calc.error = false;
+    calc.expr = '';
+  }
+
+  function startFresh(){
+    if(calc.justEq){
+      calc.cur = '0';
+      calc.expr = '';
+      calc.justEq = false;
+    }
+    if(calc.awaiting){
+      calc.cur = '0';
+      calc.awaiting = false;
+    }
+  }
+
+  function pressKey(k){
+    if(calc.error && k !== 'AC') resetCalc();
+
+    if(k === 'AC'){
+      resetCalc();
+    } else if(/^[0-9]$/.test(k)){
+      startFresh();
+      if(calc.cur.replace(/[-.]/g, '').length >= 15) return;
+      calc.cur = calc.cur === '0' ? k : calc.cur + k;
+    } else if(k === '.'){
+      startFresh();
+      if(calc.cur.indexOf('.') === -1) calc.cur += '.';
+    } else if(k === '+' || k === '-' || k === '*' || k === '/'){
+      var val = parseFloat(calc.cur);
+      if(calc.op && !calc.awaiting){
+        var r = compute(calc.prev, calc.op, val);
+        if(!isFinite(r)){
+          calc.error = true;
+          calc.expr = '';
+          renderCalc();
+          return;
+        }
+        calc.prev = r;
+        calc.cur = fmt(r);
+      } else if(!calc.op){
+        calc.prev = val;
+      }
+      calc.op = k;
+      calc.awaiting = true;
+      calc.justEq = false;
+      calc.expr = fmt(calc.prev) + ' ' + opSym[k];
+    } else if(k === '='){
+      if(!calc.op) return;
+      var a = calc.prev;
+      var b = calc.awaiting ? calc.prev : parseFloat(calc.cur);
+      var r2 = compute(a, calc.op, b);
+      if(!isFinite(r2)){
+        calc.error = true;
+        calc.expr = '';
+        renderCalc();
+        return;
+      }
+      var line = fmt(a) + ' ' + opSym[calc.op] + ' ' + fmt(b);
+      loadHistory().unshift({expr:line, res:fmt(r2)});
+      if(calcHistory.length > 8) calcHistory.length = 8;
+      saveHistory();
+      renderHistory();
+      calc.expr = line + ' =';
+      calc.cur = fmt(r2);
+      calc.prev = null;
+      calc.op = null;
+      calc.awaiting = false;
+      calc.justEq = true;
+    } else if(k === '%'){
+      calc.cur = fmt(parseFloat(calc.cur) / 100);
+      calc.awaiting = false;
+    } else if(k === 'NEG'){
+      if(parseFloat(calc.cur) !== 0){
+        calc.cur = calc.cur.charAt(0) === '-' ? calc.cur.slice(1) : '-' + calc.cur;
+      }
+    } else if(k === 'DEL'){
+      if(calc.justEq || calc.awaiting) return;
+      calc.cur = calc.cur.slice(0, -1);
+      if(calc.cur === '' || calc.cur === '-') calc.cur = '0';
+    }
+    renderCalc();
+  }
+
+  var keysEl = document.getElementById('calcKeys');
+  keysEl.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(btn) pressKey(btn.getAttribute('data-k'));
+  });
+
+  document.getElementById('histClear').addEventListener('click', function(){
+    calcHistory = [];
+    saveHistory();
+    renderHistory();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(!document.getElementById('viewCalc').classList.contains('active')) return;
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    var key = e.key;
+    var k = null;
+    if(/^[0-9]$/.test(key)) k = key;
+    else if(key === '.' || key === ',') k = '.';
+    else if(key === '+' || key === '-' || key === '*' || key === '/') k = key;
+    else if(key === 'Enter' || key === '=') k = '=';
+    else if(key === 'Backspace') k = 'DEL';
+    else if(key === 'Escape') k = 'AC';
+    else if(key === '%') k = '%';
+    if(!k) return;
+    e.preventDefault();
+    pressKey(k);
+    var btn = keysEl.querySelector('[data-k="' + k + '"]');
+    if(btn){
+      btn.classList.add('pressed');
+      setTimeout(function(){ btn.classList.remove('pressed'); }, 110);
+    }
+  });
+
+  var viewHome = document.getElementById('viewHome');
+  var viewCalc = document.getElementById('viewCalc');
+  var navHome = document.getElementById('navHome');
+  var navCalc = document.getElementById('navCalc');
+
+  function route(){
+    var isCalc = location.hash === '#calculator';
+    viewHome.classList.toggle('active', !isCalc);
+    viewCalc.classList.toggle('active', isCalc);
+    navHome.classList.toggle('active', !isCalc);
+    navCalc.classList.toggle('active', isCalc);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+
+  document.querySelectorAll('.sidebar .nav-item').forEach(function(a){
+    a.addEventListener('click', function(){
+      if(window.innerWidth <= 980) document.body.classList.add('nav-closed');
+    });
+  });
+
+  renderCalc();
+  renderHistory();
+})();
+
+(function(){
+  var body = document.getElementById('termBody');
+  var script = [
+    {cmd:'whoami', out:'plythonic'},
+    {cmd:'cat role.txt', out:'Discord Bot Developer'},
+    {cmd:'ls cogs/', out:'moderation  economy  music  tickets  antispam  antinuke'},
+    {cmd:'python bot.py', out:'Plython is online'}
+  ];
+  var cursor = document.createElement('span');
+  cursor.className = 't-cursor';
+
+  function wait(ms, fn){ setTimeout(fn, ms); }
+
+  function typeLine(i){
+    if(i >= script.length){
+      wait(3200, function(){
+        body.innerHTML = '';
+        typeLine(0);
+      });
+      return;
+    }
+    var item = script[i];
+    var line = document.createElement('div');
+    line.className = 't-line';
+    var prompt = document.createElement('span');
+    prompt.className = 't-prompt';
+    prompt.textContent = '$ ';
+    var cmd = document.createElement('span');
+    line.appendChild(prompt);
+    line.appendChild(cmd);
+    line.appendChild(cursor);
+    body.appendChild(line);
+
+    var k = 0;
+    function step(){
+      if(k < item.cmd.length){
+        cmd.textContent += item.cmd.charAt(k);
+        k++;
+        wait(70 + Math.random() * 60, step);
+      } else {
+        wait(260, function(){
+          var out = document.createElement('div');
+          out.className = 't-line t-out';
+          out.textContent = item.out;
+          body.appendChild(out);
+          wait(420, function(){ typeLine(i + 1); });
+        });
+      }
+    }
+    step();
+  }
+
+  wait(600, function(){ typeLine(0); });
 })();
 </script>
 
