@@ -423,28 +423,88 @@ html.light .term-head{
   font-size:11.5px;
   color:var(--muted);
 }
-.term-body{
-  padding:16px 18px;
-  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
-  font-size:12.5px;
-  line-height:1.9;
-  min-height:190px;
-}
 .t-line{white-space:pre-wrap;word-break:break-word;}
 .t-prompt{color:var(--blue);}
 .t-out{color:var(--muted);}
-.t-cursor{
-  display:inline-block;
-  width:7px;
-  height:14px;
-  margin-left:2px;
-  background:var(--blue);
-  vertical-align:-2px;
-  animation:blink 1s steps(1) infinite;
+.t-err{color:#ff5c6c;}
+.t-warn{color:#e5b53b;}
+.t-ok{color:var(--green);}
+
+.term-col{
+  flex:1 1 760px;
+  max-width:900px;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
-@keyframes blink{
-  50%{opacity:0;}
+.term-select{
+  margin-left:auto;
+  background:var(--panel-solid);
+  color:var(--blue);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:8px;
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:11.5px;
+  padding:5px 8px;
+  outline:none;
+  cursor:pointer;
 }
+html.light .term-select{border:1px solid rgba(0,0,0,.4);}
+.term-editor{
+  width:100%;
+  min-height:260px;
+  resize:vertical;
+  display:block;
+  background:transparent;
+  color:var(--ink);
+  border:none;
+  outline:none;
+  padding:16px 18px;
+  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+  font-size:13px;
+  line-height:1.7;
+  tab-size:4;
+}
+.term-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:12px 16px;
+  border-top:1px solid rgba(255,255,255,.35);
+}
+html.light .term-actions{border-top:1px solid rgba(0,0,0,.4);}
+.term-btn{
+  height:34px;
+  padding:0 14px;
+  border-radius:9px;
+  background:rgba(255,255,255,.015);
+  border:1px solid rgba(255,255,255,.35);
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-weight:600;
+  font-size:12px;
+  cursor:pointer;
+  outline:none;
+  transition:border-color .2s,transform .1s;
+}
+html.light .term-btn{border:1px solid rgba(0,0,0,.4);}
+.term-btn:hover{border-color:var(--blue);}
+.term-btn:active{transform:scale(.95);}
+.term-btn.run{background:var(--blue);border-color:var(--blue);color:#fff;}
+.term-btn.run::before{content:"▶ ";}
+.term-btn:disabled{opacity:.6;cursor:wait;}
+.term-out{
+  padding:16px 18px;
+  min-height:140px;
+  max-height:420px;
+  overflow:auto;
+  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+  font-size:12.5px;
+  line-height:1.7;
+}
+
 .tiles{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -733,6 +793,7 @@ html.light .hist-item + .hist-item{
   .greeting{font-size:17px;}
   .tiles{grid-template-columns:1fr;}
   .calc-col,.hist-col{flex:1 1 100%;}
+  .term-col{flex:1 1 100%;}
 }
 </style>
 </head>
@@ -788,6 +849,10 @@ html.light .hist-item + .hist-item{
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg>
       <span data-i18n="nav_calc">Hesap Makinesi</span>
     </a>
+    <a class="nav-item" id="navTerm" href="#terminal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9l3 3-3 3M13 15h4"/></svg>
+      <span data-i18n="nav_term">Terminal</span>
+    </a>
   </aside>
 
   <main>
@@ -797,15 +862,6 @@ html.light .hist-item + .hist-item{
         <div class="greeting">
           <span class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg></span>
           <span data-i18n="greeting">Hoş geldin, Plythonic!</span>
-        </div>
-
-        <div class="section-title" data-i18n="sec_terminal">Terminal</div>
-        <div class="card term-card">
-          <div class="term-head">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="term-title">plythonic@plython:~</span>
-          </div>
-          <div class="term-body" id="termBody"></div>
         </div>
 
         <div class="section-title" data-i18n="sec_live">Anlık</div>
@@ -860,6 +916,7 @@ html.light .hist-item + .hist-item{
       </aside>
     </div>
     </div>
+
     <div class="view" id="viewCalc">
       <div class="content">
         <section class="calc-col">
@@ -900,6 +957,33 @@ html.light .hist-item + .hist-item{
             </div>
             <div class="divider"></div>
             <div class="hist-list" id="histList"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="view" id="viewTerm">
+      <div class="content">
+        <section class="term-col">
+          <div class="card term-card">
+            <div class="term-head">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="term-title">plythonic@plython:~</span>
+              <select id="termLang" class="term-select">
+                <option value="python">Python</option>
+                <option value="js">JavaScript</option>
+              </select>
+            </div>
+            <textarea id="termCode" class="term-editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="# kodunu yaz..."></textarea>
+            <div class="term-actions">
+              <button type="button" class="term-btn run" id="termRun" data-i18n="term_run">Çalıştır</button>
+              <button type="button" class="term-btn" id="termClearCode" data-i18n="term_clear_code">Kodu sil</button>
+              <button type="button" class="term-btn" id="termClearOut" data-i18n="term_clear_out">Çıktıyı sil</button>
+            </div>
+          </div>
+          <div class="card term-card">
+            <div class="term-head"><span class="term-title" data-i18n="term_output">Çıktı</span></div>
+            <div class="term-out" id="termOut"></div>
           </div>
         </section>
       </div>
@@ -992,12 +1076,18 @@ html.light .hist-item + .hist-item{
       nav_home:"Home",
       nav_projects:"PROJECTS",
       nav_calc:"Calculator",
+      nav_term:"Terminal",
+      term_run:"Run",
+      term_clear_code:"Clear code",
+      term_clear_out:"Clear output",
+      term_output:"Output",
+      term_loading:"Loading Python...",
+      term_done:"Done",
       calc_history:"History",
       calc_clear:"Clear",
       calc_empty:"No calculations yet",
       calc_error:"Error",
       greeting:"Welcome, Plythonic!",
-      sec_terminal:"Terminal",
       sec_live:"Live",
       tile_clock:"TIME",
       tile_date:"DATE",
@@ -1010,12 +1100,18 @@ html.light .hist-item + .hist-item{
       nav_home:"Ana Sayfa",
       nav_projects:"PROJELER",
       nav_calc:"Hesap Makinesi",
+      nav_term:"Terminal",
+      term_run:"Çalıştır",
+      term_clear_code:"Kodu sil",
+      term_clear_out:"Çıktıyı sil",
+      term_output:"Çıktı",
+      term_loading:"Python yükleniyor...",
+      term_done:"Tamamlandı",
       calc_history:"Geçmiş",
       calc_clear:"Temizle",
       calc_empty:"Henüz işlem yok",
       calc_error:"Hata",
       greeting:"Hoş geldin, Plythonic!",
-      sec_terminal:"Terminal",
       sec_live:"Anlık",
       tile_clock:"SAAT",
       tile_date:"TARİH",
@@ -1028,12 +1124,18 @@ html.light .hist-item + .hist-item{
       nav_home:"Главная",
       nav_projects:"ПРОЕКТЫ",
       nav_calc:"Калькулятор",
+      nav_term:"Терминал",
+      term_run:"Запустить",
+      term_clear_code:"Очистить код",
+      term_clear_out:"Очистить вывод",
+      term_output:"Вывод",
+      term_loading:"Загрузка Python...",
+      term_done:"Готово",
       calc_history:"История",
       calc_clear:"Очистить",
       calc_empty:"Пока нет вычислений",
       calc_error:"Ошибка",
       greeting:"Добро пожаловать, Plythonic!",
-      sec_terminal:"Терминал",
       sec_live:"Сейчас",
       tile_clock:"ВРЕМЯ",
       tile_date:"ДАТА",
@@ -1335,15 +1437,21 @@ html.light .hist-item + .hist-item{
 
   var viewHome = document.getElementById('viewHome');
   var viewCalc = document.getElementById('viewCalc');
+  var viewTerm = document.getElementById('viewTerm');
   var navHome = document.getElementById('navHome');
   var navCalc = document.getElementById('navCalc');
+  var navTerm = document.getElementById('navTerm');
 
   function route(){
-    var isCalc = location.hash === '#calculator';
-    viewHome.classList.toggle('active', !isCalc);
+    var h = location.hash;
+    var isCalc = h === '#calculator';
+    var isTerm = h === '#terminal';
+    viewHome.classList.toggle('active', !isCalc && !isTerm);
     viewCalc.classList.toggle('active', isCalc);
-    navHome.classList.toggle('active', !isCalc);
+    viewTerm.classList.toggle('active', isTerm);
+    navHome.classList.toggle('active', !isCalc && !isTerm);
     navCalc.classList.toggle('active', isCalc);
+    navTerm.classList.toggle('active', isTerm);
   }
   window.addEventListener('hashchange', route);
   route();
@@ -1356,61 +1464,153 @@ html.light .hist-item + .hist-item{
 
   renderCalc();
   renderHistory();
-})();
 
-(function(){
-  var body = document.getElementById('termBody');
-  var script = [
-    {cmd:'whoami', out:'plythonic'},
-    {cmd:'cat role.txt', out:'Discord Bot Developer'},
-    {cmd:'ls cogs/', out:'moderation  economy  music  tickets  antispam  antinuke'},
-    {cmd:'python bot.py', out:'Plython is online'}
-  ];
-  var cursor = document.createElement('span');
-  cursor.className = 't-cursor';
+  /* ===== Terminal (Python + JavaScript) ===== */
+  var codeEl = document.getElementById('termCode');
+  var outEl = document.getElementById('termOut');
+  var langEl = document.getElementById('termLang');
+  var runBtn = document.getElementById('termRun');
+  var samples = {
+    python: 'print("Merhaba Plythonic!")\nfor i in range(3):\n    print(i * 2)\n',
+    js: 'console.log("Merhaba Plythonic!");\nfor (let i = 0; i < 3; i++) console.log(i * 2);\n'
+  };
+  var py = null, pyPromise = null;
 
-  function wait(ms, fn){ setTimeout(fn, ms); }
+  function tdict(){ return translations[currentLang] || translations.tr; }
 
-  function typeLine(i){
-    if(i >= script.length){
-      wait(3200, function(){
-        body.innerHTML = '';
-        typeLine(0);
-      });
-      return;
-    }
-    var item = script[i];
-    var line = document.createElement('div');
-    line.className = 't-line';
-    var prompt = document.createElement('span');
-    prompt.className = 't-prompt';
-    prompt.textContent = '$ ';
-    var cmd = document.createElement('span');
-    line.appendChild(prompt);
-    line.appendChild(cmd);
-    line.appendChild(cursor);
-    body.appendChild(line);
-
-    var k = 0;
-    function step(){
-      if(k < item.cmd.length){
-        cmd.textContent += item.cmd.charAt(k);
-        k++;
-        wait(70 + Math.random() * 60, step);
-      } else {
-        wait(260, function(){
-          var out = document.createElement('div');
-          out.className = 't-line t-out';
-          out.textContent = item.out;
-          body.appendChild(out);
-          wait(420, function(){ typeLine(i + 1); });
-        });
-      }
-    }
-    step();
+  function add(text, cls){
+    var d = document.createElement('div');
+    d.className = 't-line' + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    outEl.appendChild(d);
+    outEl.scrollTop = outEl.scrollHeight;
   }
 
-  wait(600, function(){ typeLine(0); });
+  function fmtArg(a){
+    if(typeof a === 'string') return a;
+    try{ return (typeof a === 'object' && a !== null) ? JSON.stringify(a, null, 2) : String(a); }
+    catch(e){ return String(a); }
+  }
+
+  function loadPy(){
+    if(pyPromise) return pyPromise;
+    pyPromise = new Promise(function(res, rej){
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js';
+      s.onload = function(){
+        loadPyodide().then(function(p){
+          p.setStdout({batched:function(t){ add(t); }});
+          p.setStderr({batched:function(t){ add(t, 't-err'); }});
+          p.setStdin({stdin:function(){
+            var v = prompt('input()');
+            return v === null ? undefined : v;
+          }});
+          py = p;
+          res(p);
+        }, function(e){ pyPromise = null; rej(e); });
+      };
+      s.onerror = function(){
+        pyPromise = null;
+        rej(new Error('Python yüklenemedi (internet bağlantısını kontrol et)'));
+      };
+      document.head.appendChild(s);
+    });
+    return pyPromise;
+  }
+
+  async function runPy(code){
+    if(!py){
+      add(tdict().term_loading, 't-out');
+      await loadPy();
+    }
+    await py.loadPackagesFromImports(code);
+    var r = await py.runPythonAsync(code);
+    if(r !== undefined && r !== null) add('← ' + String(r), 't-out');
+  }
+
+  async function runJS(code){
+    var orig = {};
+    ['log','info','warn','error'].forEach(function(m){
+      orig[m] = console[m];
+      console[m] = function(){
+        add(Array.prototype.map.call(arguments, fmtArg).join(' '), m === 'error' ? 't-err' : m === 'warn' ? 't-warn' : '');
+        orig[m].apply(console, arguments);
+      };
+    });
+    try{
+      var AF = Object.getPrototypeOf(async function(){}).constructor;
+      var r = await new AF(code)();
+      if(r !== undefined) add('← ' + fmtArg(r), 't-out');
+    } finally {
+      ['log','info','warn','error'].forEach(function(m){ console[m] = orig[m]; });
+    }
+  }
+
+  async function runCode(){
+    if(runBtn.disabled) return;
+    var code = codeEl.value;
+    if(!code.trim()) return;
+    runBtn.disabled = true;
+    add('$ ' + (langEl.value === 'python' ? 'python' : 'node'), 't-prompt');
+    try{
+      if(langEl.value === 'python') await runPy(code); else await runJS(code);
+      add(tdict().term_done, 't-ok');
+    }catch(e){
+      var msg = (e && e.message) ? e.message : String(e);
+      add(langEl.value === 'js' && e && e.name ? e.name + ': ' + msg : msg, 't-err');
+    }
+    runBtn.disabled = false;
+  }
+
+  function saveTerm(){
+    try{
+      localStorage.setItem('plythonic-term-lang', langEl.value);
+      localStorage.setItem('plythonic-term-code-' + langEl.value, codeEl.value);
+    }catch(e){}
+  }
+
+  function codeFor(l){
+    var c = null;
+    try{ c = localStorage.getItem('plythonic-term-code-' + l); }catch(e){}
+    return c !== null ? c : samples[l];
+  }
+
+  (function(){
+    var l = 'python';
+    try{ l = localStorage.getItem('plythonic-term-lang') || 'python'; }catch(e){}
+    if(!samples[l]) l = 'python';
+    langEl.value = l;
+    codeEl.value = codeFor(l);
+  })();
+
+  langEl.addEventListener('change', function(){
+    codeEl.value = codeFor(langEl.value);
+    try{ localStorage.setItem('plythonic-term-lang', langEl.value); }catch(e){}
+  });
+  codeEl.addEventListener('input', saveTerm);
+  codeEl.addEventListener('keydown', function(e){
+    if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+      e.preventDefault();
+      runCode();
+      return;
+    }
+    if(e.key === 'Tab'){
+      e.preventDefault();
+      var s = codeEl.selectionStart, en = codeEl.selectionEnd;
+      codeEl.value = codeEl.value.slice(0, s) + '    ' + codeEl.value.slice(en);
+      codeEl.selectionStart = codeEl.selectionEnd = s + 4;
+      saveTerm();
+    }
+  });
+  runBtn.addEventListener('click', runCode);
+  document.getElementById('termClearCode').addEventListener('click', function(){
+    codeEl.value = '';
+    saveTerm();
+    codeEl.focus();
+  });
+  document.getElementById('termClearOut').addEventListener('click', function(){
+    outEl.innerHTML = '';
+  });
 })();
 </script>
 
