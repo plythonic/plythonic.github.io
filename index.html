@@ -438,7 +438,7 @@ html.light .term-head{
   flex-direction:column;
 }
 .ide{animation-delay:.08s;overflow:hidden;}
-.ide .term-head{padding:9px 14px;}
+.ide .term-head{padding:9px 14px;flex-wrap:wrap;}
 .term-select{
   margin-left:auto;
   background:var(--panel-solid);
@@ -491,7 +491,13 @@ html.light .term-btn{border:1px solid rgba(0,0,0,.4);}
 .term-btn:active{transform:scale(.95);}
 .term-btn.run{background:var(--blue);border-color:var(--blue);color:#fff;}
 .term-btn.run::before{content:"▶ ";}
-.term-btn:disabled{opacity:.6;cursor:wait;}
+.term-btn.stop::before{content:"■ ";}
+.term-btn.restart::before{content:"↻ ";}
+.term-btn.kill::before{content:"✕ ";}
+.term-btn.stop,.term-btn.kill{color:#ff5c6c;}
+.term-btn.stop:hover,.term-btn.kill:hover{border-color:#ff5c6c;}
+.term-btn:disabled{opacity:.4;cursor:not-allowed;}
+.term-btn.run:disabled{cursor:wait;opacity:.6;}
 .panel-head{
   display:flex;
   align-items:center;
@@ -984,6 +990,9 @@ html.light .hist-item + .hist-item{
                 <option value="js">JavaScript</option>
               </select>
               <button type="button" class="term-btn run" id="termRun" data-i18n="term_run">Çalıştır</button>
+              <button type="button" class="term-btn stop" id="termStop" data-i18n="term_stop" disabled>Durdur</button>
+              <button type="button" class="term-btn restart" id="termRestart" data-i18n="term_restart">Yeniden başlat</button>
+              <button type="button" class="term-btn kill" id="termKill" data-i18n="term_kill">Sonlandır</button>
               <button type="button" class="term-btn" id="termClearCode" data-i18n="term_clear_code">Kodu sil</button>
             </div>
             <textarea id="termCode" class="term-editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
@@ -1091,6 +1100,7 @@ html.light .hist-item + .hist-item{
       term_output:"Output",
       term_loading:"Loading Python...",
       term_done:"Done",
+      term_stop:"Stop",term_restart:"Restart",term_kill:"Kill",term_stopped:"Stopped",term_killed:"Process killed, session reset",
       calc_history:"History",
       calc_clear:"Clear",
       calc_empty:"No calculations yet",
@@ -1115,6 +1125,7 @@ html.light .hist-item + .hist-item{
       term_output:"Çıktı",
       term_loading:"Python yükleniyor...",
       term_done:"Tamamlandı",
+      term_stop:"Durdur",term_restart:"Yeniden başlat",term_kill:"Sonlandır",term_stopped:"Durduruldu",term_killed:"Süreç sonlandırıldı, oturum sıfırlandı",
       calc_history:"Geçmiş",
       calc_clear:"Temizle",
       calc_empty:"Henüz işlem yok",
@@ -1139,6 +1150,7 @@ html.light .hist-item + .hist-item{
       term_output:"Вывод",
       term_loading:"Загрузка Python...",
       term_done:"Готово",
+      term_stop:"Стоп",term_restart:"Перезапуск",term_kill:"Завершить",term_stopped:"Остановлено",term_killed:"Процесс завершён, сессия сброшена",
       calc_history:"История",
       calc_clear:"Очистить",
       calc_empty:"Пока нет вычислений",
@@ -1473,16 +1485,58 @@ html.light .hist-item + .hist-item{
   renderCalc();
   renderHistory();
 
-  /* ===== Terminal (Python + JavaScript) ===== */
+  /* ===== Terminal (Python + JavaScript, Web Worker) ===== */
+  function workerMain(){
+    var py = null;
+    var base = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
+    function send(t, x){ postMessage({type:t, text:x}); }
+    function fmt(a){
+      if(typeof a === 'string') return a;
+      try{ return (typeof a === 'object' && a !== null) ? JSON.stringify(a, null, 2) : String(a); }
+      catch(e){ return String(a); }
+    }
+    onmessage = async function(e){
+      var m = e.data;
+      try{
+        if(m.lang === 'js'){
+          ['log','info','warn','error'].forEach(function(k){
+            console[k] = function(){
+              send(k === 'error' ? 'err' : k === 'warn' ? 'warn' : 'out', Array.prototype.map.call(arguments, fmt).join(' '));
+            };
+          });
+          var AF = Object.getPrototypeOf(async function(){}).constructor;
+          var r = await new AF(m.code)();
+          if(r !== undefined) send('res', fmt(r));
+        } else {
+          if(!py){
+            send('loading', '');
+            importScripts(base + 'pyodide.js');
+            py = await loadPyodide({indexURL: base});
+            py.setStdout({batched: function(t){ send('out', t); }});
+            py.setStderr({batched: function(t){ send('err', t); }});
+          }
+          await py.loadPackagesFromImports(m.code);
+          var r2 = await py.runPythonAsync(m.code);
+          if(r2 !== undefined && r2 !== null) send('res', String(r2));
+        }
+        postMessage({type:'done'});
+      }catch(err){
+        var msg = (err && err.message) ? err.message : String(err);
+        if(m.lang === 'js' && err && err.name) msg = err.name + ': ' + msg;
+        send('error', msg);
+      }
+    };
+  }
+
   var codeEl = document.getElementById('termCode');
   var outEl = document.getElementById('termOut');
   var langEl = document.getElementById('termLang');
   var runBtn = document.getElementById('termRun');
-  var samples = {
-    python: '',
-    js: ''
-  };
-  var py = null, pyPromise = null;
+  var stopBtn = document.getElementById('termStop');
+  var restartBtn2 = document.getElementById('termRestart');
+  var killBtn = document.getElementById('termKill');
+  var samples = {python:'', js:''};
+  var worker = null, running = false;
 
   function tdict(){ return translations[currentLang] || translations.tr; }
 
@@ -1494,79 +1548,65 @@ html.light .hist-item + .hist-item{
     outEl.scrollTop = outEl.scrollHeight;
   }
 
-  function fmtArg(a){
-    if(typeof a === 'string') return a;
-    try{ return (typeof a === 'object' && a !== null) ? JSON.stringify(a, null, 2) : String(a); }
-    catch(e){ return String(a); }
+  function setRunning(v){
+    running = v;
+    runBtn.disabled = v;
+    stopBtn.disabled = !v;
   }
 
-  function loadPy(){
-    if(pyPromise) return pyPromise;
-    pyPromise = new Promise(function(res, rej){
-      var s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js';
-      s.onload = function(){
-        loadPyodide().then(function(p){
-          p.setStdout({batched:function(t){ add(t); }});
-          p.setStderr({batched:function(t){ add(t, 't-err'); }});
-          p.setStdin({stdin:function(){
-            var v = prompt('input()');
-            return v === null ? undefined : v;
-          }});
-          py = p;
-          res(p);
-        }, function(e){ pyPromise = null; rej(e); });
-      };
-      s.onerror = function(){
-        pyPromise = null;
-        rej(new Error('Python yüklenemedi (internet bağlantısını kontrol et)'));
-      };
-      document.head.appendChild(s);
-    });
-    return pyPromise;
+  function handle(e){
+    var m = e.data;
+    if(m.type === 'out') add(m.text);
+    else if(m.type === 'err') add(m.text, 't-err');
+    else if(m.type === 'warn') add(m.text, 't-warn');
+    else if(m.type === 'res') add('← ' + m.text, 't-out');
+    else if(m.type === 'loading') add(tdict().term_loading, 't-out');
+    else if(m.type === 'done'){ add(tdict().term_done, 't-ok'); setRunning(false); }
+    else if(m.type === 'error'){ add(m.text, 't-err'); setRunning(false); }
   }
 
-  async function runPy(code){
-    if(!py){
-      add(tdict().term_loading, 't-out');
-      await loadPy();
-    }
-    await py.loadPackagesFromImports(code);
-    var r = await py.runPythonAsync(code);
-    if(r !== undefined && r !== null) add('← ' + String(r), 't-out');
+  function getWorker(){
+    if(worker) return worker;
+    var blob = new Blob(['(' + workerMain.toString() + ')()'], {type:'text/javascript'});
+    worker = new Worker(URL.createObjectURL(blob));
+    worker.onmessage = handle;
+    worker.onerror = function(e){
+      add(e.message || 'Worker error', 't-err');
+      setRunning(false);
+    };
+    return worker;
   }
 
-  async function runJS(code){
-    var orig = {};
-    ['log','info','warn','error'].forEach(function(m){
-      orig[m] = console[m];
-      console[m] = function(){
-        add(Array.prototype.map.call(arguments, fmtArg).join(' '), m === 'error' ? 't-err' : m === 'warn' ? 't-warn' : '');
-        orig[m].apply(console, arguments);
-      };
-    });
-    try{
-      var AF = Object.getPrototypeOf(async function(){}).constructor;
-      var r = await new AF(code)();
-      if(r !== undefined) add('← ' + fmtArg(r), 't-out');
-    } finally {
-      ['log','info','warn','error'].forEach(function(m){ console[m] = orig[m]; });
-    }
+  function killWorker(){
+    if(worker){ worker.terminate(); worker = null; }
   }
 
-  async function runCode(){
-    if(runBtn.disabled) return;
+  function runCode(){
+    if(running) return;
     var code = codeEl.value;
     if(!code.trim()) return;
-    runBtn.disabled = true;
-    try{
-      if(langEl.value === 'python') await runPy(code); else await runJS(code);
-      add(tdict().term_done, 't-ok');
-    }catch(e){
-      var msg = (e && e.message) ? e.message : String(e);
-      add(langEl.value === 'js' && e && e.name ? e.name + ': ' + msg : msg, 't-err');
-    }
-    runBtn.disabled = false;
+    setRunning(true);
+    getWorker().postMessage({lang: langEl.value, code: code});
+  }
+
+  function stopCode(){
+    if(!running) return;
+    killWorker();
+    add('^C ' + tdict().term_stopped, 't-warn');
+    setRunning(false);
+  }
+
+  function killCode(){
+    killWorker();
+    add(tdict().term_killed, 't-err');
+    setRunning(false);
+  }
+
+  function restartCode(){
+    killWorker();
+    setRunning(false);
+    outEl.innerHTML = '';
+    runCode();
   }
 
   function saveTerm(){
@@ -1585,7 +1625,7 @@ html.light .hist-item + .hist-item{
   (function(){
     var l = 'python';
     try{ l = localStorage.getItem('plythonic-term-lang') || 'python'; }catch(e){}
-    if(!samples[l]) l = 'python';
+    if(!samples.hasOwnProperty(l)) l = 'python';
     langEl.value = l;
     codeEl.value = codeFor(l);
   })();
@@ -1610,6 +1650,9 @@ html.light .hist-item + .hist-item{
     }
   });
   runBtn.addEventListener('click', runCode);
+  stopBtn.addEventListener('click', stopCode);
+  killBtn.addEventListener('click', killCode);
+  restartBtn2.addEventListener('click', restartCode);
   document.getElementById('termClearCode').addEventListener('click', function(){
     codeEl.value = '';
     saveTerm();
