@@ -431,13 +431,14 @@ html.light .term-head{
 .t-ok{color:var(--green);}
 
 .term-col{
-  flex:1 1 760px;
-  max-width:900px;
+  flex:1 1 900px;
+  max-width:1100px;
   min-width:0;
   display:flex;
   flex-direction:column;
-  gap:12px;
 }
+.ide{animation-delay:.08s;overflow:hidden;}
+.ide .term-head{padding:9px 14px;}
 .term-select{
   margin-left:auto;
   background:var(--panel-solid);
@@ -447,14 +448,16 @@ html.light .term-head{
   font-family:var(--font-b);
   font-weight:600;
   font-size:11.5px;
-  padding:5px 8px;
+  height:28px;
+  padding:0 8px;
   outline:none;
   cursor:pointer;
 }
 html.light .term-select{border:1px solid rgba(0,0,0,.4);}
 .term-editor{
   width:100%;
-  min-height:260px;
+  height:58vh;
+  min-height:380px;
   resize:vertical;
   display:block;
   background:transparent;
@@ -463,28 +466,22 @@ html.light .term-select{border:1px solid rgba(0,0,0,.4);}
   outline:none;
   padding:16px 18px;
   font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
-  font-size:13px;
+  font-size:13.5px;
   line-height:1.7;
   tab-size:4;
+  white-space:pre;
+  overflow:auto;
 }
-.term-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  padding:12px 16px;
-  border-top:1px solid rgba(255,255,255,.35);
-}
-html.light .term-actions{border-top:1px solid rgba(0,0,0,.4);}
 .term-btn{
-  height:34px;
-  padding:0 14px;
-  border-radius:9px;
+  height:28px;
+  padding:0 12px;
+  border-radius:8px;
   background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.35);
   color:var(--ink);
   font-family:var(--font-b);
   font-weight:600;
-  font-size:12px;
+  font-size:11.5px;
   cursor:pointer;
   outline:none;
   transition:border-color .2s,transform .1s;
@@ -495,16 +492,30 @@ html.light .term-btn{border:1px solid rgba(0,0,0,.4);}
 .term-btn.run{background:var(--blue);border-color:var(--blue);color:#fff;}
 .term-btn.run::before{content:"▶ ";}
 .term-btn:disabled{opacity:.6;cursor:wait;}
+.panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 16px;
+  border-top:1px solid rgba(255,255,255,.35);
+}
+html.light .panel-head{border-top:1px solid rgba(0,0,0,.4);}
+.panel-tab{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding-bottom:3px;
+  border-bottom:1.5px solid var(--blue);
+}
 .term-out{
-  padding:16px 18px;
-  min-height:140px;
-  max-height:420px;
+  padding:12px 18px 16px;
+  height:220px;
   overflow:auto;
   font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
   font-size:12.5px;
   line-height:1.7;
 }
-
 .tiles{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -965,24 +976,21 @@ html.light .hist-item + .hist-item{
     <div class="view" id="viewTerm">
       <div class="content">
         <section class="term-col">
-          <div class="card term-card">
+          <div class="card ide">
             <div class="term-head">
               <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-              <span class="term-title">plythonic@plython:~</span>
               <select id="termLang" class="term-select">
                 <option value="python">Python</option>
                 <option value="js">JavaScript</option>
               </select>
-            </div>
-            <textarea id="termCode" class="term-editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="# kodunu yaz..."></textarea>
-            <div class="term-actions">
               <button type="button" class="term-btn run" id="termRun" data-i18n="term_run">Çalıştır</button>
               <button type="button" class="term-btn" id="termClearCode" data-i18n="term_clear_code">Kodu sil</button>
-              <button type="button" class="term-btn" id="termClearOut" data-i18n="term_clear_out">Çıktıyı sil</button>
             </div>
-          </div>
-          <div class="card term-card">
-            <div class="term-head"><span class="term-title" data-i18n="term_output">Çıktı</span></div>
+            <textarea id="termCode" class="term-editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+            <div class="panel-head">
+              <span class="panel-tab" data-i18n="nav_term">Terminal</span>
+              <button type="button" class="link-btn" id="termClearOut" data-i18n="term_clear_out">Çıktıyı sil</button>
+            </div>
             <div class="term-out" id="termOut"></div>
           </div>
         </section>
@@ -1471,8 +1479,8 @@ html.light .hist-item + .hist-item{
   var langEl = document.getElementById('termLang');
   var runBtn = document.getElementById('termRun');
   var samples = {
-    python: 'print("Merhaba Plythonic!")\nfor i in range(3):\n    print(i * 2)\n',
-    js: 'console.log("Merhaba Plythonic!");\nfor (let i = 0; i < 3; i++) console.log(i * 2);\n'
+    python: '',
+    js: ''
   };
   var py = null, pyPromise = null;
 
@@ -1551,7 +1559,6 @@ html.light .hist-item + .hist-item{
     var code = codeEl.value;
     if(!code.trim()) return;
     runBtn.disabled = true;
-    add('$ ' + (langEl.value === 'python' ? 'python' : 'node'), 't-prompt');
     try{
       if(langEl.value === 'python') await runPy(code); else await runJS(code);
       add(tdict().term_done, 't-ok');
