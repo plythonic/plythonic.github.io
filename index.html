@@ -828,6 +828,155 @@ html.light .hist-item + .hist-item{
   .tiles{grid-template-columns:1fr;}
   .term-col{flex:1 1 100%;}
 }
+.loader{
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:26px;
+  padding:40px 20px;
+}
+.ring-wrap{
+  position:relative;
+  width:150px;
+  height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.ring{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px solid transparent;
+}
+.ring.r1{
+  border-top-color:var(--blue);
+  border-right-color:rgba(59,130,246,.35);
+  animation:ld-spin 1.6s linear infinite;
+}
+.ring.r2{
+  inset:14px;
+  border-bottom-color:var(--blue);
+  border-left-color:rgba(59,130,246,.35);
+  animation:ld-spin 2.2s linear infinite reverse;
+}
+.ring.r3{
+  inset:28px;
+  border:2px dashed rgba(59,130,246,.4);
+  animation:ld-spin 7s linear infinite;
+}
+.orbit{
+  position:absolute;
+  inset:0;
+  animation:ld-spin 3s linear infinite;
+}
+.orbit i{
+  position:absolute;
+  top:-4px;
+  left:50%;
+  width:8px;
+  height:8px;
+  margin-left:-4px;
+  border-radius:50%;
+  background:var(--blue);
+  box-shadow:0 0 14px 3px rgba(59,130,246,.8);
+}
+.core{
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  background:rgba(59,130,246,.1);
+  border:1px solid rgba(59,130,246,.4);
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:ld-pulse 1.8s ease-in-out infinite;
+}
+.core svg{width:28px;height:28px;}
+.load-word{
+  display:flex;
+  gap:6px;
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:22px;
+  letter-spacing:.14em;
+}
+.load-word span{
+  animation:ld-wave 1.8s ease-in-out infinite;
+  animation-delay:calc(var(--i) * .1s);
+}
+.status-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 14px;
+  border:1px solid rgba(59,130,246,.35);
+  background:rgba(59,130,246,.08);
+  border-radius:999px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--blue);
+}
+.status-chip::before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--blue);
+  box-shadow:0 0 8px 2px rgba(59,130,246,.7);
+  animation:ld-blink 1.2s steps(1) infinite;
+}
+.load-bar{
+  position:relative;
+  width:260px;
+  height:4px;
+  border-radius:4px;
+  background:rgba(255,255,255,.12);
+  overflow:hidden;
+}
+html.light .load-bar{background:rgba(0,0,0,.12);}
+.load-bar span{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:40%;
+  border-radius:4px;
+  background:linear-gradient(90deg,transparent,var(--blue),#7db0ff);
+  box-shadow:0 0 12px rgba(59,130,246,.7);
+  animation:ld-slide 1.5s ease-in-out infinite;
+}
+.load-msg{
+  min-height:18px;
+  margin-top:-10px;
+  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+  font-size:12.5px;
+  color:var(--muted);
+  transition:opacity .3s;
+}
+#loadText::after{
+  content:"_";
+  margin-left:2px;
+  color:var(--blue);
+  animation:ld-blink 1s steps(1) infinite;
+}
+@keyframes ld-slide{
+  0%{left:-40%;}
+  100%{left:100%;}
+}
+@keyframes ld-spin{to{transform:rotate(360deg);}}
+@keyframes ld-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(59,130,246,.35);}
+  50%{transform:scale(1.08);box-shadow:0 0 26px 4px rgba(59,130,246,.35);}
+}
+@keyframes ld-wave{
+  0%,100%{opacity:.35;transform:translateY(0);}
+  50%{opacity:1;transform:translateY(-5px);color:var(--blue);}
+}
+@keyframes ld-blink{50%{opacity:0;}}
 @media (max-width:900px){
   .calc-ide{flex-direction:column;height:auto;}
   .calc-hist{flex:none;border-left:none;border-top:1px solid rgba(255,255,255,.35);max-height:260px;}
@@ -896,7 +1045,19 @@ html.light .hist-item + .hist-item{
   </aside>
 
   <main>
-    <div class="view active" id="viewHome"></div>
+    <div class="view active" id="viewHome">
+      <div class="loader">
+        <div class="ring-wrap">
+          <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+          <span class="orbit"><i></i></span>
+          <span class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg></span>
+        </div>
+        <div class="load-word" aria-label="Plythonic"><span style="--i:0">P</span><span style="--i:1">L</span><span style="--i:2">Y</span><span style="--i:3">T</span><span style="--i:4">H</span><span style="--i:5">O</span><span style="--i:6">N</span><span style="--i:7">I</span><span style="--i:8">C</span></div>
+        <div class="status-chip" data-i18n="soon_chip">Yapım aşamasında</div>
+        <div class="load-bar"><span></span></div>
+        <div class="load-msg"><span id="loadText"></span></div>
+      </div>
+    </div>
 
     <div class="view" id="viewCalc">
       <div class="content">
@@ -1106,6 +1267,10 @@ html.light .hist-item + .hist-item{
       tile_visit:"VISITS",
       tile_visit_sub:"on this device",
       social_title:"Social Networks",
+      soon_chip:"Under construction",
+      soon_m1:"The site isn't ready yet",
+      soon_m2:"Working on it",
+      soon_m3:"Coming soon",
       label:"EN"
     },
     tr:{
@@ -1131,6 +1296,10 @@ html.light .hist-item + .hist-item{
       tile_visit:"ZİYARET",
       tile_visit_sub:"bu cihazda",
       social_title:"Sosyal Ağlar",
+      soon_chip:"Yapım aşamasında",
+      soon_m1:"Site henüz hazır değil",
+      soon_m2:"Üzerinde çalışıyorum",
+      soon_m3:"Çok yakında",
       label:"TR"
     },
     ru:{
@@ -1156,6 +1325,10 @@ html.light .hist-item + .hist-item{
       tile_visit:"ВИЗИТЫ",
       tile_visit_sub:"на этом устройстве",
       social_title:"Социальные сети",
+      soon_chip:"В разработке",
+      soon_m1:"Сайт ещё не готов",
+      soon_m2:"Работаю над этим",
+      soon_m3:"Скоро",
       label:"RU"
     }
   };
@@ -1858,6 +2031,27 @@ html.light .hist-item + .hist-item{
   document.getElementById('termClearOut').addEventListener('click', function(){
     outEl.innerHTML = '';
   });
+
+  /* ===== Home "site not ready" messages ===== */
+  (function(){
+    var text = document.getElementById('loadText');
+    if(!text) return;
+    var keys = ['soon_m1', 'soon_m2', 'soon_m3'];
+    var i = 0;
+    function show(){
+      var d = translations[currentLang] || translations.tr;
+      text.textContent = d[keys[i]];
+    }
+    show();
+    setInterval(function(){
+      text.parentNode.style.opacity = '0';
+      setTimeout(function(){
+        i = (i + 1) % keys.length;
+        show();
+        text.parentNode.style.opacity = '1';
+      }, 300);
+    }, 2800);
+  })();
 })();
 </script>
 
