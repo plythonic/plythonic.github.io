@@ -1016,7 +1016,7 @@ html.light .hist-item + .hist-item{
             <div class="calc-hist">
               <div class="card-head hist-head">
                 <span data-i18n="calc_history">Geçmiş</span>
-                <button class="link-btn" id="histClear" type="button" data-i18n="calc_clear">Temizle</button>
+                <button class="term-btn" id="histClear" type="button" data-i18n="calc_clear">Temizle</button>
               </div>
               <div class="divider"></div>
               <div class="hist-list" id="histList"></div>
@@ -1046,12 +1046,12 @@ html.light .hist-item + .hist-item{
               <button type="button" class="term-btn stop" id="termStop" data-i18n="term_stop" disabled>Durdur</button>
               <button type="button" class="term-btn restart" id="termRestart" data-i18n="term_restart">Yeniden Başlat</button>
               <button type="button" class="term-btn kill" id="termKill" data-i18n="term_kill">Sonlandır</button>
-              <button type="button" class="term-btn" id="termClearCode" data-i18n="term_clear_code">Kodu Sil</button>
+              <button type="button" class="term-btn" id="termClearCode" data-i18n="term_clear_code">Temizle</button>
             </div>
             <textarea id="termCode" class="term-editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
             <div class="panel-head">
               <span class="panel-tab" data-i18n="nav_term">Terminal</span>
-              <button type="button" class="term-btn" id="termClearOut" data-i18n="term_clear_out">Çıktıyı Sil</button>
+              <button type="button" class="term-btn" id="termClearOut" data-i18n="term_clear_out">Temizle</button>
             </div>
             <div class="term-out" id="termOut"></div>
           </div>
@@ -1148,8 +1148,8 @@ html.light .hist-item + .hist-item{
       nav_calc:"Calculator",
       nav_term:"Terminal",
       term_run:"Run",
-      term_clear_code:"Clear Code",
-      term_clear_out:"Clear Output",
+      term_clear_code:"Clear",
+      term_clear_out:"Clear",
       term_output:"Output",
       term_loading:"Loading Python...",
       term_done:"Done",
@@ -1173,8 +1173,8 @@ html.light .hist-item + .hist-item{
       nav_calc:"Hesap Makinesi",
       nav_term:"Terminal",
       term_run:"Çalıştır",
-      term_clear_code:"Kodu Sil",
-      term_clear_out:"Çıktıyı Sil",
+      term_clear_code:"Temizle",
+      term_clear_out:"Temizle",
       term_output:"Çıktı",
       term_loading:"Python yükleniyor...",
       term_done:"Tamamlandı",
@@ -1198,8 +1198,8 @@ html.light .hist-item + .hist-item{
       nav_calc:"Калькулятор",
       nav_term:"Терминал",
       term_run:"Запустить",
-      term_clear_code:"Очистить Код",
-      term_clear_out:"Очистить Вывод",
+      term_clear_code:"Очистить",
+      term_clear_out:"Очистить",
       term_output:"Вывод",
       term_loading:"Загрузка Python...",
       term_done:"Готово",
