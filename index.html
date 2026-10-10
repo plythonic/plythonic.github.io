@@ -448,21 +448,8 @@ html.light .term-head{
   min-height:380px;
 }
 .ide .term-head{padding:9px 14px;flex-wrap:wrap;flex:0 0 auto;}
-.term-select{
-  margin-left:0;
-  background:var(--panel-solid);
-  color:var(--blue);
-  border:1px solid rgba(255,255,255,.35);
-  border-radius:8px;
-  font-family:var(--font-b);
-  font-weight:600;
-  font-size:11.5px;
-  height:28px;
-  padding:0 8px;
-  outline:none;
-  cursor:pointer;
-}
-html.light .term-select{border:1px solid rgba(0,0,0,.4);}
+#termLangSwitch .lang-menu{left:0;right:auto;min-width:130px;}
+#termLangBtn{height:28px;}
 .term-editor{
   width:100%;
   flex:1 1 auto;
@@ -998,10 +985,17 @@ html.light .hist-item + .hist-item{
         <section class="term-col">
           <div class="card ide">
             <div class="term-head">
-              <select id="termLang" class="term-select">
-                <option value="python">Python</option>
-                <option value="js">JavaScript</option>
-              </select>
+              <input type="hidden" id="termLang" value="python">
+              <div class="lang-switch" id="termLangSwitch">
+                <button class="lang-current" id="termLangBtn" type="button" aria-haspopup="true" aria-expanded="false">
+                  <span id="termLangLabel">Python</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="lang-menu" id="termLangMenu">
+                  <button type="button" data-tl="python" class="active">Python</button>
+                  <button type="button" data-tl="js">JavaScript</button>
+                </div>
+              </div>
               <button type="button" class="term-btn run" id="termRun" data-i18n="term_run">Çalıştır</button>
               <button type="button" class="term-btn stop" id="termStop" data-i18n="term_stop" disabled>Durdur</button>
               <button type="button" class="term-btn restart" id="termRestart" data-i18n="term_restart">Yeniden başlat</button>
@@ -1641,8 +1635,35 @@ html.light .hist-item + .hist-item{
     if(!samples.hasOwnProperty(l)) l = 'python';
     langEl.value = l;
     codeEl.value = codeFor(l);
+    syncTermLang();
   })();
 
+  function syncTermLang(){
+    var names = {python:'Python', js:'JavaScript'};
+    document.getElementById('termLangLabel').textContent = names[langEl.value] || 'Python';
+    document.querySelectorAll('#termLangMenu button').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-tl') === langEl.value);
+    });
+  }
+  var tlSwitch = document.getElementById('termLangSwitch');
+  var tlBtn = document.getElementById('termLangBtn');
+  tlBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    tlBtn.setAttribute('aria-expanded', tlSwitch.classList.toggle('open'));
+  });
+  document.querySelectorAll('#termLangMenu button').forEach(function(b){
+    b.addEventListener('click', function(){
+      langEl.value = b.getAttribute('data-tl');
+      syncTermLang();
+      tlSwitch.classList.remove('open');
+      tlBtn.setAttribute('aria-expanded', 'false');
+      langEl.dispatchEvent(new Event('change'));
+    });
+  });
+  document.addEventListener('click', function(){
+    tlSwitch.classList.remove('open');
+    tlBtn.setAttribute('aria-expanded', 'false');
+  });
   langEl.addEventListener('change', function(){
     codeEl.value = codeFor(langEl.value);
     try{ localStorage.setItem('plythonic-term-lang', langEl.value); }catch(e){}
