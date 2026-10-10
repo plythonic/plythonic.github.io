@@ -577,22 +577,21 @@ html.light .site-footer{
   display:flex;
 }
 .calc-col{
-  flex:0 1 380px;
-  min-width:280px;
+  flex:0 1 460px;
+  min-width:300px;
   display:flex;
   flex-direction:column;
   gap:12px;
 }
 .hist-col{
-  flex:0 1 300px;
-  min-width:240px;
-  padding-top:46px;
+  flex:0 1 380px;
+  min-width:260px;
 }
 .calc-card{
-  padding:16px;
+  padding:20px;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:16px;
   animation-delay:.08s;
 }
 .hist-card{
@@ -602,9 +601,9 @@ html.light .site-footer{
   background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.35);
   border-radius:10px;
-  padding:14px 16px;
+  padding:18px 20px;
   text-align:right;
-  min-height:96px;
+  min-height:130px;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
@@ -616,7 +615,7 @@ html.light .calc-display{
   border:1px solid rgba(0,0,0,.4);
 }
 .calc-expr{
-  font-size:12px;
+  font-size:13.5px;
   color:var(--muted);
   min-height:16px;
   word-break:break-all;
@@ -624,7 +623,7 @@ html.light .calc-display{
 .calc-result{
   font-family:var(--font-d);
   font-weight:700;
-  font-size:34px;
+  font-size:44px;
   letter-spacing:-.01em;
   line-height:1.15;
   word-break:break-all;
@@ -632,17 +631,17 @@ html.light .calc-display{
 .calc-keys{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:8px;
+  gap:10px;
 }
 .calc-keys button{
-  height:50px;
+  height:64px;
   border-radius:10px;
   background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.35);
   color:var(--ink);
   font-family:var(--font-d);
   font-weight:600;
-  font-size:16px;
+  font-size:20px;
   cursor:pointer;
   outline:none;
   transition:border-color .2s,transform .1s,background .2s;
@@ -668,6 +667,8 @@ html.light .calc-keys button{
 }
 .calc-keys .k-eq:hover{filter:brightness(1.1);}
 .hist-head{
+  font-size:15px;
+  padding:14px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -685,11 +686,11 @@ html.light .calc-keys button{
 .hist-list{
   display:flex;
   flex-direction:column;
-  max-height:340px;
+  max-height:430px;
   overflow:auto;
 }
 .hist-item{
-  padding:10px 18px;
+  padding:13px 20px;
   text-align:right;
 }
 .hist-item + .hist-item{
@@ -699,17 +700,17 @@ html.light .hist-item + .hist-item{
   border-top:1px solid rgba(0,0,0,.15);
 }
 .hist-expr{
-  font-size:11.5px;
+  font-size:12.5px;
   color:var(--muted);
 }
 .hist-res{
   font-family:var(--font-d);
   font-weight:700;
-  font-size:15px;
+  font-size:19px;
 }
 .hist-empty{
-  padding:22px 18px;
-  font-size:12px;
+  padding:30px 20px;
+  font-size:13px;
   color:var(--muted);
   text-align:center;
 }
@@ -732,7 +733,6 @@ html.light .hist-item + .hist-item{
   .greeting{font-size:17px;}
   .tiles{grid-template-columns:1fr;}
   .calc-col,.hist-col{flex:1 1 100%;}
-  .hist-col{padding-top:0;}
 }
 </style>
 </head>
@@ -863,10 +863,6 @@ html.light .hist-item + .hist-item{
     <div class="view" id="viewCalc">
       <div class="content">
         <section class="calc-col">
-          <div class="greeting">
-            <span class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg></span>
-            <span data-i18n="calc_title">Hesap Makinesi</span>
-          </div>
           <div class="card calc-card">
             <div class="calc-display">
               <div class="calc-expr" id="calcExpr"></div>
@@ -996,7 +992,6 @@ html.light .hist-item + .hist-item{
       nav_home:"Home",
       nav_projects:"PROJECTS",
       nav_calc:"Calculator",
-      calc_title:"Calculator",
       calc_history:"History",
       calc_clear:"Clear",
       calc_empty:"No calculations yet",
@@ -1015,7 +1010,6 @@ html.light .hist-item + .hist-item{
       nav_home:"Ana Sayfa",
       nav_projects:"PROJELER",
       nav_calc:"Hesap Makinesi",
-      calc_title:"Hesap Makinesi",
       calc_history:"Geçmiş",
       calc_clear:"Temizle",
       calc_empty:"Henüz işlem yok",
@@ -1034,7 +1028,6 @@ html.light .hist-item + .hist-item{
       nav_home:"Главная",
       nav_projects:"ПРОЕКТЫ",
       nav_calc:"Калькулятор",
-      calc_title:"Калькулятор",
       calc_history:"История",
       calc_clear:"Очистить",
       calc_empty:"Пока нет вычислений",
@@ -1213,7 +1206,7 @@ html.light .hist-item + .hist-item{
     res.textContent = text;
     ex.textContent = calc.expr;
     var len = text.length;
-    res.style.fontSize = len > 16 ? '20px' : len > 12 ? '26px' : len > 9 ? '30px' : '34px';
+    res.style.fontSize = len > 16 ? '24px' : len > 12 ? '32px' : len > 9 ? '38px' : '44px';
   }
 
   function resetCalc(){
