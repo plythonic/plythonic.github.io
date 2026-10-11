@@ -364,122 +364,6 @@ html.light .card{
 html.light .term-head{
   border-bottom:1px solid rgba(0,0,0,.4);
 }
-.t-line{white-space:pre-wrap;word-break:break-word;}
-.t-prompt{color:var(--blue);}
-.t-out{color:var(--muted);}
-.t-err{color:#ff5c6c;}
-.t-warn{color:#e5b53b;}
-.t-ok{color:var(--green);}
-
-#viewTerm .content{padding:12px 16px;align-items:stretch;}
-.term-col{
-  flex:1 1 100%;
-  width:100%;
-  max-width:none;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-}
-.ide{
-  animation-delay:.08s;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  height:calc(100vh - 150px);
-  min-height:380px;
-}
-.ide .term-head{padding:9px 14px;flex-wrap:wrap;flex:0 0 auto;}
-#termLangSwitch .lang-menu{left:0;right:auto;min-width:130px;}
-#termLangBtn{height:28px;}
-#termRun{margin-left:auto;}
-.term-editor{
-  width:100%;
-  flex:1 1 auto;
-  min-height:0;
-  resize:none;
-  display:block;
-  background:transparent;
-  color:var(--ink);
-  border:none;
-  outline:none;
-  padding:16px 18px;
-  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
-  font-size:13.5px;
-  line-height:1.7;
-  tab-size:4;
-  white-space:pre;
-  overflow:auto;
-}
-.term-btn{
-  height:28px;
-  padding:0 12px;
-  border-radius:8px;
-  background:rgba(255,255,255,.015);
-  border:1px solid rgba(255,255,255,.35);
-  color:var(--ink);
-  font-family:var(--font-b);
-  font-weight:600;
-  font-size:11.5px;
-  cursor:pointer;
-  outline:none;
-  transition:border-color .2s,transform .1s;
-}
-html.light .term-btn{border:1px solid rgba(0,0,0,.4);}
-.term-btn:hover{border-color:var(--blue);}
-.term-btn:active{transform:scale(.95);}
-.term-btn.run{background:var(--blue);border-color:var(--blue);color:#fff;}
-.term-btn.run::before{content:"▶ ";}
-.term-btn.stop::before{content:"■ ";}
-.term-btn.restart::before{content:"↻ ";}
-.term-btn.kill::before{content:"✕ ";}
-.term-btn.stop,.term-btn.kill{color:#ff5c6c;}
-.term-btn.stop:hover,.term-btn.kill:hover{border-color:#ff5c6c;}
-.term-btn:disabled{opacity:.4;cursor:not-allowed;}
-.term-btn.run:disabled{cursor:wait;opacity:.6;}
-.term-btn.restart{color:#e5b53b;}
-.term-btn.restart:hover{border-color:#e5b53b;}
-.term-btn.stop:disabled{opacity:1;pointer-events:none;cursor:default;}
-.panel-head{
-  flex:0 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:8px 16px;
-  border-top:1px solid rgba(255,255,255,.35);
-}
-html.light .panel-head{border-top:1px solid rgba(0,0,0,.4);}
-.panel-tab{
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  padding-bottom:3px;
-  border-bottom:1.5px solid var(--blue);
-}
-.term-out{
-  padding:8px 18px 10px;
-  flex:0 0 120px;
-  height:120px;
-  overflow:auto;
-  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
-  font-size:12.5px;
-  line-height:1.7;
-}
-.card-head{
-  padding:12px 18px;
-  font-family:var(--font-d);
-  font-weight:600;
-  font-size:14px;
-}
-.divider{
-  height:1px;
-  background:rgba(255,255,255,.35);
-  margin:0 18px;
-}
-html.light .divider{
-  background:rgba(0,0,0,.4);
-}
-
 .site-footer{
   position:relative;
   z-index:2;
@@ -625,6 +509,70 @@ html.light .code-card{
   color:var(--ink);
 }
 
+.pl-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding:32px 56px;
+  min-width:0;
+}
+.pl-block{
+  width:100%;
+  max-width:620px;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+.pl-head{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.pl-icon{
+  width:58px;
+  height:58px;
+  border-radius:16px;
+  background:rgba(59,130,246,.1);
+  border:1px solid rgba(59,130,246,.45);
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 0 36px -6px rgba(59,130,246,.45);
+}
+.pl-icon svg{width:30px;height:30px;}
+.pl-title{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:34px;
+  letter-spacing:-.01em;
+}
+.pl-block p{
+  font-size:16px;
+  line-height:1.85;
+  color:var(--ink);
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  text-shadow:0 0 14px var(--bg),0 0 6px var(--bg);
+}
+.pl-link{
+  align-self:flex-start;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 18px;
+  border-radius:10px;
+  background:var(--blue);
+  color:#fff;
+  font-weight:600;
+  font-size:13px;
+  transition:filter .2s,transform .1s;
+}
+.pl-link:hover{filter:brightness(1.1);}
+.pl-link:active{transform:scale(.96);}
 @media (max-width:980px){
   .sidebar{
     position:fixed;
@@ -636,6 +584,7 @@ html.light .code-card{
   }
   .content{padding:24px 20px 32px;}
   .home-wrap{padding:24px 20px;}
+  .pl-wrap{padding:24px 20px;}
 }
 @media (max-width:760px){
   .about-grid{gap:24px;}
@@ -650,169 +599,10 @@ html.light .code-card{
   .site-header{padding:0 12px;}
   .content{padding:20px 14px 28px;}
   .home-wrap{padding:16px 12px;}
-  .term-col{flex:1 1 100%;}
+  .pl-wrap{padding:16px 12px;}
+  .pl-title{font-size:28px;}
 }
 
-#viewCalc .content{padding:12px 16px;align-items:stretch;}
-.calc-wrap{flex:1 1 100%;width:100%;min-width:0;display:flex;flex-direction:column;}
-.calc-ide{
-  animation-delay:.08s;
-  display:flex;
-  flex-direction:row;
-  height:calc(100vh - 150px);
-  min-height:480px;
-  overflow:hidden;
-}
-.calc-main{
-  flex:1 1 auto;
-  min-width:0;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.calc-keys-wrap{flex:1 1 auto;min-height:0;display:flex;gap:14px;}
-.calc-hist{
-  flex:0 0 300px;
-  display:flex;
-  flex-direction:column;
-  min-height:0;
-  border-left:1px solid rgba(255,255,255,.35);
-}
-html.light .calc-hist{border-left:1px solid rgba(0,0,0,.4);}
-.calc-display{
-  background:rgba(255,255,255,.015);
-  border:1px solid rgba(255,255,255,.35);
-  border-radius:10px;
-  padding:18px 20px;
-  text-align:right;
-  min-height:120px;
-  flex:0 0 auto;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  gap:4px;
-  overflow:hidden;
-}
-html.light .calc-display{
-  background:rgba(0,0,0,.015);
-  border:1px solid rgba(0,0,0,.4);
-}
-.calc-expr{
-  font-size:13.5px;
-  color:var(--muted);
-  min-height:16px;
-  word-break:break-all;
-}
-.calc-result{
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:44px;
-  letter-spacing:-.01em;
-  line-height:1.15;
-  word-break:break-all;
-}
-.calc-keys{
-  flex:1 1 0;
-  min-width:0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:repeat(5,minmax(40px,1fr));
-  gap:10px;
-}
-.calc-keys button{
-  height:100%;
-  min-height:40px;
-  border-radius:10px;
-  background:rgba(255,255,255,.015);
-  border:1px solid rgba(255,255,255,.35);
-  color:var(--ink);
-  font-family:var(--font-d);
-  font-weight:600;
-  font-size:20px;
-  cursor:pointer;
-  outline:none;
-  transition:border-color .2s,transform .1s,background .2s;
-}
-html.light .calc-keys button{
-  background:rgba(0,0,0,.015);
-  border:1px solid rgba(0,0,0,.4);
-}
-.calc-keys button:hover{
-  border-color:var(--blue);
-}
-.calc-keys button:active,
-.calc-keys button.pressed{
-  transform:scale(.94);
-  border-color:var(--blue);
-}
-.calc-keys .k-sci{font-size:14px;}
-.calc-keys .k-op{color:var(--blue);}
-.calc-keys .k-fn{color:var(--muted);}
-.calc-keys .k-eq{
-  background:var(--blue);
-  border-color:var(--blue);
-  color:#fff;
-}
-.calc-keys .k-eq:hover{filter:brightness(1.1);}
-.hist-head{
-  font-size:15px;
-  padding:14px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.link-btn{
-  background:none;
-  border:none;
-  color:var(--blue);
-  font-family:var(--font-b);
-  font-weight:600;
-  font-size:11.5px;
-  cursor:pointer;
-  outline:none;
-}
-.hist-list{
-  display:flex;
-  flex-direction:column;
-  flex:1 1 auto;
-  min-height:0;
-  overflow:auto;
-}
-.hist-item{
-  padding:13px 20px;
-  text-align:right;
-  cursor:pointer;
-}
-.hist-item:hover{background:rgba(59,130,246,.08);}
-.hist-item + .hist-item{
-  border-top:1px solid rgba(255,255,255,.15);
-}
-html.light .hist-item + .hist-item{
-  border-top:1px solid rgba(0,0,0,.15);
-}
-.hist-expr{
-  font-size:12.5px;
-  color:var(--muted);
-}
-.hist-res{
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:19px;
-}
-.hist-empty{
-  padding:30px 20px;
-  font-size:13px;
-  color:var(--muted);
-  text-align:center;
-}
-@media (max-width:900px){
-  .calc-ide{flex-direction:column;height:auto;}
-  .calc-hist{flex:none;border-left:none;border-top:1px solid rgba(255,255,255,.35);max-height:260px;}
-  html.light .calc-hist{border-top:1px solid rgba(0,0,0,.4);}
-  .calc-keys-wrap{flex-direction:column;}
-  .calc-keys{grid-template-rows:repeat(5,50px);}
-}
 </style>
 </head>
 <body>
@@ -857,19 +647,11 @@ html.light .hist-item + .hist-item{
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg>
       <span data-i18n="nav_home">Ana Sayfa</span>
     </a>
-    <a class="nav-item" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg>
-      <span>Plython</span>
-    </a>
     <div class="nav-sep"></div>
     <div class="nav-label" data-i18n="nav_projects">PROJELER</div>
-    <a class="nav-item" id="navCalc" href="#calculator">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg>
-      <span data-i18n="nav_calc">Hesap Makinesi</span>
-    </a>
-    <a class="nav-item" id="navTerm" href="#terminal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9l3 3-3 3M13 15h4"/></svg>
-      <span data-i18n="nav_term">Terminal</span>
+    <a class="nav-item" id="navPlython" href="#plython">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg>
+      <span>Plython</span>
     </a>
   </aside>
 
@@ -902,105 +684,17 @@ html.light .hist-item + .hist-item{
       </div>
     </div>
 
-    <div class="view" id="viewCalc">
-      <div class="content">
-        <section class="calc-wrap">
-          <div class="card calc-ide">
-            <div class="calc-main">
-              <div class="calc-display">
-                <div class="calc-expr" id="calcExpr"></div>
-                <div class="calc-result" id="calcResult">0</div>
-              </div>
-              <div class="calc-keys-wrap" id="calcKeys">
-                <div class="calc-keys">
-                <button type="button" data-k="DEG" class="k-fn k-sci" id="degBtn">DEG</button>
-                <button type="button" data-k="sin" class="k-sci">sin</button>
-                <button type="button" data-k="cos" class="k-sci">cos</button>
-                <button type="button" data-k="tan" class="k-sci">tan</button>
-                <button type="button" data-k="asin" class="k-sci">sin⁻¹</button>
-                <button type="button" data-k="acos" class="k-sci">cos⁻¹</button>
-                <button type="button" data-k="atan" class="k-sci">tan⁻¹</button>
-                <button type="button" data-k="pi" class="k-sci">π</button>
-                <button type="button" data-k="ln" class="k-sci">ln</button>
-                <button type="button" data-k="log" class="k-sci">log</button>
-                <button type="button" data-k="exp" class="k-sci">eˣ</button>
-                <button type="button" data-k="e" class="k-sci">e</button>
-                <button type="button" data-k="sqrt" class="k-sci">√</button>
-                <button type="button" data-k="sq" class="k-sci">x²</button>
-                <button type="button" data-k="^" class="k-sci">xʸ</button>
-                <button type="button" data-k="inv" class="k-sci">1/x</button>
-                <button type="button" data-k="(" class="k-sci">(</button>
-                <button type="button" data-k=")" class="k-sci">)</button>
-                <button type="button" data-k="!" class="k-sci">n!</button>
-                <button type="button" data-k="abs" class="k-sci">|x|</button>
-                </div>
-                <div class="calc-keys">
-                <button type="button" data-k="AC" class="k-fn">AC</button>
-                <button type="button" data-k="DEL" class="k-fn">⌫</button>
-                <button type="button" data-k="%" class="k-fn">%</button>
-                <button type="button" data-k="/" class="k-op">÷</button>
-                <button type="button" data-k="7">7</button>
-                <button type="button" data-k="8">8</button>
-                <button type="button" data-k="9">9</button>
-                <button type="button" data-k="*" class="k-op">×</button>
-                <button type="button" data-k="4">4</button>
-                <button type="button" data-k="5">5</button>
-                <button type="button" data-k="6">6</button>
-                <button type="button" data-k="-" class="k-op">−</button>
-                <button type="button" data-k="1">1</button>
-                <button type="button" data-k="2">2</button>
-                <button type="button" data-k="3">3</button>
-                <button type="button" data-k="+" class="k-op">+</button>
-                <button type="button" data-k="NEG" class="k-fn">±</button>
-                <button type="button" data-k="0">0</button>
-                <button type="button" data-k=".">.</button>
-                <button type="button" data-k="=" class="k-eq">=</button>
-                </div>
-              </div>
-            </div>
-            <div class="calc-hist">
-              <div class="card-head hist-head">
-                <span data-i18n="calc_history">Geçmiş</span>
-                <button class="term-btn" id="histClear" type="button" data-i18n="calc_clear">Temizle</button>
-              </div>
-              <div class="divider"></div>
-              <div class="hist-list" id="histList"></div>
-            </div>
+    <div class="view" id="viewPlython">
+      <div class="pl-wrap">
+        <div class="pl-block">
+          <div class="pl-head">
+            <span class="pl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg></span>
+            <h1 class="pl-title">Plython</h1>
           </div>
-        </section>
-      </div>
-    </div>
-
-    <div class="view" id="viewTerm">
-      <div class="content">
-        <section class="term-col">
-          <div class="card ide">
-            <div class="term-head">
-              <input type="hidden" id="termLang" value="python">
-              <div class="lang-switch" id="termLangSwitch">
-                <button class="lang-current" id="termLangBtn" type="button" aria-haspopup="true" aria-expanded="false">
-                  <span id="termLangLabel">Python</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                </button>
-                <div class="lang-menu" id="termLangMenu">
-                  <button type="button" data-tl="python" class="active">Python</button>
-                  <button type="button" data-tl="js">JavaScript</button>
-                </div>
-              </div>
-              <button type="button" class="term-btn run" id="termRun" data-i18n="term_run">Çalıştır</button>
-              <button type="button" class="term-btn stop" id="termStop" data-i18n="term_stop" disabled>Durdur</button>
-              <button type="button" class="term-btn restart" id="termRestart" data-i18n="term_restart">Yeniden Başlat</button>
-              <button type="button" class="term-btn kill" id="termKill" data-i18n="term_kill">Sonlandır</button>
-              <button type="button" class="term-btn" id="termClearCode" data-i18n="term_clear_code">Temizle</button>
-            </div>
-            <textarea id="termCode" class="term-editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
-            <div class="panel-head">
-              <span class="panel-tab" data-i18n="nav_term">Terminal</span>
-              <button type="button" class="term-btn" id="termClearOut" data-i18n="term_clear_out">Temizle</button>
-            </div>
-            <div class="term-out" id="termOut"></div>
-          </div>
-        </section>
+          <p data-i18n="plython_p1"></p>
+          <p data-i18n="plython_p2"></p>
+          <a class="pl-link" href="https://discord.gg/plython" target="_blank" rel="noopener" data-i18n="plython_btn">Discord'a Katıl</a>
+        </div>
       </div>
     </div>
   </main>
@@ -1090,61 +784,31 @@ html.light .hist-item + .hist-item{
     en:{
       nav_home:"Home",
       nav_projects:"PROJECTS",
-      nav_calc:"Calculator",
-      nav_term:"Terminal",
-      term_run:"Run",
-      term_clear_code:"Clear",
-      term_clear_out:"Clear",
-      term_output:"Output",
-      term_loading:"Loading Python...",
-      term_done:"Done",
-      term_stop:"Stop",term_restart:"Restart",term_kill:"Kill",term_stopped:"Stopped",term_killed:"Process killed, session reset",
-      calc_history:"History",
-      calc_clear:"Clear",
-      calc_empty:"No calculations yet",
-      calc_error:"Error",
       about_p1:"I'm Plythonic, a developer who builds Discord bots. Most of my work is done in Python with the py-cord library. Writing bots with clean interfaces and well-organized code that people can comfortably use every day is always my priority. I prepare the interfaces of my projects in the languages the community speaks, such as Turkish and Azerbaijani.",
-      about_p2:"I build bots for moderation, music and server management, and my work also includes modern component-based interfaces and Flask-based web management panels. Besides that, I experiment with new projects in Discord.js and keep improving myself with small tools like the calculator and terminal on this site.",
+      about_p2:"I build bots for moderation, music and server management, and my work also includes modern component-based interfaces and Flask-based web management panels. Besides that, I experiment with new projects in Discord.js and keep improving myself.",
+      plython_p1:"Plython is a Discord bot developed by Plythonic with Python and py-cord. It is built to make everyday server management easier and to give communities a clean, organized experience.",
+      plython_p2:"The bot can be configured and managed through a simple Flask-based web panel with sidebar navigation. For announcements and updates about Plython, you can join the Discord server.",
+      plython_btn:"Join Discord",
       label:"EN"
     },
     tr:{
       nav_home:"Ana Sayfa",
       nav_projects:"PROJELER",
-      nav_calc:"Hesap Makinesi",
-      nav_term:"Terminal",
-      term_run:"Çalıştır",
-      term_clear_code:"Temizle",
-      term_clear_out:"Temizle",
-      term_output:"Çıktı",
-      term_loading:"Python yükleniyor...",
-      term_done:"Tamamlandı",
-      term_stop:"Durdur",term_restart:"Yeniden Başlat",term_kill:"Sonlandır",term_stopped:"Durduruldu",term_killed:"Süreç sonlandırıldı, oturum sıfırlandı",
-      calc_history:"Geçmiş",
-      calc_clear:"Temizle",
-      calc_empty:"Henüz işlem yok",
-      calc_error:"Hata",
       about_p1:"Ben Plythonic, Discord botları geliştiren bir yazılımcıyım. Çalışmalarımın büyük bölümünü Python ve py-cord kütüphanesi ile yapıyorum. Kullanıcıların günlük olarak rahatça kullanabileceği, temiz arayüzlü ve düzenli kodlanmış botlar yazmak benim için her zaman önceliktir. Projelerimin arayüzlerini Türkçe ve Azerbaycan Türkçesi gibi topluluğun konuştuğu dillerde hazırlıyorum.",
-      about_p2:"Moderasyon, müzik ve sunucu yönetimi gibi alanlarda çalışan botlar geliştiriyorum; modern bileşenli arayüzler ve Flask tabanlı web yönetim panelleri de çalışmalarımın bir parçası. Bunun yanında Discord.js ile yeni projeler deniyor, bu sitedeki hesap makinesi ve terminal gibi küçük araçlarla kendimi geliştirmeye devam ediyorum.",
+      about_p2:"Moderasyon, müzik ve sunucu yönetimi gibi alanlarda çalışan botlar geliştiriyorum; modern bileşenli arayüzler ve Flask tabanlı web yönetim panelleri de çalışmalarımın bir parçası. Bunun yanında Discord.js ile yeni projeler deniyor ve kendimi geliştirmeye devam ediyorum.",
+      plython_p1:"Plython, Plythonic tarafından Python ve py-cord ile geliştirilen bir Discord botudur. Sunucuların günlük yönetimini kolaylaştırmak ve topluluklara düzenli, sade bir deneyim sunmak amacıyla hazırlanmıştır.",
+      plython_p2:"Botun ayarları ve yönetimi, kenar menülü sade bir Flask tabanlı web paneli üzerinden yapılabilir. Plython ile ilgili duyurular ve güncellemeler için Discord sunucusuna katılabilirsin.",
+      plython_btn:"Discord'a Katıl",
       label:"TR"
     },
     ru:{
       nav_home:"Главная",
       nav_projects:"ПРОЕКТЫ",
-      nav_calc:"Калькулятор",
-      nav_term:"Терминал",
-      term_run:"Запустить",
-      term_clear_code:"Очистить",
-      term_clear_out:"Очистить",
-      term_output:"Вывод",
-      term_loading:"Загрузка Python...",
-      term_done:"Готово",
-      term_stop:"Стоп",term_restart:"Перезапуск",term_kill:"Завершить",term_stopped:"Остановлено",term_killed:"Процесс завершён, сессия сброшена",
-      calc_history:"История",
-      calc_clear:"Очистить",
-      calc_empty:"Пока нет вычислений",
-      calc_error:"Ошибка",
       about_p1:"Я Plythonic, разработчик Discord-ботов. Большую часть работы я делаю на Python с библиотекой py-cord. Для меня всегда в приоритете боты с чистым интерфейсом и аккуратным кодом, которыми удобно пользоваться каждый день. Интерфейсы своих проектов я готовлю на языках, на которых говорит сообщество, например на турецком и азербайджанском.",
-      about_p2:"Я разрабатываю ботов для модерации, музыки и управления серверами, а также современные интерфейсы на компонентах и веб-панели управления на Flask. Кроме того, я пробую новые проекты на Discord.js и продолжаю развиваться на небольших инструментах, таких как калькулятор и терминал на этом сайте.",
+      about_p2:"Я разрабатываю ботов для модерации, музыки и управления серверами, а также современные интерфейсы на компонентах и веб-панели управления на Flask. Кроме того, я пробую новые проекты на Discord.js и продолжаю развиваться.",
+      plython_p1:"Plython — это Discord-бот, разработанный Plythonic на Python и py-cord. Он создан, чтобы упростить повседневное управление серверами и дать сообществам аккуратный и понятный опыт.",
+      plython_p2:"Настройка и управление ботом доступны через простую веб-панель на Flask с боковым меню. Объявления и обновления о Plython можно найти на Discord-сервере.",
+      plython_btn:"Присоединиться к Discord",
       label:"RU"
     }
   };
@@ -1202,7 +866,6 @@ html.light .hist-item + .hist-item{
     localStorage.setItem('plythonic-lang-v2', lang);
     currentLang = lang;
     updateDate();
-    renderHistory();
   }
 
   langCurrent.addEventListener('click', function(e){
@@ -1244,393 +907,17 @@ html.light .hist-item + .hist-item{
   setInterval(updateClock, 1000);
   initVisits();
 
-  var calc = {expr:'', line:'', res:'0', preview:'0', pvErr:false, justEq:false, error:false, deg:true};
-  var calcHistory;
-  var OPS = {'+':'+', '-':'−', '*':'×', '/':'÷', '^':'^'};
-  var FKEYS = {sin:'sin(', cos:'cos(', tan:'tan(', asin:'asin(', acos:'acos(', atan:'atan(', ln:'ln(', log:'log(', exp:'exp(', sqrt:'√(', abs:'abs('};
-  var TOKEN_RE = /(asin\(|acos\(|atan\(|sin\(|cos\(|tan\(|ln\(|log\(|exp\(|abs\(|√\(|.)$/;
-
-  function loadHistory(){
-    if(calcHistory) return calcHistory;
-    calcHistory = [];
-    try{
-      calcHistory = JSON.parse(localStorage.getItem('plythonic-calc-history') || '[]');
-    }catch(e){
-      calcHistory = [];
-    }
-    if(!Array.isArray(calcHistory)) calcHistory = [];
-    return calcHistory;
-  }
-
-  function saveHistory(){
-    try{
-      localStorage.setItem('plythonic-calc-history', JSON.stringify(calcHistory));
-    }catch(e){}
-  }
-
-  function renderHistory(){
-    var list = document.getElementById('histList');
-    if(!list) return;
-    var items = loadHistory();
-    var dict = translations[currentLang] || translations.tr;
-    list.innerHTML = '';
-    if(!items.length){
-      var empty = document.createElement('div');
-      empty.className = 'hist-empty';
-      empty.textContent = dict.calc_empty;
-      list.appendChild(empty);
-      return;
-    }
-    items.forEach(function(it){
-      var row = document.createElement('div');
-      row.className = 'hist-item';
-      var e = document.createElement('div');
-      e.className = 'hist-expr';
-      e.textContent = it.expr;
-      var r = document.createElement('div');
-      r.className = 'hist-res';
-      r.textContent = it.res;
-      row.appendChild(e);
-      row.appendChild(r);
-      row.addEventListener('click', function(){
-        var v = parseFloat(it.res);
-        if(!isFinite(v)) return;
-        calc.error = false;
-        calc.justEq = false;
-        calc.line = '';
-        calc.expr = numToExpr(v);
-        updatePreview();
-        renderCalc();
-      });
-      list.appendChild(row);
-    });
-  }
-
-  var FUNCS = ['asin','acos','atan','sin','cos','tan','ln','log','exp','abs','√'];
-
-  function closeParens(src){
-    var s = src.replace(/\s+/g, '');
-    var open = (s.match(/\(/g) || []).length - (s.match(/\)/g) || []).length;
-    while(open-- > 0) s += ')';
-    return s;
-  }
-
-  function fmt(n){
-    return String(parseFloat(n.toPrecision(12)));
-  }
-
-  function numToExpr(n){
-    return fmt(n).replace(/e\+?(-?\d+)/, function(_, p){ return '×10^(' + p + ')'; }).replace(/-/g, '−');
-  }
-
-  function evaluate(src){
-    var s = closeParens(src);
-    var pos = 0;
-    function peek(){ return s.charAt(pos); }
-    function fail(){ throw new Error('syntax'); }
-    function fact(x){
-      if(x < 0 || x % 1 !== 0 || x > 170) return NaN;
-      var r = 1;
-      for(var i = 2; i <= x; i++) r *= i;
-      return r;
-    }
-    function fn(n, x){
-      var k = calc.deg ? Math.PI / 180 : 1;
-      var r = NaN;
-      switch(n){
-        case 'sin': r = Math.sin(x * k); break;
-        case 'cos': r = Math.cos(x * k); break;
-        case 'tan': r = Math.abs(Math.cos(x * k)) < 1e-12 ? NaN : Math.tan(x * k); break;
-        case 'asin': r = Math.asin(x) / k; break;
-        case 'acos': r = Math.acos(x) / k; break;
-        case 'atan': r = Math.atan(x) / k; break;
-        case 'ln': r = Math.log(x); break;
-        case 'log': r = Math.log10(x); break;
-        case 'exp': r = Math.exp(x); break;
-        case 'abs': r = Math.abs(x); break;
-        case '√': r = Math.sqrt(x); break;
-      }
-      if(/sin|cos|tan/.test(n) && Math.abs(r) < 1e-14) r = 0;
-      return r;
-    }
-    function startsPrimary(){ return /[0-9.(π√a-z]/.test(peek()); }
-    function expr(){
-      var v = term();
-      while(peek() === '+' || peek() === '−'){
-        var o = s.charAt(pos++);
-        var r = term();
-        v = o === '+' ? v + r : v - r;
-      }
-      return v;
-    }
-    function term(){
-      var v = unary();
-      while(true){
-        var c = peek();
-        if(c === '×'){ pos++; v *= unary(); }
-        else if(c === '÷'){ pos++; v /= unary(); }
-        else if(c && startsPrimary()){ v *= unary(); }
-        else break;
-      }
-      return v;
-    }
-    function unary(){
-      var c = peek();
-      if(c === '−'){ pos++; return -unary(); }
-      if(c === '+'){ pos++; return unary(); }
-      return power();
-    }
-    function power(){
-      var b = postfix();
-      if(peek() === '^'){ pos++; return Math.pow(b, unary()); }
-      return b;
-    }
-    function postfix(){
-      var v = primary();
-      while(true){
-        var c = peek();
-        if(c === '!'){ pos++; v = fact(v); }
-        else if(c === '%'){ pos++; v = v / 100; }
-        else break;
-      }
-      return v;
-    }
-    function group(){
-      if(peek() !== '(') fail();
-      pos++;
-      var v = expr();
-      if(peek() !== ')') fail();
-      pos++;
-      return v;
-    }
-    function primary(){
-      var c = peek();
-      if(c === '(') return group();
-      if(c === 'π'){ pos++; return Math.PI; }
-      var m = /^(\d+\.?\d*|\.\d+)/.exec(s.slice(pos));
-      if(m){ pos += m[0].length; return parseFloat(m[0]); }
-      for(var i = 0; i < FUNCS.length; i++){
-        var name = FUNCS[i];
-        if(s.substr(pos, name.length) === name && s.charAt(pos + name.length) === '('){
-          pos += name.length;
-          return fn(name, group());
-        }
-      }
-      if(c === 'e'){ pos++; return Math.E; }
-      fail();
-    }
-    var v = expr();
-    if(pos !== s.length) fail();
-    return v;
-  }
-
-  function updatePreview(){
-    calc.pvErr = false;
-    var e = calc.expr.replace(/[+−×÷^]+$/, '');
-    if(!e){ calc.preview = '0'; return; }
-    try{
-      var v = evaluate(e);
-      if(isFinite(v)) calc.preview = fmt(v); else calc.pvErr = true;
-    }catch(err){}
-  }
-
-  function renderCalc(){
-    var dict = translations[currentLang] || translations.tr;
-    var res = document.getElementById('calcResult');
-    var ex = document.getElementById('calcExpr');
-    var text;
-    if(calc.error) text = dict.calc_error;
-    else if(calc.justEq) text = calc.res;
-    else text = calc.pvErr ? dict.calc_error : calc.preview;
-    res.textContent = text;
-    ex.textContent = calc.justEq ? calc.line : calc.expr;
-    document.getElementById('degBtn').textContent = calc.deg ? 'DEG' : 'RAD';
-    var len = text.length;
-    res.style.fontSize = len > 16 ? '24px' : len > 12 ? '32px' : len > 9 ? '38px' : '44px';
-  }
-
-  function resetCalc(){
-    calc.expr = '';
-    calc.line = '';
-    calc.res = '0';
-    calc.preview = '0';
-    calc.pvErr = false;
-    calc.justEq = false;
-    calc.error = false;
-  }
-
-  function fresh(){
-    if(calc.justEq){
-      calc.expr = '';
-      calc.line = '';
-      calc.justEq = false;
-    }
-  }
-
-  function continueFromResult(){
-    if(calc.justEq){
-      calc.justEq = false;
-      calc.line = '';
-    }
-  }
-
-  function openCount(){
-    return (calc.expr.match(/\(/g) || []).length - (calc.expr.match(/\)/g) || []).length;
-  }
-
-  function pressKey(k){
-    if(calc.error && k !== 'AC') resetCalc();
-
-    if(k === 'AC'){
-      resetCalc();
-    } else if(/^[0-9]$/.test(k)){
-      fresh();
-      calc.expr += k;
-    } else if(k === '.'){
-      fresh();
-      if(!/\.\d*$/.test(calc.expr)) calc.expr += '.';
-    } else if(OPS[k]){
-      var o = OPS[k];
-      continueFromResult();
-      if(!calc.expr){
-        if(o !== '−') return;
-        calc.expr = '−';
-      } else if(calc.expr === '−' || (/\($/.test(calc.expr) && o !== '−')){
-        return;
-      } else if(o === '−' && /[×÷^(]$/.test(calc.expr)){
-        calc.expr += o;
-      } else if(/[+−×÷^]$/.test(calc.expr)){
-        calc.expr = calc.expr.slice(0, -1) + o;
-      } else {
-        calc.expr += o;
-      }
-    } else if(k === '('){
-      fresh();
-      calc.expr += '(';
-    } else if(k === ')'){
-      if(openCount() > 0 && !/[+−×÷^(]$/.test(calc.expr)){
-        continueFromResult();
-        calc.expr += ')';
-      }
-    } else if(k === 'pi'){
-      fresh();
-      calc.expr += 'π';
-    } else if(k === 'e'){
-      fresh();
-      calc.expr += 'e';
-    } else if(FKEYS[k]){
-      fresh();
-      calc.expr += FKEYS[k];
-    } else if(k === '!' || k === '%'){
-      if(calc.expr && !/[+−×÷^(]$/.test(calc.expr)){
-        continueFromResult();
-        calc.expr += k;
-      }
-    } else if(k === 'sq'){
-      if(calc.expr && !/[+−×÷^(]$/.test(calc.expr)){
-        continueFromResult();
-        calc.expr += '^2';
-      }
-    } else if(k === 'inv'){
-      if(calc.expr){
-        continueFromResult();
-        calc.expr = '1÷(' + calc.expr + ')';
-      }
-    } else if(k === 'NEG'){
-      if(calc.expr){
-        continueFromResult();
-        calc.expr = /^−\([^()]*\)$/.test(calc.expr) ? calc.expr.slice(2, -1) : '−(' + calc.expr + ')';
-      }
-    } else if(k === 'DEG'){
-      calc.deg = !calc.deg;
-    } else if(k === 'DEL'){
-      if(calc.justEq){
-        calc.justEq = false;
-        calc.line = '';
-        calc.expr = '';
-      } else {
-        calc.expr = calc.expr.replace(TOKEN_RE, '');
-      }
-    } else if(k === '='){
-      if(!calc.expr || calc.justEq) return;
-      var src = calc.expr.replace(/[+−×÷^]+$/, '');
-      var v = NaN;
-      try{ v = evaluate(src); }catch(err){}
-      if(!isFinite(v)){
-        calc.error = true;
-        calc.expr = '';
-        calc.line = '';
-        renderCalc();
-        return;
-      }
-      var shown = closeParens(src);
-      loadHistory().unshift({expr:shown, res:fmt(v)});
-      if(calcHistory.length > 50) calcHistory.length = 50;
-      saveHistory();
-      renderHistory();
-      calc.line = shown + ' =';
-      calc.res = fmt(v);
-      calc.expr = numToExpr(v);
-      calc.justEq = true;
-      calc.pvErr = false;
-      renderCalc();
-      return;
-    }
-    if(!calc.justEq) updatePreview();
-    renderCalc();
-  }
-
-  var keysEl = document.getElementById('calcKeys');
-  keysEl.addEventListener('click', function(e){
-    var btn = e.target.closest('button');
-    if(btn) pressKey(btn.getAttribute('data-k'));
-  });
-
-  document.getElementById('histClear').addEventListener('click', function(){
-    calcHistory = [];
-    saveHistory();
-    renderHistory();
-  });
-
-  document.addEventListener('keydown', function(e){
-    if(!document.getElementById('viewCalc').classList.contains('active')) return;
-    if(e.ctrlKey || e.metaKey || e.altKey) return;
-    var key = e.key;
-    var k = null;
-    if(/^[0-9]$/.test(key)) k = key;
-    else if(key === '.' || key === ',') k = '.';
-    else if(key === '+' || key === '-' || key === '*' || key === '/' || key === '^') k = key;
-    else if(key === '(' || key === ')' || key === '!' || key === '%') k = key;
-    else if(key === 'Enter' || key === '=') k = '=';
-    else if(key === 'Backspace') k = 'DEL';
-    else if(key === 'Escape') k = 'AC';
-    if(!k) return;
-    e.preventDefault();
-    pressKey(k);
-    var btn = keysEl.querySelector('[data-k="' + k + '"]');
-    if(btn){
-      btn.classList.add('pressed');
-      setTimeout(function(){ btn.classList.remove('pressed'); }, 110);
-    }
-  });
-
   var viewHome = document.getElementById('viewHome');
-  var viewCalc = document.getElementById('viewCalc');
-  var viewTerm = document.getElementById('viewTerm');
+  var viewPlython = document.getElementById('viewPlython');
   var navHome = document.getElementById('navHome');
-  var navCalc = document.getElementById('navCalc');
-  var navTerm = document.getElementById('navTerm');
+  var navPlython = document.getElementById('navPlython');
 
   function route(){
-    var h = location.hash;
-    var isCalc = h === '#calculator';
-    var isTerm = h === '#terminal';
-    viewHome.classList.toggle('active', !isCalc && !isTerm);
-    viewCalc.classList.toggle('active', isCalc);
-    viewTerm.classList.toggle('active', isTerm);
-    navHome.classList.toggle('active', !isCalc && !isTerm);
-    navCalc.classList.toggle('active', isCalc);
-    navTerm.classList.toggle('active', isTerm);
+    var isPl = location.hash === '#plython';
+    viewHome.classList.toggle('active', !isPl);
+    viewPlython.classList.toggle('active', isPl);
+    navHome.classList.toggle('active', !isPl);
+    navPlython.classList.toggle('active', isPl);
   }
   window.addEventListener('hashchange', route);
   route();
@@ -1639,212 +926,6 @@ html.light .hist-item + .hist-item{
     a.addEventListener('click', function(){
       if(window.innerWidth <= 980) document.body.classList.add('nav-closed');
     });
-  });
-
-  renderCalc();
-  renderHistory();
-
-  function workerMain(){
-    var py = null;
-    var base = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
-    function send(t, x){ postMessage({type:t, text:x}); }
-    function fmt(a){
-      if(typeof a === 'string') return a;
-      try{ return (typeof a === 'object' && a !== null) ? JSON.stringify(a, null, 2) : String(a); }
-      catch(e){ return String(a); }
-    }
-    onmessage = async function(e){
-      var m = e.data;
-      try{
-        if(m.lang === 'js'){
-          ['log','info','warn','error'].forEach(function(k){
-            console[k] = function(){
-              send(k === 'error' ? 'err' : k === 'warn' ? 'warn' : 'out', Array.prototype.map.call(arguments, fmt).join(' '));
-            };
-          });
-          var AF = Object.getPrototypeOf(async function(){}).constructor;
-          var r = await new AF(m.code)();
-          if(r !== undefined) send('res', fmt(r));
-        } else {
-          if(!py){
-            send('loading', '');
-            importScripts(base + 'pyodide.js');
-            py = await loadPyodide({indexURL: base});
-            py.setStdout({batched: function(t){ send('out', t); }});
-            py.setStderr({batched: function(t){ send('err', t); }});
-          }
-          await py.loadPackagesFromImports(m.code);
-          var r2 = await py.runPythonAsync(m.code);
-          if(r2 !== undefined && r2 !== null) send('res', String(r2));
-        }
-        postMessage({type:'done'});
-      }catch(err){
-        var msg = (err && err.message) ? err.message : String(err);
-        if(m.lang === 'js' && err && err.name) msg = err.name + ': ' + msg;
-        send('error', msg);
-      }
-    };
-  }
-
-  var codeEl = document.getElementById('termCode');
-  var outEl = document.getElementById('termOut');
-  var langEl = document.getElementById('termLang');
-  var runBtn = document.getElementById('termRun');
-  var stopBtn = document.getElementById('termStop');
-  var restartBtn2 = document.getElementById('termRestart');
-  var killBtn = document.getElementById('termKill');
-  var samples = {python:'', js:''};
-  var worker = null, running = false;
-
-  function tdict(){ return translations[currentLang] || translations.tr; }
-
-  function add(text, cls){
-    var d = document.createElement('div');
-    d.className = 't-line' + (cls ? ' ' + cls : '');
-    d.textContent = text;
-    outEl.appendChild(d);
-    outEl.scrollTop = outEl.scrollHeight;
-  }
-
-  function setRunning(v){
-    running = v;
-    runBtn.disabled = v;
-    stopBtn.disabled = !v;
-  }
-
-  function handle(e){
-    var m = e.data;
-    if(m.type === 'out') add(m.text);
-    else if(m.type === 'err') add(m.text, 't-err');
-    else if(m.type === 'warn') add(m.text, 't-warn');
-    else if(m.type === 'res') add('← ' + m.text, 't-out');
-    else if(m.type === 'loading') add(tdict().term_loading, 't-out');
-    else if(m.type === 'done'){ add(tdict().term_done, 't-ok'); setRunning(false); }
-    else if(m.type === 'error'){ add(m.text, 't-err'); setRunning(false); }
-  }
-
-  function getWorker(){
-    if(worker) return worker;
-    var blob = new Blob(['(' + workerMain.toString() + ')()'], {type:'text/javascript'});
-    worker = new Worker(URL.createObjectURL(blob));
-    worker.onmessage = handle;
-    worker.onerror = function(e){
-      add(e.message || 'Worker error', 't-err');
-      setRunning(false);
-    };
-    return worker;
-  }
-
-  function killWorker(){
-    if(worker){ worker.terminate(); worker = null; }
-  }
-
-  function runCode(){
-    if(running) return;
-    var code = codeEl.value;
-    if(!code.trim()) return;
-    setRunning(true);
-    getWorker().postMessage({lang: langEl.value, code: code});
-  }
-
-  function stopCode(){
-    if(!running) return;
-    killWorker();
-    add('^C ' + tdict().term_stopped, 't-warn');
-    setRunning(false);
-  }
-
-  function killCode(){
-    killWorker();
-    add(tdict().term_killed, 't-err');
-    setRunning(false);
-  }
-
-  function restartCode(){
-    killWorker();
-    setRunning(false);
-    outEl.innerHTML = '';
-    runCode();
-  }
-
-  function saveTerm(){
-    try{
-      localStorage.setItem('plythonic-term-lang', langEl.value);
-      localStorage.setItem('plythonic-term-code-' + langEl.value, codeEl.value);
-    }catch(e){}
-  }
-
-  function codeFor(l){
-    var c = null;
-    try{ c = localStorage.getItem('plythonic-term-code-' + l); }catch(e){}
-    return c !== null ? c : samples[l];
-  }
-
-  (function(){
-    var l = 'python';
-    try{ l = localStorage.getItem('plythonic-term-lang') || 'python'; }catch(e){}
-    if(!samples.hasOwnProperty(l)) l = 'python';
-    langEl.value = l;
-    codeEl.value = codeFor(l);
-    syncTermLang();
-  })();
-
-  function syncTermLang(){
-    var names = {python:'Python', js:'JavaScript'};
-    document.getElementById('termLangLabel').textContent = names[langEl.value] || 'Python';
-    document.querySelectorAll('#termLangMenu button').forEach(function(b){
-      b.classList.toggle('active', b.getAttribute('data-tl') === langEl.value);
-    });
-  }
-  var tlSwitch = document.getElementById('termLangSwitch');
-  var tlBtn = document.getElementById('termLangBtn');
-  tlBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    tlBtn.setAttribute('aria-expanded', tlSwitch.classList.toggle('open'));
-  });
-  document.querySelectorAll('#termLangMenu button').forEach(function(b){
-    b.addEventListener('click', function(){
-      langEl.value = b.getAttribute('data-tl');
-      syncTermLang();
-      tlSwitch.classList.remove('open');
-      tlBtn.setAttribute('aria-expanded', 'false');
-      langEl.dispatchEvent(new Event('change'));
-    });
-  });
-  document.addEventListener('click', function(){
-    tlSwitch.classList.remove('open');
-    tlBtn.setAttribute('aria-expanded', 'false');
-  });
-  langEl.addEventListener('change', function(){
-    codeEl.value = codeFor(langEl.value);
-    try{ localStorage.setItem('plythonic-term-lang', langEl.value); }catch(e){}
-  });
-  codeEl.addEventListener('input', saveTerm);
-  codeEl.addEventListener('keydown', function(e){
-    if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
-      e.preventDefault();
-      runCode();
-      return;
-    }
-    if(e.key === 'Tab'){
-      e.preventDefault();
-      var s = codeEl.selectionStart, en = codeEl.selectionEnd;
-      codeEl.value = codeEl.value.slice(0, s) + '    ' + codeEl.value.slice(en);
-      codeEl.selectionStart = codeEl.selectionEnd = s + 4;
-      saveTerm();
-    }
-  });
-  runBtn.addEventListener('click', runCode);
-  stopBtn.addEventListener('click', stopCode);
-  killBtn.addEventListener('click', killCode);
-  restartBtn2.addEventListener('click', restartCode);
-  document.getElementById('termClearCode').addEventListener('click', function(){
-    codeEl.value = '';
-    saveTerm();
-    codeEl.focus();
-  });
-  document.getElementById('termClearOut').addEventListener('click', function(){
-    outEl.innerHTML = '';
   });
 })();
 </script>
