@@ -328,20 +328,6 @@ main{
   gap:28px;
   padding:36px 40px 40px;
 }
-.feed{
-  flex:1 1 560px;
-  max-width:900px;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.aside{
-  flex:0 0 310px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
 
 .card{
   background:rgba(18,20,27,.12);
@@ -362,43 +348,12 @@ html.light .card{
   border:1px solid rgba(0,0,0,.4);
   box-shadow:0 12px 30px -18px rgba(0,0,0,.18);
 }
-.aside .card{animation-delay:.12s;}
 @keyframes card-in{
   to{
     opacity:1;
     transform:translateY(0);
   }
 }
-.greeting{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:20px;
-  letter-spacing:-.01em;
-  margin-bottom:6px;
-}
-.greeting .g-icon{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  background:rgba(59,130,246,.1);
-  border:1px solid rgba(59,130,246,.35);
-  color:var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-}
-.greeting .g-icon svg{width:18px;height:18px;}
-.section-title{
-  font-family:var(--font-d);
-  font-weight:600;
-  font-size:14px;
-  padding:12px 2px 0;
-}
-.term-card{animation-delay:.08s;}
 .term-head{
   display:flex;
   align-items:center;
@@ -408,20 +363,6 @@ html.light .card{
 }
 html.light .term-head{
   border-bottom:1px solid rgba(0,0,0,.4);
-}
-.term-head .dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--blue);
-}
-.term-head .dot:nth-child(2){opacity:.6;}
-.term-head .dot:nth-child(3){opacity:.3;}
-.term-title{
-  margin-left:8px;
-  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
-  font-size:11.5px;
-  color:var(--muted);
 }
 .t-line{white-space:pre-wrap;word-break:break-word;}
 .t-prompt{color:var(--blue);}
@@ -524,40 +465,6 @@ html.light .panel-head{border-top:1px solid rgba(0,0,0,.4);}
   font-size:12.5px;
   line-height:1.7;
 }
-.tiles{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-.tile{
-  padding:16px 18px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.tile:nth-child(1){animation-delay:.14s;}
-.tile:nth-child(2){animation-delay:.2s;}
-.tile:nth-child(3){animation-delay:.26s;}
-.tile:hover{
-  transform:translateY(-2px);
-  border-color:rgba(59,130,246,.4);
-}
-.tile-label{
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.05em;
-  color:var(--muted);
-}
-.tile-value{
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:22px;
-  letter-spacing:-.01em;
-}
-.tile-sub{
-  font-size:11.5px;
-  color:var(--muted);
-}
 .card-head{
   padding:12px 18px;
   font-family:var(--font-d);
@@ -571,57 +478,6 @@ html.light .panel-head{border-top:1px solid rgba(0,0,0,.4);}
 }
 html.light .divider{
   background:rgba(0,0,0,.4);
-}
-.card-body{
-  padding:16px 18px;
-}
-.social-links{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.link{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:rgba(255,255,255,.015);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.35);
-  padding:9px 11px;
-  border-radius:10px;
-  color:var(--ink);
-  font-size:12px;
-  font-weight:600;
-  transition:border-color .2s,transform .2s,background .2s;
-}
-.link:hover{
-  border-color:var(--blue);
-  transform:translateY(-1px);
-}
-html.light .link{
-  background:rgba(0,0,0,.015);
-  border:1px solid rgba(0,0,0,.4);
-}
-.link .ic{
-  width:15px;
-  height:15px;
-  flex-shrink:0;
-  color:var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.link .ic svg{width:15px;height:15px;}
-.link .label{flex:1;}
-.link .arrow{
-  color:var(--blue);
-  display:flex;
-  align-items:center;
-  transition:transform .2s;
-}
-.link:hover .arrow{
-  transform:translate(2px,-2px);
 }
 
 .site-footer{
@@ -655,6 +511,148 @@ html.light .site-footer{
 .view.active{
   display:flex;
 }
+
+.home-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 56px;
+  min-width:0;
+}
+.about-card{
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.about-grid{
+  display:flex;
+  flex-direction:column;
+  gap:48px;
+}
+.about-top{
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  gap:40px;
+  min-width:0;
+}
+.about-top .about-col{
+  flex:0 1 520px;
+}
+.about-bottom{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:40px;
+  min-width:0;
+}
+.about-bottom .about-col{
+  flex:0 1 480px;
+}
+.about-col{
+  min-width:0;
+}
+.about-col p{
+  font-size:16px;
+  line-height:1.85;
+  color:var(--ink);
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  text-shadow:0 0 14px var(--bg),0 0 6px var(--bg);
+}
+.about-photo{
+  flex:0 0 auto;
+  min-width:0;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+}
+.photo-frame{
+  width:300px;
+  max-width:100%;
+  aspect-ratio:1/1;
+  border-radius:20px;
+  background:var(--panel-solid);
+  border:1px solid rgba(59,130,246,.5);
+  box-shadow:0 0 50px -6px rgba(59,130,246,.45);
+  overflow:hidden;
+  animation:photo-float 5s ease-in-out infinite;
+}
+.photo-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+@keyframes photo-float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+.code-card{
+  flex:0 1 480px;
+  width:480px;
+  max-width:100%;
+  min-width:0;
+  height:250px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:rgba(10,12,17,.86);
+  animation-delay:.2s;
+}
+html.light .code-card{
+  background:rgba(255,255,255,.92);
+}
+.code-card .term-head{flex:0 0 auto;}
+.code-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--blue);
+}
+.code-dot:nth-child(2){opacity:.6;}
+.code-dot:nth-child(3){opacity:.3;}
+.code-body{
+  flex:1 1 auto;
+  min-height:0;
+  padding:14px 16px;
+  overflow:hidden;
+  white-space:pre;
+  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+  font-size:12.5px;
+  line-height:1.7;
+  color:var(--ink);
+}
+
+@media (max-width:980px){
+  .sidebar{
+    position:fixed;
+    top:56px;
+    bottom:0;
+    left:0;
+    background:var(--bg);
+    z-index:5;
+  }
+  .content{padding:24px 20px 32px;}
+  .home-wrap{padding:24px 20px;}
+}
+@media (max-width:760px){
+  .about-grid{gap:24px;}
+  .about-top{flex-direction:column;gap:24px;}
+  .about-bottom{flex-direction:column;align-items:stretch;gap:24px;}
+  .about-bottom .about-col,.about-top .about-col{flex:0 1 auto;}
+  .code-card{width:100%;flex:0 0 auto;}
+  .photo-frame{width:200px;}
+  .about-photo{justify-content:center;}
+}
+@media (max-width:640px){
+  .site-header{padding:0 12px;}
+  .content{padding:20px 14px 28px;}
+  .home-wrap{padding:16px 12px;}
+  .term-col{flex:1 1 100%;}
+}
+
 #viewCalc .content{padding:12px 16px;align-items:stretch;}
 .calc-wrap{flex:1 1 100%;width:100%;min-width:0;display:flex;flex-direction:column;}
 .calc-ide{
@@ -808,175 +806,6 @@ html.light .hist-item + .hist-item{
   color:var(--muted);
   text-align:center;
 }
-
-@media (max-width:980px){
-  .sidebar{
-    position:fixed;
-    top:56px;
-    bottom:0;
-    left:0;
-    background:var(--bg);
-    z-index:5;
-  }
-  .content{padding:24px 20px 32px;}
-  .aside{flex:1 1 100%;}
-}
-@media (max-width:640px){
-  .site-header{padding:0 12px;}
-  .content{padding:20px 14px 28px;}
-  .greeting{font-size:17px;}
-  .tiles{grid-template-columns:1fr;}
-  .term-col{flex:1 1 100%;}
-}
-.loader{
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:26px;
-  padding:40px 20px;
-}
-.ring-wrap{
-  position:relative;
-  width:150px;
-  height:150px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.ring{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  border:2px solid transparent;
-}
-.ring.r1{
-  border-top-color:var(--blue);
-  border-right-color:rgba(59,130,246,.35);
-  animation:ld-spin 1.6s linear infinite;
-}
-.ring.r2{
-  inset:14px;
-  border-bottom-color:var(--blue);
-  border-left-color:rgba(59,130,246,.35);
-  animation:ld-spin 2.2s linear infinite reverse;
-}
-.ring.r3{
-  inset:28px;
-  border:2px dashed rgba(59,130,246,.4);
-  animation:ld-spin 7s linear infinite;
-}
-.orbit{
-  position:absolute;
-  inset:0;
-  animation:ld-spin 3s linear infinite;
-}
-.orbit i{
-  position:absolute;
-  top:-4px;
-  left:50%;
-  width:8px;
-  height:8px;
-  margin-left:-4px;
-  border-radius:50%;
-  background:var(--blue);
-  box-shadow:0 0 14px 3px rgba(59,130,246,.8);
-}
-.core{
-  width:54px;
-  height:54px;
-  border-radius:16px;
-  background:rgba(59,130,246,.1);
-  border:1px solid rgba(59,130,246,.4);
-  color:var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  animation:ld-pulse 1.8s ease-in-out infinite;
-}
-.core svg{width:28px;height:28px;}
-.load-word{
-  display:flex;
-  gap:6px;
-  font-family:var(--font-d);
-  font-weight:700;
-  font-size:22px;
-  letter-spacing:.14em;
-}
-.load-word span{
-  animation:ld-wave 1.8s ease-in-out infinite;
-  animation-delay:calc(var(--i) * .1s);
-}
-.status-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 14px;
-  border:1px solid rgba(59,130,246,.35);
-  background:rgba(59,130,246,.08);
-  border-radius:999px;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.07em;
-  text-transform:uppercase;
-  color:var(--blue);
-}
-.status-chip::before{
-  content:"";
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--blue);
-  box-shadow:0 0 8px 2px rgba(59,130,246,.7);
-  animation:ld-blink 1.2s steps(1) infinite;
-}
-.load-bar{
-  position:relative;
-  width:260px;
-  height:4px;
-  border-radius:4px;
-  background:rgba(255,255,255,.12);
-  overflow:hidden;
-}
-html.light .load-bar{background:rgba(0,0,0,.12);}
-.load-bar span{
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:40%;
-  border-radius:4px;
-  background:linear-gradient(90deg,transparent,var(--blue),#7db0ff);
-  box-shadow:0 0 12px rgba(59,130,246,.7);
-  animation:ld-slide 1.5s ease-in-out infinite;
-}
-.load-msg{
-  min-height:18px;
-  margin-top:-10px;
-  font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
-  font-size:12.5px;
-  color:var(--muted);
-  transition:opacity .3s;
-}
-#loadText::after{
-  content:"_";
-  margin-left:2px;
-  color:var(--blue);
-  animation:ld-blink 1s steps(1) infinite;
-}
-@keyframes ld-slide{
-  0%{left:-40%;}
-  100%{left:100%;}
-}
-@keyframes ld-spin{to{transform:rotate(360deg);}}
-@keyframes ld-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(59,130,246,.35);}
-  50%{transform:scale(1.08);box-shadow:0 0 26px 4px rgba(59,130,246,.35);}
-}
-@keyframes ld-wave{
-  0%,100%{opacity:.35;transform:translateY(0);}
-  50%{opacity:1;transform:translateY(-5px);color:var(--blue);}
-}
-@keyframes ld-blink{50%{opacity:0;}}
 @media (max-width:900px){
   .calc-ide{flex-direction:column;height:auto;}
   .calc-hist{flex:none;border-left:none;border-top:1px solid rgba(255,255,255,.35);max-height:260px;}
@@ -1046,16 +875,30 @@ html.light .load-bar{background:rgba(0,0,0,.12);}
 
   <main>
     <div class="view active" id="viewHome">
-      <div class="loader">
-        <div class="ring-wrap">
-          <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
-          <span class="orbit"><i></i></span>
-          <span class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg></span>
-        </div>
-        <div class="load-word" aria-label="Plythonic"><span style="--i:0">P</span><span style="--i:1">L</span><span style="--i:2">Y</span><span style="--i:3">T</span><span style="--i:4">H</span><span style="--i:5">O</span><span style="--i:6">N</span><span style="--i:7">I</span><span style="--i:8">C</span></div>
-        <div class="status-chip" data-i18n="soon_chip">Yapım aşamasında</div>
-        <div class="load-bar"><span></span></div>
-        <div class="load-msg"><span id="loadText"></span></div>
+      <div class="home-wrap">
+        <section class="about-card">
+          <div class="about-grid">
+            <div class="about-top">
+              <div class="about-photo">
+                <div class="photo-frame"><img src="plythonic.png" alt="Plythonic" onerror="this.style.display='none'"></div>
+              </div>
+              <div class="about-col">
+                <p data-i18n="about_p1"></p>
+              </div>
+            </div>
+            <div class="about-bottom">
+              <div class="about-col">
+                <p data-i18n="about_p2"></p>
+              </div>
+              <div class="card code-card">
+                <div class="term-head">
+                  <span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span>
+                </div>
+                <div class="code-body" id="codeBody"></div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
 
@@ -1260,17 +1103,8 @@ html.light .load-bar{background:rgba(0,0,0,.12);}
       calc_clear:"Clear",
       calc_empty:"No calculations yet",
       calc_error:"Error",
-      greeting:"Welcome, Plythonic!",
-      sec_live:"Live",
-      tile_clock:"TIME",
-      tile_date:"DATE",
-      tile_visit:"VISITS",
-      tile_visit_sub:"on this device",
-      social_title:"Social Networks",
-      soon_chip:"Under construction",
-      soon_m1:"The site isn't ready yet",
-      soon_m2:"Working on it",
-      soon_m3:"Coming soon",
+      about_p1:"I'm Plythonic, a developer who builds Discord bots. Most of my work is done in Python with the py-cord library. Writing bots with clean interfaces and well-organized code that people can comfortably use every day is always my priority. I prepare the interfaces of my projects in the languages the community speaks, such as Turkish and Azerbaijani.",
+      about_p2:"I build bots for moderation, music and server management, and my work also includes modern component-based interfaces and Flask-based web management panels. Besides that, I experiment with new projects in Discord.js and keep improving myself with small tools like the calculator and terminal on this site.",
       label:"EN"
     },
     tr:{
@@ -1289,17 +1123,8 @@ html.light .load-bar{background:rgba(0,0,0,.12);}
       calc_clear:"Temizle",
       calc_empty:"Henüz işlem yok",
       calc_error:"Hata",
-      greeting:"Hoş geldin, Plythonic!",
-      sec_live:"Anlık",
-      tile_clock:"SAAT",
-      tile_date:"TARİH",
-      tile_visit:"ZİYARET",
-      tile_visit_sub:"bu cihazda",
-      social_title:"Sosyal Ağlar",
-      soon_chip:"Yapım aşamasında",
-      soon_m1:"Site henüz hazır değil",
-      soon_m2:"Üzerinde çalışıyorum",
-      soon_m3:"Çok yakında",
+      about_p1:"Ben Plythonic, Discord botları geliştiren bir yazılımcıyım. Çalışmalarımın büyük bölümünü Python ve py-cord kütüphanesi ile yapıyorum. Kullanıcıların günlük olarak rahatça kullanabileceği, temiz arayüzlü ve düzenli kodlanmış botlar yazmak benim için her zaman önceliktir. Projelerimin arayüzlerini Türkçe ve Azerbaycan Türkçesi gibi topluluğun konuştuğu dillerde hazırlıyorum.",
+      about_p2:"Moderasyon, müzik ve sunucu yönetimi gibi alanlarda çalışan botlar geliştiriyorum; modern bileşenli arayüzler ve Flask tabanlı web yönetim panelleri de çalışmalarımın bir parçası. Bunun yanında Discord.js ile yeni projeler deniyor, bu sitedeki hesap makinesi ve terminal gibi küçük araçlarla kendimi geliştirmeye devam ediyorum.",
       label:"TR"
     },
     ru:{
@@ -1318,17 +1143,8 @@ html.light .load-bar{background:rgba(0,0,0,.12);}
       calc_clear:"Очистить",
       calc_empty:"Пока нет вычислений",
       calc_error:"Ошибка",
-      greeting:"Добро пожаловать, Plythonic!",
-      sec_live:"Сейчас",
-      tile_clock:"ВРЕМЯ",
-      tile_date:"ДАТА",
-      tile_visit:"ВИЗИТЫ",
-      tile_visit_sub:"на этом устройстве",
-      social_title:"Социальные сети",
-      soon_chip:"В разработке",
-      soon_m1:"Сайт ещё не готов",
-      soon_m2:"Работаю над этим",
-      soon_m3:"Скоро",
+      about_p1:"Я Plythonic, разработчик Discord-ботов. Большую часть работы я делаю на Python с библиотекой py-cord. Для меня всегда в приоритете боты с чистым интерфейсом и аккуратным кодом, которыми удобно пользоваться каждый день. Интерфейсы своих проектов я готовлю на языках, на которых говорит сообщество, например на турецком и азербайджанском.",
+      about_p2:"Я разрабатываю ботов для модерации, музыки и управления серверами, а также современные интерфейсы на компонентах и веб-панели управления на Flask. Кроме того, я пробую новые проекты на Discord.js и продолжаю развиваться на небольших инструментах, таких как калькулятор и терминал на этом сайте.",
       label:"RU"
     }
   };
@@ -1828,7 +1644,6 @@ html.light .load-bar{background:rgba(0,0,0,.12);}
   renderCalc();
   renderHistory();
 
-  /* ===== Terminal (Python + JavaScript, Web Worker) ===== */
   function workerMain(){
     var py = null;
     var base = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
@@ -2031,27 +1846,6 @@ html.light .load-bar{background:rgba(0,0,0,.12);}
   document.getElementById('termClearOut').addEventListener('click', function(){
     outEl.innerHTML = '';
   });
-
-  /* ===== Home "site not ready" messages ===== */
-  (function(){
-    var text = document.getElementById('loadText');
-    if(!text) return;
-    var keys = ['soon_m1', 'soon_m2', 'soon_m3'];
-    var i = 0;
-    function show(){
-      var d = translations[currentLang] || translations.tr;
-      text.textContent = d[keys[i]];
-    }
-    show();
-    setInterval(function(){
-      text.parentNode.style.opacity = '0';
-      setTimeout(function(){
-        i = (i + 1) % keys.length;
-        show();
-        text.parentNode.style.opacity = '1';
-      }, 300);
-    }, 2800);
-  })();
 })();
 </script>
 
