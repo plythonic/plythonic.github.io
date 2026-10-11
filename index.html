@@ -581,10 +581,17 @@ html.light .social-link{
   border-radius:12px;
   background:rgba(10,12,17,.86);
   border:1px solid rgba(255,255,255,.35);
+  overflow:hidden;
 }
 html.light .pic-frame{
   background:rgba(255,255,255,.92);
   border:1px solid rgba(0,0,0,.4);
+}
+.pic-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 @media (max-width:980px){
   .sidebar{
@@ -768,7 +775,7 @@ html.light .pic-frame{
               <div class="about-col">
                 <p data-i18n="plython_p2"></p>
               </div>
-              <div class="pic-frame"></div>
+              <div class="pic-frame"><img src="help.png" alt="Plython" onerror="this.style.display='none'"></div>
             </div>
           </div>
         </section>
