@@ -512,54 +512,11 @@ html.light .code-card{
   color:var(--ink);
 }
 
-.pl-wrap{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  padding:32px 56px;
-  min-width:0;
-}
-.pl-block{
-  width:100%;
-  max-width:620px;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:22px;
-}
-.pl-head{
-  display:flex;
-  align-items:center;
-  gap:16px;
-}
-.pl-icon{
-  width:58px;
-  height:58px;
-  border-radius:16px;
-  background:rgba(59,130,246,.1);
-  border:1px solid rgba(59,130,246,.45);
-  color:var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  box-shadow:0 0 36px -6px rgba(59,130,246,.45);
-}
-.pl-icon svg{width:30px;height:30px;}
 .pl-title{
   font-family:var(--font-d);
   font-weight:700;
   font-size:34px;
   letter-spacing:-.01em;
-}
-.pl-block p{
-  font-size:16px;
-  line-height:1.85;
-  color:var(--ink);
-  overflow-wrap:anywhere;
-  word-break:break-word;
-  text-shadow:0 0 14px var(--bg),0 0 6px var(--bg);
 }
 .pl-link{
   align-self:flex-start;
@@ -637,6 +594,21 @@ html.light .social-link{
   flex:0 1 380px;
   min-width:0;
 }
+.about-col .pl-title{margin-bottom:14px;}
+.about-col .pl-link{margin-top:22px;}
+.pic-frame{
+  flex:0 1 480px;
+  width:480px;
+  max-width:100%;
+  height:270px;
+  border-radius:12px;
+  background:rgba(10,12,17,.86);
+  border:1px solid rgba(255,255,255,.35);
+}
+html.light .pic-frame{
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.4);
+}
 @media (max-width:980px){
   .sidebar{
     position:fixed;
@@ -648,7 +620,6 @@ html.light .social-link{
   }
   .content{padding:24px 20px 32px;}
   .home-wrap{padding:24px 20px;}
-  .pl-wrap{padding:24px 20px;}
 }
 @media (max-width:760px){
   .about-grid{gap:24px;}
@@ -656,6 +627,7 @@ html.light .social-link{
   .about-bottom{flex-direction:column;align-items:stretch;gap:24px;}
   .about-bottom .about-col,.about-top .about-col{flex:0 1 auto;}
   .code-card{width:100%;flex:0 0 auto;}
+  .pic-frame{flex:0 0 auto;width:100%;height:220px;}
   .photo-frame{width:200px;}
   .links-pair{flex:0 0 auto;width:100%;}
   .about-photo{justify-content:center;}
@@ -664,7 +636,6 @@ html.light .social-link{
   .site-header{padding:0 12px;}
   .content{padding:20px 14px 28px;}
   .home-wrap{padding:16px 12px;}
-  .pl-wrap{padding:16px 12px;}
   .pl-title{font-size:28px;}
 }
 
@@ -806,16 +777,27 @@ html.light .social-link{
       </div>
     </div>
     <div class="view" id="viewPlython">
-      <div class="pl-wrap">
-        <div class="pl-block">
-          <div class="pl-head">
-            <span class="pl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 3.4h6"/><circle cx="9" cy="13.2" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13.2" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5h6"/></svg></span>
-            <h1 class="pl-title">Plython</h1>
+      <div class="home-wrap">
+        <section class="about-card">
+          <div class="about-grid">
+            <div class="about-top">
+              <div class="about-photo">
+                <div class="photo-frame"><img src="plython.png" alt="Plython" onerror="this.style.display='none'"></div>
+              </div>
+              <div class="about-col">
+                <h1 class="pl-title">Plython</h1>
+                <p data-i18n="plython_p1"></p>
+              </div>
+            </div>
+            <div class="about-bottom">
+              <div class="about-col">
+                <p data-i18n="plython_p2"></p>
+                <a class="pl-link" href="https://discord.gg/plython" target="_blank" rel="noopener" data-i18n="plython_btn">Discord'a Katıl</a>
+              </div>
+              <div class="pic-frame"></div>
+            </div>
           </div>
-          <p data-i18n="plython_p1"></p>
-          <p data-i18n="plython_p2"></p>
-          <a class="pl-link" href="https://discord.gg/plython" target="_blank" rel="noopener" data-i18n="plython_btn">Discord'a Katıl</a>
-        </div>
+        </section>
       </div>
     </div>
   </main>
