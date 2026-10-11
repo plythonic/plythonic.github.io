@@ -607,7 +607,20 @@ html.light .social-link{
   flex-shrink:0;
 }
 .social-ic svg{width:20px;height:20px;}
-.social-name{flex:1;min-width:0;}
+.social-text{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.social-name{font-size:14px;}
+.social-desc{
+  font-size:12px;
+  font-weight:500;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
 .social-arrow{
   width:16px;
   height:16px;
@@ -736,25 +749,26 @@ html.light .social-link{
       <div class="pl-wrap">
         <div class="pl-block">
           <h1 class="pl-title" data-i18n="links_title">Sosyal Ağlar</h1>
+          <p data-i18n="links_p"></p>
           <div class="social-list">
           <a class="social-link" href="https://discord.gg/plython" target="_blank" rel="noopener">
             <span class="social-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
-            <span class="social-name">Discord</span>
+            <span class="social-text"><span class="social-name">Discord</span><span class="social-desc" data-i18n="link_d1"></span></span>
             <span class="social-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
           </a>
           <a class="social-link" href="https://www.instagram.com/plythonic" target="_blank" rel="noopener">
             <span class="social-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></span>
-            <span class="social-name">Instagram</span>
+            <span class="social-text"><span class="social-name">Instagram</span><span class="social-desc" data-i18n="link_d2"></span></span>
             <span class="social-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
           </a>
           <a class="social-link" href="https://github.com/plythonic" target="_blank" rel="noopener">
             <span class="social-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></span>
-            <span class="social-name">GitHub</span>
+            <span class="social-text"><span class="social-name">GitHub</span><span class="social-desc" data-i18n="link_d3"></span></span>
             <span class="social-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
           </a>
           <a class="social-link" href="https://www.youtube.com/@plythonic" target="_blank" rel="noopener">
             <span class="social-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><path d="M9.75 15.02l5.75-3.27-5.75-3.27z"/></svg></span>
-            <span class="social-name">YouTube</span>
+            <span class="social-text"><span class="social-name">YouTube</span><span class="social-desc" data-i18n="link_d4"></span></span>
             <span class="social-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
           </a>
           </div>
@@ -868,6 +882,11 @@ html.light .social-link{
       plython_btn:"Join Discord",
       nav_links:"Links",
       links_title:"Social Networks",
+      links_p:"If you want to follow news about me and my projects, ask a question, or look at the code I write, you can reach me through the platforms below.",
+      link_d1:"Join the community server and get help with Plython",
+      link_d2:"Posts and updates",
+      link_d3:"Projects and code",
+      link_d4:"Videos",
       label:"EN"
     },
     tr:{
@@ -880,6 +899,11 @@ html.light .social-link{
       plython_btn:"Discord'a Katıl",
       nav_links:"Linkler",
       links_title:"Sosyal Ağlar",
+      links_p:"Benimle ve projelerimle ilgili gelişmeleri takip etmek, bir soru sormak ya da yazdığım kodlara göz atmak istersen aşağıdaki platformlardan bana ulaşabilirsin.",
+      link_d1:"Topluluk sunucusuna katıl ve Plython için destek al",
+      link_d2:"Paylaşımlar ve güncellemeler",
+      link_d3:"Projeler ve kodlar",
+      link_d4:"Videolar",
       label:"TR"
     },
     ru:{
@@ -892,6 +916,11 @@ html.light .social-link{
       plython_btn:"Присоединиться к Discord",
       nav_links:"Ссылки",
       links_title:"Социальные сети",
+      links_p:"Если хотите следить за новостями обо мне и моих проектах, задать вопрос или посмотреть мой код, вы можете связаться со мной на платформах ниже.",
+      link_d1:"Присоединяйтесь к серверу сообщества и получите помощь по Plython",
+      link_d2:"Публикации и обновления",
+      link_d3:"Проекты и код",
+      link_d4:"Видео",
       label:"RU"
     }
   };
