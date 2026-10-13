@@ -544,19 +544,14 @@ html.light .info-card li{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:16px;
+  flex-shrink:0;
   margin-right:24px;
-  min-width:460px;
+  width:320px;
   height:180px;
-  padding:0 40px;
   border-radius:16px;
   background:linear-gradient(180deg,rgba(59,130,246,.09),rgba(10,12,17,.86) 55%);
   border:1px solid rgba(255,255,255,.35);
   color:var(--soft);
-  font-family:var(--font-d);
-  font-weight:600;
-  font-size:30px;
-  white-space:nowrap;
   cursor:pointer;
   transition:border-color .2s,transform .2s,box-shadow .2s;
 }
@@ -572,12 +567,37 @@ html.light .plat{
 .plat svg{
   position:relative;
   color:var(--blue);
-  width:56px;
-  height:56px;
+  width:58px;
+  height:58px;
   flex-shrink:0;
+  transition:transform .3s cubic-bezier(.22,.61,.36,1);
+}
+.plat:hover svg{
+  transform:translateY(-14px);
 }
 .plat span{
-  position:relative;
+  position:absolute;
+  left:0;
+  right:0;
+  top:calc(50% + 23px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-family:var(--font-d);
+  font-weight:600;
+  font-size:18px;
+  letter-spacing:.02em;
+  color:var(--blue);
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .25s,transform .3s cubic-bezier(.22,.61,.36,1);
+  pointer-events:none;
+}
+.plat:hover span{
+  opacity:1;
+  transform:translateY(0);
 }
 .site-footer{
   position:relative;
@@ -614,8 +634,10 @@ html.light .site-footer{
   .intro h1{font-size:30px;}
   .intro .lead{font-size:16px;}
   .info-card{padding:22px 20px;}
-  .plat{min-width:320px;height:140px;font-size:24px;}
-  .plat svg{width:44px;height:44px;}
+  .plat{width:240px;height:140px;}
+  .plat svg{width:46px;height:46px;}
+  .plat:hover svg{transform:translateY(-12px);}
+  .plat span{font-size:15px;top:calc(50% + 19px);}
 }
 </style>
 </head>
@@ -927,7 +949,7 @@ html.light .site-footer{
     {name:'TikTok', icon:'tiktok', url:'https://www.tiktok.com/@plythonic'}
   ];
   var group = items.map(function(it){
-    return '<a class="plat" href="' + it.url + '" target="_blank" rel="noopener">' + icons[it.icon] + '<span>' + it.name + '</span></a>';
+    return '<a class="plat" href="' + it.url + '" target="_blank" rel="noopener" aria-label="' + it.name + '" title="' + it.name + '">' + icons[it.icon] + '<span>' + it.name + '</span></a>';
   }).join('');
   var track = document.getElementById('marqueeTrack');
   var out = '';
