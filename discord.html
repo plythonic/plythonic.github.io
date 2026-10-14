@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discord Servers - Plythonic</title>
+<meta name="description" content="Plythonic Discord Servers">
+<link rel="icon" type="image/png" href="logo.png" id="faviconLink">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>try{if(localStorage.getItem('plythonic-theme')==='light')document.documentElement.classList.add('light');}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<header class="site-header">
+  <div class="header-left">
+    <a class="brand" href="index.html">
+      <span class="mark"><img src="plythonic.png" alt="" onerror="this.style.display='none'"></span>
+      <span class="word">Plythonic</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
+    </button>
+    <a class="icon-btn" href="index.html" title="Ana Səhifə" aria-label="Ana Səhifə">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0-1-2 2H5a2 2 0 0-1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </a>
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-current" id="langCurrent" type="button" aria-haspopup="true" aria-expanded="false">
+        <span id="langCurrentLabel">TR</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <button type="button" data-lang="tr" class="active">Türkçe</button>
+        <button type="button" data-lang="en">English</button>
+        <button type="button" data-lang="ru">Русский</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <section class="intro">
+      <div class="intro-head">
+        <span class="eyebrow">Ücretsiz Üyelik</span>
+        <h1>Plythonic Discord Topluluğu</h1>
+        <p class="lead">100+ Discord sunucumuzdan birine katıl ve topluluğun bir parçası ol.</p>
+        <div style="margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <input type="text" id="searchInput" placeholder="Ara..." style="flex:1;min-width:280px;max-width:500px;padding:14px 20px;border-radius:12px;background:var(--panel-solid);border:1px solid rgba(255,255,255,.35);color:var(--ink);font-family:var(--font-b);font-size:15px;transition:border-color .2s,box-shadow .2s;">
+          <div style="display:flex;gap:8px;">
+            <button id="tabServers" class="tab-btn active" style="padding:12px 24px;border-radius:10px;background:var(--blue);color:#fff;border:1px solid var(--blue);font-family:var(--font-b);font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;">Sunucular</button>
+            <button id="tabBots" class="tab-btn" style="padding:12px 24px;border-radius:10px;background:transparent;color:var(--soft);border:1px solid rgba(255,255,255,.35);font-family:var(--font-b);font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;">Botlar</button>
+          </div>
+        </div>
+      </div>
+      <div class="info-grid" id="serverGrid"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 Plythonic</span>
+</footer>
+
+<script src="js/matrix.js"></script>
+<script>
+(function(){
+  var translations = {
+    "tr": {
+      "label": "TR",
+      "discord_eyebrow": "Ücretsiz Üyelik",
+      "discord_title": "Plythonic Discord Topluluğu",
+      "discord_lead": "100+ Discord sunucumuzdan birine katıl ve topluluğun bir parçası ol.",
+      "tab_servers": "Sunucular",
+      "tab_bots": "Botlar",
+      "search_placeholder": "Ara...",
+      "server_text": "Katıl ve topluluğun bir parçası ol!",
+      "bot_text": "Botu ekle ve özelliklerden faydalan!",
+      "no_results": "Sonuç bulunamadı"
+    },
+    "en": {
+      "label": "EN",
+      "discord_eyebrow": "Free Membership",
+      "discord_title": "Plythonic Discord Community",
+      "discord_lead": "Join one of our 100+ Discord servers and be part of the community.",
+      "tab_servers": "Servers",
+      "tab_bots": "Bots",
+      "search_placeholder": "Search...",
+      "server_text": "Join and be part of the community!",
+      "bot_text": "Add the bot and enjoy the features!",
+      "no_results": "No results found"
+    },
+    "ru": {
+      "label": "RU",
+      "discord_eyebrow": "Бесплатное членство",
+      "discord_title": "Сообщество Plythonic Discord",
+      "discord_lead": "Присоединяйся к одному из наших 100+ Discord серверов и стань частью сообщества.",
+      "tab_servers": "Серверы",
+      "tab_bots": "Боты",
+      "search_placeholder": "Поиск...",
+      "server_text": "Присоединяйся и стань частью сообщества!",
+      "bot_text": "Добавь бота и используй функции!",
+      "no_results": "Результаты не найдены"
+    }
+  };
+
+  var langSwitch = document.getElementById('langSwitch');
+  var langCurrent = document.getElementById('langCurrent');
+  var langCurrentLabel = document.getElementById('langCurrentLabel');
+  var langMenu = document.getElementById('langMenu');
+  var themeBtn = document.getElementById('themeBtn');
+
+  function applyLang(lang){
+    var dict = translations[lang] || translations.tr;
+    document.querySelector('.eyebrow').textContent = dict.discord_eyebrow;
+    document.querySelector('h1').textContent = dict.discord_title;
+    document.querySelector('.lead').textContent = dict.discord_lead;
+    document.getElementById('tabServers').textContent = dict.tab_servers;
+    document.getElementById('tabBots').textContent = dict.tab_bots;
+    document.getElementById('searchInput').placeholder = dict.search_placeholder;
+    
+    langCurrentLabel.textContent = dict.label;
+    document.documentElement.lang = lang;
+    langMenu.querySelectorAll('button').forEach(function(btn){
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    localStorage.setItem('plythonic-lang-v2', lang);
+    
+    window.currentLang = lang;
+    if (window.filterAndRender) window.filterAndRender();
+  }
+
+  langCurrent.addEventListener('click', function(e){
+    e.stopPropagation();
+    var isOpen = langSwitch.classList.toggle('open');
+    langCurrent.setAttribute('aria-expanded', isOpen);
+  });
+
+  langMenu.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      applyLang(btn.getAttribute('data-lang'));
+      langSwitch.classList.remove('open');
+      langCurrent.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', function(){
+    langSwitch.classList.remove('open');
+    langCurrent.setAttribute('aria-expanded', 'false');
+  });
+
+  themeBtn.addEventListener('click', function(){
+    document.documentElement.classList.toggle('light');
+    var isLight = document.documentElement.classList.contains('light');
+    localStorage.setItem('plythonic-theme', isLight ? 'light' : 'dark');
+  });
+
+  var savedLang = localStorage.getItem('plythonic-lang-v2');
+  applyLang(savedLang && translations[savedLang] ? savedLang : 'tr');
+  
+  window.translations = translations;
+})();
+</script>
+<script>
+(function(){
+  var discordIcon = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>';
+  
+  var botIcon = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>';
+  
+  var discordServers = [];
+  for(var i = 1; i <= 100; i++) {
+    discordServers.push({
+      name: 'Discord ' + (window.currentLang === 'ru' ? 'Сервер' : window.currentLang === 'en' ? 'Server' : 'Sunucu') + ' ' + i,
+      url: 'https://discord.gg/server' + i,
+      type: 'server'
+    });
+  }
+  
+  var discordBots = [];
+  for(var i = 1; i <= 100; i++) {
+    discordBots.push({
+      name: 'Discord ' + (window.currentLang === 'ru' ? 'Бот' : 'Bot') + ' ' + i,
+      url: 'https://discord.com/oauth2/authorize?client_id=bot' + i,
+      type: 'bot'
+    });
+  }
+  
+  var currentTab = 'servers';
+  var currentData = discordServers;
+  
+  function renderItems(items, type) {
+    var grid = document.getElementById('serverGrid');
+    var html = '';
+    var icon = type === 'bot' ? botIcon : discordIcon;
+    var lang = window.currentLang || 'tr';
+    var dict = window.translations[lang] || window.translations.tr;
+    var text = type === 'bot' ? dict.bot_text : dict.server_text;
+    
+    items.forEach(function(item) {
+      html += '<a href="' + item.url + '" target="_blank" rel="noopener" class="info-card" style="cursor:pointer;">';
+      html += '<div class="ic">' + icon + '</div>';
+      html += '<h2>' + item.name + '</h2>';
+      html += '<p>' + text + '</p>';
+      html += '</a>';
+    });
+    grid.innerHTML = html || '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px;">' + dict.no_results + '</p>';
+  }
+  
+  window.filterAndRender = function() {
+    var query = document.getElementById('searchInput').value.toLowerCase().trim();
+    var filtered = currentData;
+    if (query !== '') {
+      filtered = currentData.filter(function(item) {
+        return item.name.toLowerCase().indexOf(query) !== -1;
+      });
+    }
+    renderItems(filtered, currentTab === 'servers' ? 'server' : 'bot');
+  };
+  
+  renderItems(discordServers, 'server');
+  
+  var searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', window.filterAndRender);
+  
+  searchInput.addEventListener('focus', function() {
+    this.style.borderColor = '#3B82F6';
+    this.style.boxShadow = '0 0 0 3px rgba(59,130,246,.1)';
+  });
+  
+  searchInput.addEventListener('blur', function() {
+    this.style.borderColor = 'rgba(255,255,255,.35)';
+    this.style.boxShadow = 'none';
+  });
+  
+  var tabServers = document.getElementById('tabServers');
+  var tabBots = document.getElementById('tabBots');
+  
+  tabServers.addEventListener('click', function() {
+    if (currentTab === 'servers') return;
+    currentTab = 'servers';
+    currentData = discordServers;
+    
+    tabServers.style.background = '#3B82F6';
+    tabServers.style.color = '#fff';
+    tabServers.style.borderColor = '#3B82F6';
+    tabServers.classList.add('active');
+    
+    tabBots.style.background = 'transparent';
+    tabBots.style.color = 'var(--soft)';
+    tabBots.style.borderColor = 'rgba(255,255,255,.35)';
+    tabBots.classList.remove('active');
+    
+    searchInput.value = '';
+    window.filterAndRender();
+  });
+  
+  tabBots.addEventListener('click', function() {
+    if (currentTab === 'bots') return;
+    currentTab = 'bots';
+    currentData = discordBots;
+    
+    tabBots.style.background = '#3B82F6';
+    tabBots.style.color = '#fff';
+    tabBots.style.borderColor = '#3B82F6';
+    tabBots.classList.add('active');
+    
+    tabServers.style.background = 'transparent';
+    tabServers.style.color = 'var(--soft)';
+    tabServers.style.borderColor = 'rgba(255,255,255,.35)';
+    tabServers.classList.remove('active');
+    
+    searchInput.value = '';
+    window.filterAndRender();
+  });
+  
+  var style = document.createElement('style');
+  style.textContent = '.tab-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.3);}html.light .tab-btn{border-color:rgba(0,0,0,.4);}html.light .tab-btn:not(.active){color:var(--soft);}';
+  document.head.appendChild(style);
+})();
+</script>
+
+</body>
+</html>
