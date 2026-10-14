@@ -8,9 +8,91 @@
 <link rel="icon" type="image/png" href="logo.png" id="faviconLink">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script>try{if(localStorage.getItem('plythonic-theme')==='light')document.documentElement.classList.add('light');}catch(e){}</script>
+<script>try{if(localStorage.getItem('plythonic-theme')==='light')document.documentElement.classList.add('light');}catch(e){}
+try{
+  if('scrollRestoration' in history) history.scrollRestoration='manual';
+  if(location.hash) history.replaceState(null,'',location.pathname+location.search);
+  window.addEventListener('load',function(){ window.scrollTo(0,0); });
+  window.addEventListener('pageshow',function(){ window.scrollTo(0,0); });
+}catch(e){}</script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+    .discord-search-input {
+      flex: 1;
+      min-width: 280px;
+      max-width: 500px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: var(--panel-solid);
+      border: 1px solid rgba(255,255,255,.35);
+      color: var(--ink);
+      font-family: var(--font-b);
+      font-size: 15px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    html.light .discord-search-input {
+      border: 1px solid rgba(0,0,0,.4);
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-family: var(--font-b);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s;
+      visibility: hidden;
+    }
+    .tab-btn.ready {
+      visibility: visible;
+    }
+    .tab-btn.active {
+      background: #3B82F6;
+      color: #fff;
+      border: 1px solid #3B82F6;
+    }
+    .tab-btn:not(.active) {
+      background: transparent;
+      color: var(--soft);
+      border: 1px solid rgba(255,255,255,.35);
+    }
+    html.light .tab-btn:not(.active) {
+      border-color: rgba(0,0,0,.4);
+    }
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59,130,246,.3);
+    }
+    .card-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(59,130,246,.15);
+      color: #3B82F6;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-family: var(--font-d);
+    }
+    .discord-card {
+      background: linear-gradient(180deg,rgba(59,130,246,.09),rgba(10,12,17,.86) 55%) !important;
+    }
+    html.light .discord-card {
+      background: linear-gradient(180deg,rgba(59,130,246,.09),rgba(255,255,255,.92) 55%) !important;
+    }
+    .discord-card h2,
+    .discord-card p {
+      color: var(--soft);
+    }
+    html.light .discord-card h2 {
+      color: var(--ink);
+    }
+    html.light .discord-card p {
+      color: var(--muted);
+    }
+  </style>
 </head>
 <body>
 
@@ -29,8 +111,11 @@
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
     </button>
     <a class="icon-btn" href="index.html" title="Ana Səhifə" aria-label="Ana Səhifə">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0-1-2 2H5a2 2 0 0-1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     </a>
+    <button class="icon-btn" id="restartBtn" type="button" title="Yenilə" aria-label="Yenilə">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.36"/><path d="M21 4v5h-5"/></svg>
+    </button>
     <div class="lang-switch" id="langSwitch">
       <button class="lang-current" id="langCurrent" type="button" aria-haspopup="true" aria-expanded="false">
         <span id="langCurrentLabel">TR</span>
@@ -55,8 +140,8 @@
         <div style="margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
           <input type="text" id="searchInput" placeholder="Ara..." class="discord-search-input">
           <div style="display:flex;gap:8px;">
-            <button id="tabServers" class="tab-btn active">Sunucular</button>
-            <button id="tabBots" class="tab-btn">Botlar</button>
+            <button id="tabServers" class="tab-btn active">...</button>
+            <button id="tabBots" class="tab-btn">...</button>
           </div>
         </div>
       </div>
@@ -118,15 +203,20 @@
   var langCurrent = document.getElementById('langCurrent');
   var langCurrentLabel = document.getElementById('langCurrentLabel');
   var langMenu = document.getElementById('langMenu');
-  var themeBtn = document.getElementById('themeBtn');
 
   function applyLang(lang){
     var dict = translations[lang] || translations.tr;
     document.querySelector('.eyebrow').textContent = dict.discord_eyebrow;
     document.querySelector('h1').textContent = dict.discord_title;
     document.querySelector('.lead').textContent = dict.discord_lead;
-    document.getElementById('tabServers').textContent = dict.tab_servers;
-    document.getElementById('tabBots').textContent = dict.tab_bots;
+    
+    var tabServers = document.getElementById('tabServers');
+    var tabBots = document.getElementById('tabBots');
+    tabServers.textContent = dict.tab_servers;
+    tabBots.textContent = dict.tab_bots;
+    tabServers.classList.add('ready');
+    tabBots.classList.add('ready');
+    
     document.getElementById('searchInput').placeholder = dict.search_placeholder;
     
     langCurrentLabel.textContent = dict.label;
@@ -159,10 +249,10 @@
     langCurrent.setAttribute('aria-expanded', 'false');
   });
 
-  themeBtn.addEventListener('click', function(){
-    document.documentElement.classList.toggle('light');
-    var isLight = document.documentElement.classList.contains('light');
-    localStorage.setItem('plythonic-theme', isLight ? 'light' : 'dark');
+  var restartBtn = document.getElementById('restartBtn');
+  restartBtn.addEventListener('click', function(){
+    restartBtn.classList.add('spin');
+    setTimeout(function(){ location.reload(); }, 300);
   });
 
   var savedLang = localStorage.getItem('plythonic-lang-v2');
@@ -276,72 +366,6 @@
     window.filterAndRender();
   });
   
-  var style = document.createElement('style');
-  style.textContent = `
-    .discord-search-input {
-      flex: 1;
-      min-width: 280px;
-      max-width: 500px;
-      padding: 14px 20px;
-      border-radius: 12px;
-      background: var(--panel-solid);
-      border: 1px solid rgba(255,255,255,.35);
-      color: var(--ink);
-      font-family: var(--font-b);
-      font-size: 15px;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    html.light .discord-search-input {
-      border: 1px solid rgba(0,0,0,.4);
-    }
-    .tab-btn {
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-family: var(--font-b);
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .tab-btn.active {
-      background: #3B82F6;
-      color: #fff;
-      border: 1px solid #3B82F6;
-    }
-    .tab-btn:not(.active) {
-      background: transparent;
-      color: var(--soft);
-      border: 1px solid rgba(255,255,255,.35);
-    }
-    html.light .tab-btn:not(.active) {
-      border-color: rgba(0,0,0,.4);
-    }
-    .tab-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59,130,246,.3);
-    }
-    .card-number {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(59,130,246,.15);
-      color: #3B82F6;
-      font-weight: 700;
-      font-size: 18px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-family: var(--font-d);
-    }
-    .discord-card h2,
-    .discord-card p {
-      color: var(--soft);
-    }
-    html.light .discord-card h2,
-    html.light .discord-card p {
-      color: var(--ink);
-    }
-  `;
-  document.head.appendChild(style);
 })();
 </script>
 
