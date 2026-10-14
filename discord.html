@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plythonic - Discord</title>
+<title>Discord Servers - Plythonic</title>
 <meta name="description" content="Plythonic Discord Servers">
 <link rel="icon" type="image/png" href="logo.png" id="faviconLink">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,10 +53,10 @@
         <h1>Plythonic Discord Topluluğu</h1>
         <p class="lead">100+ Discord sunucumuzdan birine katıl ve topluluğun bir parçası ol.</p>
         <div style="margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-          <input type="text" id="searchInput" placeholder="Ara..." style="flex:1;min-width:280px;max-width:500px;padding:14px 20px;border-radius:12px;background:var(--panel-solid);border:1px solid rgba(255,255,255,.35);color:var(--ink);font-family:var(--font-b);font-size:15px;transition:border-color .2s,box-shadow .2s;">
+          <input type="text" id="searchInput" placeholder="Ara..." class="discord-search-input">
           <div style="display:flex;gap:8px;">
-            <button id="tabServers" class="tab-btn active" style="padding:12px 24px;border-radius:10px;background:var(--blue);color:#fff;border:1px solid var(--blue);font-family:var(--font-b);font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;">Sunucular</button>
-            <button id="tabBots" class="tab-btn" style="padding:12px 24px;border-radius:10px;background:transparent;color:var(--soft);border:1px solid rgba(255,255,255,.35);font-family:var(--font-b);font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;">Botlar</button>
+            <button id="tabServers" class="tab-btn active">Sunucular</button>
+            <button id="tabBots" class="tab-btn">Botlar</button>
           </div>
         </div>
       </div>
@@ -244,7 +244,8 @@
   });
   
   searchInput.addEventListener('blur', function() {
-    this.style.borderColor = 'rgba(255,255,255,.35)';
+    var isLight = document.documentElement.classList.contains('light');
+    this.style.borderColor = isLight ? 'rgba(0,0,0,.4)' : 'rgba(255,255,255,.35)';
     this.style.boxShadow = 'none';
   });
   
@@ -256,14 +257,7 @@
     currentTab = 'servers';
     currentData = discordServers;
     
-    tabServers.style.background = '#3B82F6';
-    tabServers.style.color = '#fff';
-    tabServers.style.borderColor = '#3B82F6';
     tabServers.classList.add('active');
-    
-    tabBots.style.background = 'transparent';
-    tabBots.style.color = 'var(--soft)';
-    tabBots.style.borderColor = 'rgba(255,255,255,.35)';
     tabBots.classList.remove('active');
     
     searchInput.value = '';
@@ -275,14 +269,7 @@
     currentTab = 'bots';
     currentData = discordBots;
     
-    tabBots.style.background = '#3B82F6';
-    tabBots.style.color = '#fff';
-    tabBots.style.borderColor = '#3B82F6';
     tabBots.classList.add('active');
-    
-    tabServers.style.background = 'transparent';
-    tabServers.style.color = 'var(--soft)';
-    tabServers.style.borderColor = 'rgba(255,255,255,.35)';
     tabServers.classList.remove('active');
     
     searchInput.value = '';
@@ -290,7 +277,50 @@
   });
   
   var style = document.createElement('style');
-  style.textContent = '.tab-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.3);}html.light .tab-btn{border-color:rgba(0,0,0,.4);}html.light .tab-btn:not(.active){color:var(--soft);}';
+  style.textContent = `
+    .discord-search-input {
+      flex: 1;
+      min-width: 280px;
+      max-width: 500px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: var(--panel-solid);
+      border: 1px solid rgba(255,255,255,.35);
+      color: var(--ink);
+      font-family: var(--font-b);
+      font-size: 15px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    html.light .discord-search-input {
+      border: 1px solid rgba(0,0,0,.4);
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-family: var(--font-b);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .tab-btn.active {
+      background: #3B82F6;
+      color: #fff;
+      border: 1px solid #3B82F6;
+    }
+    .tab-btn:not(.active) {
+      background: transparent;
+      color: var(--soft);
+      border: 1px solid rgba(255,255,255,.35);
+    }
+    html.light .tab-btn:not(.active) {
+      border-color: rgba(0,0,0,.4);
+    }
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59,130,246,.3);
+    }
+  `;
   document.head.appendChild(style);
 })();
 </script>
