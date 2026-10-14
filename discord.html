@@ -177,7 +177,8 @@
   var discordServers = [];
   for(var i = 1; i <= 100; i++) {
     discordServers.push({
-      name: 'Discord ' + (window.currentLang === 'ru' ? 'Сервер' : window.currentLang === 'en' ? 'Server' : 'Sunucu') + ' ' + i,
+      name: 'Boş Vitrin',
+      number: i,
       url: 'https://discord.gg/server' + i,
       type: 'server'
     });
@@ -186,7 +187,8 @@
   var discordBots = [];
   for(var i = 1; i <= 100; i++) {
     discordBots.push({
-      name: 'Discord ' + (window.currentLang === 'ru' ? 'Бот' : 'Bot') + ' ' + i,
+      name: 'Boş Vitrin',
+      number: i,
       url: 'https://discord.com/oauth2/authorize?client_id=bot' + i,
       type: 'bot'
     });
@@ -204,7 +206,8 @@
     var text = type === 'bot' ? dict.bot_text : dict.server_text;
     
     items.forEach(function(item) {
-      html += '<a href="' + item.url + '" target="_blank" rel="noopener" class="info-card" style="cursor:pointer;">';
+      html += '<a href="' + item.url + '" target="_blank" rel="noopener" class="info-card" style="cursor:pointer;position:relative;">';
+      html += '<span style="position:absolute;top:20px;right:20px;background:rgba(59,130,246,.15);color:#3B82F6;font-weight:700;font-size:18px;padding:6px 12px;border-radius:8px;font-family:var(--font-d);">#' + item.number + '</span>';
       html += '<div class="ic">' + icon + '</div>';
       html += '<h2>' + item.name + '</h2>';
       html += '<p>' + text + '</p>';
