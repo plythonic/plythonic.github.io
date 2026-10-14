@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Discord Servers - Plythonic</title>
+<title>Plythonic - Discord</title>
 <meta name="description" content="Plythonic Discord Servers">
 <link rel="icon" type="image/png" href="logo.png" id="faviconLink">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -223,7 +223,11 @@
     var filtered = currentData;
     if (query !== '') {
       filtered = currentData.filter(function(item) {
-        return item.name.toLowerCase().indexOf(query) !== -1;
+        var lang = window.currentLang || 'tr';
+        var dict = window.translations[lang] || window.translations.tr;
+        var name = dict.empty_showcase.toLowerCase();
+        var numberStr = item.number.toString();
+        return name.indexOf(query) !== -1 || numberStr.indexOf(query) !== -1 || ('#' + numberStr).indexOf(query) !== -1;
       });
     }
     renderItems(filtered, currentTab === 'servers' ? 'server' : 'bot');
