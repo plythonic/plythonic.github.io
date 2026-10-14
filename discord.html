@@ -208,8 +208,8 @@
     var name = dict.empty_showcase;
     
     items.forEach(function(item) {
-      html += '<a href="' + item.url + '" target="_blank" rel="noopener" class="info-card" style="cursor:pointer;position:relative;">';
-      html += '<span style="position:absolute;top:20px;right:20px;background:rgba(59,130,246,.15);color:#3B82F6;font-weight:700;font-size:18px;padding:6px 12px;border-radius:8px;font-family:var(--font-d);">#' + item.number + '</span>';
+      html += '<a href="' + item.url + '" target="_blank" rel="noopener" class="info-card discord-card" style="cursor:pointer;position:relative;">';
+      html += '<span class="card-number">#' + item.number + '</span>';
       html += '<div class="ic">' + icon + '</div>';
       html += '<h2>' + name + '</h2>';
       html += '<p>' + text + '</p>';
@@ -319,6 +319,26 @@
     .tab-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(59,130,246,.3);
+    }
+    .card-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(59,130,246,.15);
+      color: #3B82F6;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-family: var(--font-d);
+    }
+    .discord-card h2,
+    .discord-card p {
+      color: var(--soft);
+    }
+    html.light .discord-card h2,
+    html.light .discord-card p {
+      color: var(--ink);
     }
   `;
   document.head.appendChild(style);
