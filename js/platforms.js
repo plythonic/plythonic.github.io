@@ -9,10 +9,10 @@
     el.innerHTML = icons[el.getAttribute('data-icon')] || '';
   });
   var items = [
-    {name:'WhatsApp', icon:'whatsapp', url:'https://wa.me/'},
-    {name:'Instagram', icon:'instagram', url:'https://www.instagram.com/plythonic'},
+    {name:'WhatsApp', icon:'whatsapp', url:'whatsapp'},
+    {name:'Instagram', icon:'instagram', url:'instagram'},
     {name:'Discord', icon:'discord', url:'discord'},
-    {name:'TikTok', icon:'tiktok', url:'https://www.tiktok.com/@plythonic'}
+    {name:'TikTok', icon:'tiktok', url:'tiktok'}
   ];
   var group = items.map(function(it){
     var target = it.url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
