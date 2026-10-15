@@ -18,20 +18,20 @@ try{
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
-    :root{--accent:#25D366;--accent-rgb:37,211,102;}
+    :root{--blue:#25D366;--blue-rgb:37,211,102;--on-blue:#fff;}
     .discord-search-input{flex:1;min-width:280px;max-width:500px;padding:14px 20px;border-radius:12px;background:var(--panel-solid);border:1px solid rgba(255,255,255,.35);color:var(--ink);font-family:var(--font-b);font-size:15px;transition:border-color .2s,box-shadow .2s;}
     html.light .discord-search-input{border:1px solid rgba(0,0,0,.4);}
     .tab-btn{padding:12px 24px;border-radius:10px;font-family:var(--font-b);font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;visibility:hidden;}
     .tab-btn.ready{visibility:visible;}
-    .tab-btn.active{background:var(--accent);color:#fff;border:1px solid var(--accent);}
+    .tab-btn.active{background:var(--blue);color:var(--on-blue);border:1px solid var(--blue);}
     .tab-btn:not(.active){background:transparent;color:var(--soft);border:1px solid rgba(255,255,255,.35);}
     html.light .tab-btn:not(.active){border-color:rgba(0,0,0,.4);}
-    .tab-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(var(--accent-rgb),.3);}
-    .card-number{position:absolute;top:20px;right:20px;background:rgba(var(--accent-rgb),.15);color:var(--accent);font-weight:700;font-size:18px;padding:6px 12px;border-radius:8px;font-family:var(--font-d);}
-    .discord-card{background:linear-gradient(180deg,rgba(var(--accent-rgb),.09),rgba(10,12,17,.86) 55%) !important;}
-    html.light .discord-card{background:linear-gradient(180deg,rgba(var(--accent-rgb),.09),rgba(255,255,255,.92) 55%) !important;}
-    .discord-card:hover{border-color:var(--accent);box-shadow:0 22px 44px -26px rgba(var(--accent-rgb),.7);}
-    .discord-card .ic{background:rgba(var(--accent-rgb),.12);border:1px solid rgba(var(--accent-rgb),.4);color:var(--accent);}
+    .tab-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(var(--blue-rgb),.3);}
+    .card-number{position:absolute;top:20px;right:20px;background:rgba(var(--blue-rgb),.15);color:var(--blue);font-weight:700;font-size:18px;padding:6px 12px;border-radius:8px;font-family:var(--font-d);}
+    .discord-card{background:linear-gradient(180deg,rgba(var(--blue-rgb),.09),rgba(10,12,17,.86) 55%) !important;}
+    html.light .discord-card{background:linear-gradient(180deg,rgba(var(--blue-rgb),.09),rgba(255,255,255,.92) 55%) !important;}
+    .discord-card:hover{border-color:var(--blue);box-shadow:0 22px 44px -26px rgba(var(--blue-rgb),.7);}
+    .discord-card .ic{background:rgba(var(--blue-rgb),.12);border:1px solid rgba(var(--blue-rgb),.4);color:var(--blue);}
     .discord-card h2,.discord-card p{color:var(--soft);}
     html.light .discord-card h2{color:var(--ink);}
     html.light .discord-card p{color:var(--muted);}
