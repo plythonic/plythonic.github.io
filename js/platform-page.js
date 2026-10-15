@@ -104,8 +104,8 @@
 
   searchInput.addEventListener('input', window.filterAndRender);
   searchInput.addEventListener('focus', function(){
-    this.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
-    this.style.boxShadow = '0 0 0 3px rgba(' + getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb') + ',.1)';
+    this.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--blue');
+    this.style.boxShadow = '0 0 0 3px rgba(' + getComputedStyle(document.documentElement).getPropertyValue('--blue-rgb') + ',.1)';
   });
   searchInput.addEventListener('blur', function(){
     var isLight = document.documentElement.classList.contains('light');
