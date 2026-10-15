@@ -11,7 +11,7 @@
   var items = [
     {name:'WhatsApp', icon:'whatsapp', url:'https://wa.me/'},
     {name:'Instagram', icon:'instagram', url:'https://www.instagram.com/plythonic'},
-    {name:'Discord', icon:'discord', url:'discord.html'},
+    {name:'Discord', icon:'discord', url:'discord'},
     {name:'TikTok', icon:'tiktok', url:'https://www.tiktok.com/@plythonic'}
   ];
   var group = items.map(function(it){
