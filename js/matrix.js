@@ -1,7 +1,7 @@
 (function(){
   var canvas = document.getElementById('matrix');
   var ctx = canvas.getContext('2d');
-  var chars = "01{}<>/=+*#[]();$%&PLYTHONIC".split("");
+  var chars = "01{}<>/=+*#[]();$%&LIOR".split("");
   var fontSize = 15;
   var columns, drops, dpr;
   var fadeRGB = "2,3,4";
