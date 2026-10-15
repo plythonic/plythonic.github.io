@@ -5,6 +5,7 @@
   var fontSize = 15;
   var columns, drops, dpr;
   var fadeRGB = "2,3,4";
+  var glyphRGB = (getComputedStyle(document.documentElement).getPropertyValue('--blue-rgb') || '59,130,246').trim();
 
   function setup(){
     dpr = window.devicePixelRatio || 1;
@@ -32,7 +33,7 @@
       var x = i * fontSize;
       var y = drops[i] * fontSize;
 
-      ctx.fillStyle = "rgba(59,130,246,0.9)";
+      ctx.fillStyle = "rgba(" + glyphRGB + ",0.9)";
       ctx.fillText(text, x, y);
 
       if(y > window.innerHeight && Math.random() > 0.975){
