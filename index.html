@@ -1,120 +1,298 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lior</title>
-<meta name="description" content="Lior Reklam Sitesi">
-<link rel="icon" type="image/png" href="logo.png" id="faviconLink">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script>try{if(localStorage.getItem('plythonic-theme')==='light')document.documentElement.classList.add('light');}catch(e){}
-try{
-  if('scrollRestoration' in history) history.scrollRestoration='manual';
-  if(location.hash) history.replaceState(null,'',location.pathname+location.search);
-  window.addEventListener('load',function(){ window.scrollTo(0,0); });
-  window.addEventListener('pageshow',function(){ window.scrollTo(0,0); });
-}catch(e){}</script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lior — Ücretsiz Discord bot tanıtım platformu</title>
+  <meta name="description" content="Discord botunu ücretsiz tanıt, oylarla büyüt. Tamamen bedava bot listeleme platformu.">
+  <meta name="theme-color" content="#4287f5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=7">
 </head>
+
 <body>
 
-<canvas id="matrix"></canvas>
-
-<header class="site-header">
-  <div class="header-left">
-    <a class="brand" href="#">
-      <span class="mark"><img src="plythonic.png" alt="" onerror="this.style.display='none'"></span>
-      <span class="word">Lior</span>
-    </a>
-  </div>
-  <div class="header-actions">
-    <button class="icon-btn" id="themeBtn" type="button" title="Tema" aria-label="Tema">
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
-    </button>
-    <button class="icon-btn" id="restartBtn" type="button" title="Yenilə" aria-label="Yenilə">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.36"/><path d="M21 4v5h-5"/></svg>
-    </button>
-    <div class="lang-switch" id="langSwitch">
-      <button class="lang-current" id="langCurrent" type="button" aria-haspopup="true" aria-expanded="false">
-        <span id="langCurrentLabel">TR</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="lang-menu" id="langMenu">
-        <button type="button" data-lang="tr" class="active">Türkçe</button>
-        <button type="button" data-lang="en">English</button>
-        <button type="button" data-lang="ru">Русский</button>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <div class="hero">
-    <section class="intro">
-      <div class="intro-head">
-        <span class="eyebrow" data-i18n="eyebrow"></span>
-        <h1 data-i18n="intro_title"></h1>
-        <p class="lead" data-i18n="intro_lead"></p>
-        <div class="btns">
-          <a class="btn" href="#platforms"><span data-i18n="cta"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-          <a class="btn ghost" href="https://discord.gg/plython" target="_blank" rel="noopener"><span data-i18n="cta2"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+  <header>
+    <nav class="top">
+      <div class="wrap">
+        <a href="#" class="logo"><span class="logo-mark">L</span>Lior</a>
+        <div class="links">
+          <a href="#features">Özellikler</a>
+          <a href="#network">İstatistikler</a>
+          <a href="#how">Nasıl Çalışır</a>
+        </div>
+        <div class="nav-cta">
+          <select class="lang-sel" id="langSel" aria-label="Language">
+            <option value="tr" selected>TR</option>
+            <option value="az">AZ</option>
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+          </select>
+          <a href="#" class="signin">Giriş Yap</a>
+          <a href="#how" class="btn btn-primary sm">Başla</a>
+          <button class="burger" id="burger" aria-label="Menü"><span></span></button>
         </div>
       </div>
-      <div class="info-grid">
-        <article class="info-card">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div>
-          <h2 data-i18n="s1_t"></h2>
-          <p data-i18n="s1_p"></p>
-        </article>
-        <article class="info-card">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
-          <h2 data-i18n="s2_t"></h2>
-          <p data-i18n="s2_p"></p>
-        </article>
-        <article class="info-card">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></svg></div>
-          <h2 data-i18n="s3_t"></h2>
-          <p data-i18n="s3_p"></p>
-        </article>
-        <article class="info-card c3">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></div>
-          <h2 data-i18n="s4_t"></h2>
-          <ol>
-            <li><i>1</i><span data-i18n="st1"></span></li>
-            <li><i>2</i><span data-i18n="st2"></span></li>
-            <li><i>3</i><span data-i18n="st3"></span></li>
-            <li><i>4</i><span data-i18n="st4"></span></li>
-          </ol>
-        </article>
-        <article class="info-card c3">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
-          <h2 data-i18n="s5_t"></h2>
-          <ul>
-            <li><span class="pi" data-icon="whatsapp"></span><div><b>WhatsApp</b><span data-i18n="pl_wa"></span></div></li>
-            <li><span class="pi" data-icon="instagram"></span><div><b>Instagram</b><span data-i18n="pl_ig"></span></div></li>
-            <li><span class="pi" data-icon="discord"></span><div><b>Discord</b><span data-i18n="pl_dc"></span></div></li>
-            <li><span class="pi" data-icon="tiktok"></span><div><b>TikTok</b><span data-i18n="pl_tt"></span></div></li>
-          </ul>
-        </article>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#features">Özellikler</a>
+        <a href="#network">İstatistikler</a>
+        <a href="#how">Nasıl Çalışır</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-frame" id="heroFrame" style="width:100%;min-height:440px;border:1px solid rgba(255,255,255,.15);border-radius:24px;overflow:hidden;background:radial-gradient(640px circle at 50% 0%,rgba(66,135,245,.2),transparent 70%),#111114;"></div>
       </div>
     </section>
-    <div class="mq-head" id="platforms"></div>
-    <div class="marquee">
-      <div class="marquee-track" id="marqueeTrack"></div>
+
+    <section id="network">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Canlı İstatistikler</span>
+          <h2>Ücretsiz reklam platformu, oy verme sistemi ile.</h2>
+          <p class="lead">Botunuzu tanıtın, kullanıcıların oyları ile daha fazla görünürlük kazanın. Tamamen ücretsiz, şeffaf istatistikler.</p>
+        </div>
+        <div class="net-top reveal">
+          <div class="mini"><small>Toplam gösterim</small><b data-count="278.5" data-dec="1" data-suffix="K">0</b></div>
+          <div class="mini"><small>Toplam tıklama</small><b data-count="8245" data-sep="1">0</b></div>
+          <div class="mini"><small>Aktif kampanya</small><b data-count="6">0</b></div>
+          <div class="mini"><small>Ortalama CTR</small><b data-count="2.96" data-dec="2" data-suffix="%">0</b></div>
+        </div>
+        <div class="net-main reveal">
+          <div class="panel">
+            <span class="live"><i></i>Canlı</span>
+            <h3>Günlük gösterim</h3>
+            <p class="sub">Son 30 günde 138.437 gösterim ve 3.733 tıklama</p>
+            <svg id="chart" viewBox="0 0 600 230" preserveAspectRatio="none"></svg>
+            <div class="chart-x"><span id="d1"></span><span id="d2"></span><span>Bugün</span></div>
+          </div>
+          <div class="panel">
+            <h3>Dile göre kitle</h3>
+            <p class="sub">Son 30 günde 48.231 gösterim üzerinden pay.</p>
+            <div id="langs"></div>
+            <p class="note">Hedeflemek için 18 dil var, en az 3 tanesini seç.</p>
+            <div class="chips" id="chips"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Neden Lior</span>
+          <h2>Discord için kuruldu. Geliştiriciler için fiyatlandırıldı.</h2>
+          <p class="lead">Genel reklam ağları Discord ile ilgilenmeyen insanlara para harcar. Listeleme siteleri ise çoğunlukla botlar ve çiftlikler gönderir. Burada reklamınız, sunucu yöneten ve bot arayan insanların önünde.</p>
+        </div>
+        <div class="feat-grid">
+          <div class="feat big reveal">
+            <div>
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="16" rx="3" />
+                  <path d="M3 10h18M8 15h4" />
+                </svg></div>
+              <h3>Profesyonel bot kartları</h3>
+              <p>Botunuz için özel tasarlanmış, modern ve görsel açıdan çekici kartlar. Kullanıcılar oy vererek botunuzu destekler.</p>
+              <span class="ctrl-label">Tema</span>
+              <div class="pills" id="themes">
+                <button class="pill active" data-t="discord">Discord</button>
+                <button class="pill" data-t="midnight">Midnight</button>
+                <button class="pill" data-t="light">Açık</button>
+                <button class="pill" data-t="sunset">Sunset</button>
+              </div>
+              <span class="ctrl-label">Düğme Stili</span>
+              <div class="pills" id="btnStyle">
+                <button class="pill active" data-s="solid">Dolu</button>
+                <button class="pill" data-s="outline">Çerçeve</button>
+              </div>
+              <span class="ctrl-label">Köşe Yuvarlaklığı</span>
+              <div class="radius-row"><input type="range" id="radius" min="0" max="24" value="10"><span id="radiusVal">10px</span></div>
+            </div>
+            <div class="adcard" data-theme="discord" id="editCard">
+              <div class="ad-top">
+                <div class="ad-auth">
+                  <div class="ad-ava">N</div>Nova Bot
+                </div>
+                <span class="ad-tag">Onaylı bot</span>
+              </div>
+              <h4>Nova: Müzik ve Moderasyon</h4>
+              <p>Yüksek kaliteli müzik, güçlü oto-moderasyon ve eğlenceli ekonomi oyunları. Saniyeler içinde kur.</p>
+              <div class="ad-fields">
+                <div class="ad-field"><small>Sunucu</small><b>52.400</b></div>
+                <div class="ad-field"><small>Komut</small><b>120+</b></div>
+                <div class="ad-field"><small>Uptime</small><b>99.9%</b></div>
+              </div>
+              <button class="ad-btn">Discord'a ekle</button>
+            </div>
+          </div>
+          <div class="feat reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18" />
+              </svg></div>
+            <h3>Onların dilinde konuş</h3>
+            <p>18 dilden en az 3 tanesini seç. Reklamın yalnızca bu dilleri okuyan ziyaretçilere gösterilir.</p>
+            <div class="chips"><span class="chip on">en</span><span class="chip on">az</span><span class="chip on">tr</span><span class="chip on">ru</span><span class="chip on">de</span><span class="chip on">fr</span><span class="chip">+12</span></div>
+          </div>
+          <div class="feat reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18M16.5 7.5c-.8-1.3-2.4-2-4.5-2-2.6 0-4.2 1.200-4.200 3s1.400 2.600 4.200 3.200 4.500 1.400 4.500 3.300-1.800 3-4.500 3c-2.200 0-3.800-.8-4.700-2.300" />
+              </svg></div>
+            <div class="price-big">$0.05</div>
+            <h3>Tıklama başına. Hepsi bu kadar.</h3>
+            <p>Gösterimler her zaman ücretsizdir. Yalnızca gerçek bir kişi sayfana girdiğinde ödersin.</p>
+          </div>
+          <div class="feat reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 3v6c0 4.500-3.300 8-8 9-4.700-1-8-4.500-8-9V6l8-3z" />
+                <path d="M8.500 12l2.500 2.5 4.500-5" />
+              </svg></div>
+            <h3>Güvenli moderasyon</h3>
+            <p>Her bot incelenir, kaliteli içerik garantisi. Topluluk güvenli kalır.</p>
+          </div>
+          <div class="feat reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20V10M10 20V4M16 20v-8M22 20H2" />
+              </svg></div>
+            <h3>Gerçek zamanlı istatistikler</h3>
+            <p>Bot oylarını, ziyaretçileri ve kullanıcı etkileşimlerini anlık takip edin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="sec-head center reveal">
+          <span class="eyebrow">Nasıl Çalışır</span>
+          <h2>Kayıttan yayına 3 dakika.</h2>
+          <p class="lead">Satış görüşmesi yok, sözleşme yok, kart bilgisi gerekmez. Sadece Gmail hesabın.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <div class="num">1</div>
+            <h3>Gmail ile giriş yap</h3>
+            <p>Gmail hesabınla tek tıkla giriş yap. Şifre veya kart gerekmez, tamamen ücretsiz.</p>
+          </div>
+          <div class="step reveal">
+            <div class="num">2</div>
+            <h3>Botunu ekle</h3>
+            <p>Bot bilgilerini gir, açıklama ekle, banner yükle. Hepsi bu kadar basit.</p>
+          </div>
+          <div class="step reveal">
+            <div class="num">3</div>
+            <h3>Oyları topla</h3>
+            <p>Kullanıcılar botunuza oy verir, daha fazla oy daha yüksek sıralama demektir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="wrap">
+        <div class="sec-head center reveal">
+          <span class="eyebrow">2021'den beri Discord botlarına hizmet</span>
+          <h2>Doğru kitle, büyük kitleden daha değerlidir.</h2>
+          <p class="lead">Botunuzu gerçekten bot arayan, sunucu kuran kullanıcılara tanıtıyoruz. Her oy daha fazla görünürlük demektir.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th class="c hl">Lior</th>
+                <th class="c">Diğer siteler</th>
+                <th class="c">Ücretli ağlar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ücretsiz platform</td>
+                <td class="c hl yes">✓</td>
+                <td class="c no">✕</td>
+                <td class="c no">✕</td>
+              </tr>
+              <tr>
+                <td>Oy verme sistemi</td>
+                <td class="c hl yes">✓</td>
+                <td class="c part">Kısmen</td>
+                <td class="c no">✕</td>
+              </tr>
+              <tr>
+                <td>Abonelik gerekmiyor</td>
+                <td class="c hl yes">✓</td>
+                <td class="c part">Kısmen</td>
+                <td class="c no">✕</td>
+              </tr>
+              <tr>
+                <td>Gerçek zamanlı istatistik</td>
+                <td class="c hl yes">✓</td>
+                <td class="c part">Kısmen</td>
+                <td class="c part">Kısmen</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta-box reveal">
+          <h2>Sıradaki kullanıcıların zaten burada.</h2>
+          <p class="lead">Gmail ile giriş yap, botunu ekle ve dakikalar içinde yayınla. Tamamen ücretsiz, abonelik yok.</p>
+          <div class="hero-btns">
+            <a href="#" class="btn btn-primary">Hemen Başla <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg></a>
+            <a href="#how" class="btn btn-dark">Nasıl Çalışır</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a href="#" class="logo"><span class="logo-mark">L</span>Lior</a>
+          <p>Discord için kurulmuş ücretsiz bot listeleme platformu. Botunu tanıt, oylarla büyüt.</p>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#features">Özellikler</a></li>
+            <li><a href="#network">İstatistikler</a></li>
+            <li><a href="#how">Nasıl Çalışır</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Destek</h4>
+          <ul>
+            <li><a href="#">Yardım</a></li>
+            <li><a href="#">Discord sunucusu</a></li>
+            <li><a href="#">Şartlar ve Gizlilik</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy"><span>© 2026 Lior</span><span>lior.az</span></div>
     </div>
-  </div>
-</main>
+  </footer>
 
-<footer class="site-footer">
-  <span>© 2026 Lior</span>
-</footer>
-
-<script src="js/matrix.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/platforms.js"></script>
-
+  <script src="js/language.js?v=7"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
+
 </html>
