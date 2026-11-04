@@ -79,15 +79,13 @@ function setDates() {
 }
 setDates();
 
-const langData = [['İngilizce', 51.2], ['Çince', 6.5], ['Arapça', 6.0], ['Fransızca', 5.5], ['İspanyolca', 4.9], ['Almanca', 4.5], ['Diğer diller', 21.5]];
+const langData = [['Moderasyon', 32.5], ['Ticket', 18.2], ['Otomasyon', 15.8], ['Kullanıcı', 12.3], ['Sunucu', 9.7], ['Emoji', 6.2], ['Diğer', 5.3]];
 const langsEl = document.getElementById('langs');
 function renderLangs() {
   const ready = langsEl.dataset.ready;
   langsEl.innerHTML = langData.map(([n, v]) => `<div class="lang-row"><div><span>${t(n)}</span><span>${v}%</span></div><div class="bar"><i data-w="${Math.min(v * 1.7, 100)}" style="${ready ? 'width:' + Math.min(v * 1.7, 100) + '%' : ''}"></i></div></div>`).join('');
 }
 renderLangs();
-const codes = ['en', 'fr', 'es', 'de', 'pt', 'it', 'nl', 'pl', 'ru', 'uk', 'tr', 'ar', 'zh', 'hi', 'id', 'vi', 'ja', 'ko'];
-document.getElementById('chips').innerHTML = codes.map((c, i) => `<span class="chip ${i < 6 ? 'on' : ''}">${c}</span>`).join('');
 
 const chartIO = new IntersectionObserver(es => {
   es.forEach(e => {
@@ -149,8 +147,133 @@ function applyLang(l) {
   burgerEl.setAttribute('aria-label', t('Menü'));
   renderLangs();
   setDates();
-  document.getElementById('langSel').value = l;
-  try { localStorage.setItem('lior-lang', l); } catch (e) { }
+  document.getElementById('currentLang').textContent = l === 'tr' ? 'TR' : 'EN';
+  
+  // Update active state
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.lang === l);
+  });
+  
+  try { localStorage.setItem('plython-lang', l); } catch (e) { }
 }
-document.getElementById('langSel').addEventListener('change', e => applyLang(e.target.value));
+
+// Language dropdown
+const langDropdown = document.getElementById('langDropdown');
+const langBtn = document.getElementById('langBtn');
+const langMenu = document.getElementById('langMenu');
+
+langBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  langDropdown.classList.toggle('open');
+});
+
+document.querySelectorAll('.lang-option').forEach(opt => {
+  opt.addEventListener('click', (e) => {
+    e.stopPropagation();
+    applyLang(opt.dataset.lang);
+    langDropdown.classList.remove('open');
+  });
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', () => {
+  langDropdown.classList.remove('open');
+});
+
 applyLang(LANG);
+
+
+// Dashboard button - Coming Soon Toast
+const dashboardBtn = document.getElementById('dashboardBtn');
+let toastEl = null;
+
+function showToast(message) {
+  // Remove existing toast if any
+  if (toastEl) {
+    toastEl.remove();
+  }
+  
+  // Create toast
+  toastEl = document.createElement('div');
+  toastEl.className = 'toast';
+  toastEl.innerHTML = `
+    <div class="toast-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4"/>
+        <path d="M12 16h.01"/>
+      </svg>
+    </div>
+    <span>${message}</span>
+  `;
+  document.body.appendChild(toastEl);
+  
+  // Show toast
+  setTimeout(() => toastEl.classList.add('show'), 10);
+  
+  // Hide and remove after 3 seconds
+  setTimeout(() => {
+    toastEl.classList.remove('show');
+    setTimeout(() => {
+      if (toastEl) toastEl.remove();
+      toastEl = null;
+    }, 300);
+  }, 3000);
+}
+
+dashboardBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  showToast(LANG === 'tr' ? 'Yakında hazır olacaq!' : 'Coming soon!');
+});
+
+
+// Smooth scroll without hash in URL
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const targetSection = document.getElementById(targetId);
+    
+    if (targetSection) {
+      const headerOffset = 84;
+      const elementPosition = targetSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Update URL without hash
+      if (targetId) {
+        history.pushState(null, '', '/' + targetId);
+      }
+      
+      // Close mobile menu if open
+      mobileMenu.classList.remove('open');
+    }
+  });
+});
+
+// Handle back/forward buttons
+window.addEventListener('popstate', function() {
+  const path = window.location.pathname.substring(1);
+  const section = document.getElementById(path);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
+
+// Scroll to top on page reload/refresh
+window.addEventListener('beforeunload', function() {
+  window.scrollTo(0, 0);
+});
+
+// Also scroll to top on page load
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('load', function() {
+  window.scrollTo(0, 0);
+});
