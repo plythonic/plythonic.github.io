@@ -1,94 +1,133 @@
-let LANG = 'tr';
-try { const sv = localStorage.getItem('lior-lang'); if (['tr', 'az', 'en', 'ru'].includes(sv)) LANG = sv; } catch (e) { }
-const IDX = { tr: 0, az: 1, en: 2, ru: 3 };
-const LOC = { tr: 'tr-TR', az: 'az-AZ', en: 'en-US', ru: 'ru-RU' };
+let LANG = 'en';
+try { const sv = localStorage.getItem('plython-lang'); if (['tr', 'en'].includes(sv)) LANG = sv; } catch (e) { }
+const IDX = { tr: 0, en: 1 };
+const LOC = { tr: 'tr-TR', en: 'en-US' };
 
 const T = {
-  "Lior — Ücretsiz Discord bot tanıtım platformu": ["Lior — Ücretsiz Discord bot tanıtım platformu", "Lior — Pulsuz Discord bot təqdimat platforması", "Lior — Free Discord bot promotion platform", "Lior — Бесплатная платформа продвижения Discord-ботов"],
-  "Discord botunu ücretsiz tanıt, oylarla büyüt. Tamamen bedava bot listeleme platformu.": ["Discord botunu ücretsiz tanıt, oylarla büyüt. Tamamen bedava bot listeleme platformu.", "Discord botunu pulsuz tanıt, səslərlə böyüt. Tam pulsuz bot siyahı platforması.", "Promote your Discord bot for free and grow with votes. A completely free bot listing platform.", "Продвигай своего Discord-бота бесплатно и расти с голосами. Полностью бесплатная платформа для ботов."],
-  "Menü": ["Menü", "Menyu", "Menu", "Меню"],
-  "Özellikler": ["Özellikler", "Xüsusiyyətlər", "Features", "Возможности"],
-  "İstatistikler": ["İstatistikler", "Statistika", "Statistics", "Статистика"],
-  "Nasıl Çalışır": ["Nasıl Çalışır", "Necə işləyir", "How it works", "Как это работает"],
-  "Giriş Yap": ["Giriş Yap", "Daxil ol", "Sign in", "Войти"],
-  "Başla": ["Başla", "Başla", "Get started", "Начать"],
-  "Hemen Başla": ["Hemen Başla", "İndi başla", "Get started now", "Начать сейчас"],
-  "Discord botunu ücretsiz tanıt, oylarla büyüt.": ["Discord botunu ücretsiz tanıt, oylarla büyüt.", "Discord botunu pulsuz tanıt, səslərlə böyüt.", "Promote your Discord bot for free, grow with votes.", "Продвигай Discord-бота бесплатно, расти с голосами."],
-  "Tamamen ücretsiz bot listeleme platformu. Kullanıcılar oylarıyla botunuzu destekler, siz görünürlük kazanırsınız.": ["Tamamen ücretsiz bot listeleme platformu. Kullanıcılar oylarıyla botunuzu destekler, siz görünürlük kazanırsınız.", "Tam pulsuz bot siyahı platforması. İstifadəçilər səsləri ilə botunuzu dəstəkləyir, siz görünürlük qazanırsınız.", "A completely free bot listing platform. Users support your bot with votes, and you gain visibility.", "Полностью бесплатная платформа для ботов. Пользователи поддерживают вашего бота голосами, а вы получаете видимость."],
-  "REKLAM": ["REKLAM", "REKLAM", "AD", "РЕКЛАМА"],
-  "Canlı İstatistikler": ["Canlı İstatistikler", "Canlı statistika", "Live Statistics", "Статистика в реальном времени"],
-  "Ücretsiz reklam platformu, oy verme sistemi ile.": ["Ücretsiz reklam platformu, oy verme sistemi ile.", "Səsvermə sistemi ilə pulsuz reklam platforması.", "A free advertising platform with a voting system.", "Бесплатная рекламная платформа с системой голосования."],
-  "Botunuzu tanıtın, kullanıcıların oyları ile daha fazla görünürlük kazanın. Tamamen ücretsiz, şeffaf istatistikler.": ["Botunuzu tanıtın, kullanıcıların oyları ile daha fazla görünürlük kazanın. Tamamen ücretsiz, şeffaf istatistikler.", "Botunuzu təqdim edin, istifadəçilərin səsləri ilə daha çox görünürlük qazanın. Tam pulsuz, şəffaf statistika.", "Promote your bot and gain more visibility through user votes. Completely free, transparent statistics.", "Продвигайте бота и получайте больше видимости благодаря голосам пользователей. Полностью бесплатно, прозрачная статистика."],
-  "Toplam gösterim": ["Toplam gösterim", "Ümumi göstərim", "Total impressions", "Всего показов"],
-  "Toplam tıklama": ["Toplam tıklama", "Ümumi klik", "Total clicks", "Всего кликов"],
-  "Aktif kampanya": ["Aktif kampanya", "Aktiv kampaniya", "Active campaigns", "Активные кампании"],
-  "Ortalama CTR": ["Ortalama CTR", "Orta CTR", "Average CTR", "Средний CTR"],
-  "Canlı": ["Canlı", "Canlı", "Live", "В эфире"],
-  "Günlük gösterim": ["Günlük gösterim", "Günlük göstərim", "Daily impressions", "Показы по дням"],
-  "Son 30 günde 138.437 gösterim ve 3.733 tıklama": ["Son 30 günde 138.437 gösterim ve 3.733 tıklama", "Son 30 gündə 138.437 göstərim və 3.733 klik", "138,437 impressions and 3,733 clicks in the last 30 days", "138 437 показов и 3 733 клика за последние 30 дней"],
-  "Bugün": ["Bugün", "Bu gün", "Today", "Сегодня"],
-  "Dile göre kitle": ["Dile göre kitle", "Dilə görə auditoriya", "Audience by language", "Аудитория по языкам"],
-  "Son 30 günde 48.231 gösterim üzerinden pay.": ["Son 30 günde 48.231 gösterim üzerinden pay.", "Son 30 gündə 48.231 göstərim üzrə pay.", "Share of 48,231 impressions in the last 30 days.", "Доля от 48 231 показа за последние 30 дней."],
-  "Hedeflemek için 18 dil var, en az 3 tanesini seç.": ["Hedeflemek için 18 dil var, en az 3 tanesini seç.", "Hədəfləmək üçün 18 dil var, ən azı 3-nü seç.", "There are 18 languages to target, pick at least 3.", "Для таргетинга доступно 18 языков, выбери минимум 3."],
-  "İngilizce": ["İngilizce", "İngilis", "English", "Английский"],
-  "Çince": ["Çince", "Çin", "Chinese", "Китайский"],
-  "Arapça": ["Arapça", "Ərəb", "Arabic", "Арабский"],
-  "Fransızca": ["Fransızca", "Fransız", "French", "Французский"],
-  "İspanyolca": ["İspanyolca", "İspan", "Spanish", "Испанский"],
-  "Almanca": ["Almanca", "Alman", "German", "Немецкий"],
-  "Diğer diller": ["Diğer diller", "Digər dillər", "Other languages", "Другие языки"],
-  "Neden Lior": ["Neden Lior", "Niyə Lior", "Why Lior", "Почему Lior"],
-  "Discord için kuruldu. Geliştiriciler için fiyatlandırıldı.": ["Discord için kuruldu. Geliştiriciler için fiyatlandırıldı.", "Discord üçün qurulub. Developerlər üçün qiymətləndirilib.", "Built for Discord. Priced for developers.", "Создан для Discord. Цены — для разработчиков."],
-  "Genel reklam ağları Discord ile ilgilenmeyen insanlara para harcar. Listeleme siteleri ise çoğunlukla botlar ve çiftlikler gönderir. Burada reklamınız, sunucu yöneten ve bot arayan insanların önünde.": ["Genel reklam ağları Discord ile ilgilenmeyen insanlara para harcar. Listeleme siteleri ise çoğunlukla botlar ve çiftlikler gönderir. Burada reklamınız, sunucu yöneten ve bot arayan insanların önünde.", "Ümumi reklam şəbəkələri Discord ilə maraqlanmayan insanlara pul xərcləyir. Siyahı saytları isə çox vaxt botlar və fermalar göndərir. Burada reklamınız server idarə edən və bot axtaran insanların qarşısındadır.", "General ad networks spend money on people who don't care about Discord. Listing sites mostly send bots and farms. Here, your ad is in front of people who run servers and look for bots.", "Обычные рекламные сети тратят деньги на людей, которых Discord не интересует. Каталоги в основном присылают ботов и фермы. Здесь ваша реклама перед теми, кто управляет серверами и ищет ботов."],
-  "Profesyonel bot kartları": ["Profesyonel bot kartları", "Peşəkar bot kartları", "Professional bot cards", "Профессиональные карточки ботов"],
-  "Botunuz için özel tasarlanmış, modern ve görsel açıdan çekici kartlar. Kullanıcılar oy vererek botunuzu destekler.": ["Botunuz için özel tasarlanmış, modern ve görsel açıdan çekici kartlar. Kullanıcılar oy vererek botunuzu destekler.", "Botunuz üçün xüsusi hazırlanmış, müasir və vizual cəlbedici kartlar. İstifadəçilər səs verərək botunuzu dəstəkləyir.", "Custom-designed, modern and visually appealing cards for your bot. Users support your bot by voting.", "Специально созданные современные и привлекательные карточки для вашего бота. Пользователи поддерживают бота голосами."],
-  "Tema": ["Tema", "Tema", "Theme", "Тема"],
-  "Açık": ["Açık", "Açıq", "Light", "Светлая"],
-  "Düğme Stili": ["Düğme Stili", "Düymə stili", "Button Style", "Стиль кнопки"],
-  "Dolu": ["Dolu", "Dolu", "Solid", "Заливка"],
-  "Çerçeve": ["Çerçeve", "Çərçivə", "Outline", "Контур"],
-  "Köşe Yuvarlaklığı": ["Köşe Yuvarlaklığı", "Künc yuvarlaqlığı", "Corner Radius", "Скругление углов"],
-  "Onaylı bot": ["Onaylı bot", "Təsdiqlənmiş bot", "Verified bot", "Проверенный бот"],
-  "Nova: Müzik ve Moderasyon": ["Nova: Müzik ve Moderasyon", "Nova: Musiqi və Moderasiya", "Nova: Music and Moderation", "Nova: музыка и модерация"],
-  "Yüksek kaliteli müzik, güçlü oto-moderasyon ve eğlenceli ekonomi oyunları. Saniyeler içinde kur.": ["Yüksek kaliteli müzik, güçlü oto-moderasyon ve eğlenceli ekonomi oyunları. Saniyeler içinde kur.", "Yüksək keyfiyyətli musiqi, güclü avto-moderasiya və əyləncəli iqtisadiyyat oyunları. Saniyələr içində qur.", "High-quality music, powerful auto-moderation and fun economy games. Set up in seconds.", "Качественная музыка, мощная автомодерация и увлекательные экономические игры. Настройка за секунды."],
-  "Sunucu": ["Sunucu", "Server", "Servers", "Серверы"],
-  "Komut": ["Komut", "Əmr", "Commands", "Команды"],
-  "Uptime": ["Uptime", "Uptime", "Uptime", "Аптайм"],
-  "Discord'a ekle": ["Discord'a ekle", "Discord-a əlavə et", "Add to Discord", "Добавить в Discord"],
-  "Onların dilinde konuş": ["Onların dilinde konuş", "Onların dilində danış", "Speak their language", "Говори на их языке"],
-  "18 dilden en az 3 tanesini seç. Reklamın yalnızca bu dilleri okuyan ziyaretçilere gösterilir.": ["18 dilden en az 3 tanesini seç. Reklamın yalnızca bu dilleri okuyan ziyaretçilere gösterilir.", "18 dildən ən azı 3-nü seç. Reklamın yalnız həmin dilləri oxuyan ziyarətçilərə göstərilir.", "Pick at least 3 of 18 languages. Your ad is shown only to visitors who read those languages.", "Выбери минимум 3 из 18 языков. Реклама показывается только посетителям, читающим на этих языках."],
-  "Tıklama başına. Hepsi bu kadar.": ["Tıklama başına. Hepsi bu kadar.", "Klik başına. Bu qədər.", "Per click. That's it.", "За клик. И всё."],
-  "Gösterimler her zaman ücretsizdir. Yalnızca gerçek bir kişi sayfana girdiğinde ödersin.": ["Gösterimler her zaman ücretsizdir. Yalnızca gerçek bir kişi sayfana girdiğinde ödersin.", "Göstərimlər həmişə pulsuzdur. Yalnız real insan səhifənə daxil olanda ödəyirsən.", "Impressions are always free. You only pay when a real person visits your page.", "Показы всегда бесплатны. Вы платите, только когда реальный человек заходит на вашу страницу."],
-  "Güvenli moderasyon": ["Güvenli moderasyon", "Təhlükəsiz moderasiya", "Safe moderation", "Безопасная модерация"],
-  "Her bot incelenir, kaliteli içerik garantisi. Topluluk güvenli kalır.": ["Her bot incelenir, kaliteli içerik garantisi. Topluluk güvenli kalır.", "Hər bot yoxlanılır, keyfiyyətli məzmun zəmanəti. İcma təhlükəsiz qalır.", "Every bot is reviewed, guaranteeing quality content. The community stays safe.", "Каждый бот проверяется, качество контента гарантировано. Сообщество остаётся в безопасности."],
-  "Gerçek zamanlı istatistikler": ["Gerçek zamanlı istatistikler", "Real vaxt statistikası", "Real-time statistics", "Статистика в реальном времени"],
-  "Bot oylarını, ziyaretçileri ve kullanıcı etkileşimlerini anlık takip edin.": ["Bot oylarını, ziyaretçileri ve kullanıcı etkileşimlerini anlık takip edin.", "Bot səslərini, ziyarətçiləri və istifadəçi qarşılıqlı əlaqələrini anlıq izləyin.", "Track bot votes, visitors and user interactions instantly.", "Отслеживайте голоса, посетителей и действия пользователей мгновенно."],
-  "Kayıttan yayına 3 dakika.": ["Kayıttan yayına 3 dakika.", "Qeydiyyatdan yayıma 3 dəqiqə.", "3 minutes from sign-up to live.", "3 минуты от регистрации до запуска."],
-  "Satış görüşmesi yok, sözleşme yok, kart bilgisi gerekmez. Sadece Gmail hesabın.": ["Satış görüşmesi yok, sözleşme yok, kart bilgisi gerekmez. Sadece Gmail hesabın.", "Satış görüşü yoxdur, müqavilə yoxdur, kart məlumatı lazım deyil. Yalnız Gmail hesabın.", "No sales calls, no contracts, no card details needed. Just your Gmail account.", "Никаких звонков, договоров и данных карты. Нужен только аккаунт Gmail."],
-  "Gmail ile giriş yap": ["Gmail ile giriş yap", "Gmail ilə daxil ol", "Sign in with Gmail", "Войти через Gmail"],
-  "Gmail hesabınla tek tıkla giriş yap. Şifre veya kart gerekmez, tamamen ücretsiz.": ["Gmail hesabınla tek tıkla giriş yap. Şifre veya kart gerekmez, tamamen ücretsiz.", "Gmail hesabınla bir kliklə daxil ol. Şifrə və ya kart lazım deyil, tam pulsuzdur.", "Sign in with your Gmail account in one click. No password or card needed, completely free.", "Войди через Gmail в один клик. Пароль и карта не нужны, всё бесплатно."],
-  "Botunu ekle": ["Botunu ekle", "Botunu əlavə et", "Add your bot", "Добавь бота"],
-  "Bot bilgilerini gir, açıklama ekle, banner yükle. Hepsi bu kadar basit.": ["Bot bilgilerini gir, açıklama ekle, banner yükle. Hepsi bu kadar basit.", "Bot məlumatlarını daxil et, təsvir əlavə et, banner yüklə. Bu qədər sadədir.", "Enter your bot's details, add a description, upload a banner. It's that simple.", "Введи данные бота, добавь описание, загрузи баннер. Всё так просто."],
-  "Oyları topla": ["Oyları topla", "Səsləri topla", "Collect votes", "Собирай голоса"],
-  "Kullanıcılar botunuza oy verir, daha fazla oy daha yüksek sıralama demektir.": ["Kullanıcılar botunuza oy verir, daha fazla oy daha yüksek sıralama demektir.", "İstifadəçilər botunuza səs verir, daha çox səs daha yüksək sıralama deməkdir.", "Users vote for your bot, and more votes mean a higher ranking.", "Пользователи голосуют за вашего бота, чем больше голосов, тем выше рейтинг."],
-  "2021'den beri Discord botlarına hizmet": ["2021'den beri Discord botlarına hizmet", "2021-dən bəri Discord botlarına xidmət", "Serving Discord bots since 2021", "Обслуживаем Discord-ботов с 2021 года"],
-  "Doğru kitle, büyük kitleden daha değerlidir.": ["Doğru kitle, büyük kitleden daha değerlidir.", "Düzgün auditoriya böyük auditoriyadan daha dəyərlidir.", "The right audience is worth more than a big one.", "Правильная аудитория ценнее большой."],
-  "Botunuzu gerçekten bot arayan, sunucu kuran kullanıcılara tanıtıyoruz. Her oy daha fazla görünürlük demektir.": ["Botunuzu gerçekten bot arayan, sunucu kuran kullanıcılara tanıtıyoruz. Her oy daha fazla görünürlük demektir.", "Botunuzu həqiqətən bot axtaran, server quran istifadəçilərə təqdim edirik. Hər səs daha çox görünürlük deməkdir.", "We promote your bot to users who actually look for bots and set up servers. Every vote means more visibility.", "Мы показываем вашего бота тем, кто действительно ищет ботов и создаёт серверы. Каждый голос — больше видимости."],
-  "Diğer siteler": ["Diğer siteler", "Digər saytlar", "Other sites", "Другие сайты"],
-  "Ücretli ağlar": ["Ücretli ağlar", "Ödənişli şəbəkələr", "Paid networks", "Платные сети"],
-  "Ücretsiz platform": ["Ücretsiz platform", "Pulsuz platforma", "Free platform", "Бесплатная платформа"],
-  "Oy verme sistemi": ["Oy verme sistemi", "Səsvermə sistemi", "Voting system", "Система голосования"],
-  "Abonelik gerekmiyor": ["Abonelik gerekmiyor", "Abunəlik tələb olunmur", "No subscription required", "Подписка не нужна"],
-  "Gerçek zamanlı istatistik": ["Gerçek zamanlı istatistik", "Real vaxt statistikası", "Real-time statistics", "Статистика в реальном времени"],
-  "Kısmen": ["Kısmen", "Qismən", "Partial", "Частично"],
-  "Sıradaki kullanıcıların zaten burada.": ["Sıradaki kullanıcıların zaten burada.", "Növbəti istifadəçilər artıq buradadır.", "Your next users are already here.", "Ваши следующие пользователи уже здесь."],
-  "Gmail ile giriş yap, botunu ekle ve dakikalar içinde yayınla. Tamamen ücretsiz, abonelik yok.": ["Gmail ile giriş yap, botunu ekle ve dakikalar içinde yayınla. Tamamen ücretsiz, abonelik yok.", "Gmail ilə daxil ol, botunu əlavə et və dəqiqələr içində yayımla. Tam pulsuz, abunəlik yoxdur.", "Sign in with Gmail, add your bot and publish within minutes. Completely free, no subscription.", "Войди через Gmail, добавь бота и опубликуй за минуты. Полностью бесплатно, без подписки."],
-  "Discord için kurulmuş ücretsiz bot listeleme platformu. Botunu tanıt, oylarla büyüt.": ["Discord için kurulmuş ücretsiz bot listeleme platformu. Botunu tanıt, oylarla büyüt.", "Discord üçün qurulmuş pulsuz bot siyahı platforması. Botunu tanıt, səslərlə böyüt.", "A free bot listing platform built for Discord. Promote your bot, grow with votes.", "Бесплатная платформа для ботов Discord. Продвигай бота, расти с голосами."],
-  "Platform": ["Platform", "Platforma", "Platform", "Платформа"],
-  "Destek": ["Destek", "Dəstək", "Support", "Поддержка"],
-  "Yardım": ["Yardım", "Kömək", "Help", "Помощь"],
-  "Discord sunucusu": ["Discord sunucusu", "Discord serveri", "Discord server", "Сервер Discord"],
-  "Şartlar ve Gizlilik": ["Şartlar ve Gizlilik", "Şərtlər və Məxfilik", "Terms and Privacy", "Условия и конфиденциальность"]
+  // Header & Navigation
+  "Plython — Güçlü Discord Moderasyon Botu": ["Plython — Güçlü Discord Moderasyon Botu", "Plython — Powerful Discord Moderation Bot"],
+  "Menü": ["Menü", "Menu"],
+  "Özellikler": ["Özellikler", "Features"],
+  "Bot İstatistikleri": ["Bot İstatistikleri", "Bot Statistics"],
+  "Kurulum": ["Kurulum", "Setup"],
+  "Destek": ["Destek", "Support"],
+  "Dashboard": ["Dashboard", "Dashboard"],
+  "Discord'a Ekle": ["Discord'a Ekle", "Add to Discord"],
+  "Plython": ["Plython", "Plython"],
+  
+  // Hero Section
+  "Plython Bot İstatistikleri": ["Plython Bot İstatistikleri", "Plython Bot Statistics"],
+  "185+ Sunucuda Aktif Kullanımda": ["185+ Sunucuda Aktif Kullanımda", "Active On 185+ Servers"],
+  "Yüzlərcə Discord sunucusu Plython ile moderasyon ve yönetim işlemlerini otomatikleştiriyor. Küçükten büyüğe her sunucu için idealdir.": ["Yüzlərcə Discord sunucusu Plython ile moderasyon ve yönetim işlemlerini otomatikleştiriyor. Küçükten büyüğe her sunucu için idealdir.", "Hundreds of Discord servers automate moderation and management with Plython. Ideal for servers of all sizes."],
+  
+  // Stats
+  "Aktiv sunucular": ["Aktiv sunucular", "Active Servers"],
+  "Toplam kullanıcı": ["Toplam kullanıcı", "Total Users"],
+  "Günlük komutlar": ["Günlük komutlar", "Daily Commands"],
+  "Uptime": ["Uptime", "Uptime"],
+  
+  // Charts
+  "Canlı": ["Canlı", "Live"],
+  "Günlük Komut Kullanımı": ["Günlük Komut Kullanımı", "Daily Command Usage"],
+  "Son 30 günde 150.000+ komut çalıştırıldı": ["Son 30 günde 150.000+ komut çalıştırıldı", "150,000+ Commands Executed In Last 30 Days"],
+  "Bugün": ["Bugün", "Today"],
+  
+  "En Popüler Komutlar": ["En Popüler Komutlar", "Most Popular Commands"],
+  "Son 30 günde en çok kullanılan komut kategorileri": ["Son 30 günde en çok kullanılan komut kategorileri", "Most Used Command Categories In Last 30 Days"],
+  "Moderasyon, ticket ve otomasyon komutları en çok kullanılıyor.": ["Moderasyon, ticket ve otomasyon komutları en çok kullanılıyor.", "Moderation, Ticket And Automation Commands Are Most Used."],
+  
+  // Command categories
+  "Moderasyon": ["Moderasyon", "Moderation"],
+  "Otomasyon": ["Otomasyon", "Automation"],
+  "Kullanıcı": ["Kullanıcı", "User"],
+  "Sunucu": ["Sunucu", "Server"],
+  "Emoji": ["Emoji", "Emoji"],
+  "Diğer": ["Diğer", "Other"],
+  "Ticket": ["Ticket", "Ticket"],
+  
+  // Features Section
+  "Neden Plython": ["Neden Plython", "Why Plython"],
+  "Sunucunuzu Yönetmek İçin İhtiyacınız Olan Her Şey": ["Sunucunuzu Yönetmek İçin İhtiyacınız Olan Her Şey", "Everything You Need To Manage Your Server"],
+  "Plython, Discord sunucu yöneticileri için özel geliştirilmiş çok amaçlı bir bottur. Moderasyon, otomasyon, ticket ve güvenlik - hepsi bir arada.": ["Plython, Discord sunucu yöneticileri için özel geliştirilmiş çok amaçlı bir bottur. Moderasyon, otomasyon, ticket ve güvenlik - hepsi bir arada.", "Plython is a multi-purpose bot specially developed for Discord server administrators. Moderation, automation, ticket and security - all in one."],
+  
+  "Gelişmiş Moderasyon Araçları": ["Gelişmiş Moderasyon Araçları", "Advanced Moderation Tools"],
+  "40+ moderasyon komutu ile sunucunuzu tam kontrol altında tutun. Ban, kick, mute, timeout, lock, unlock, slowmode ve daha fazlası tek bir botla.": ["40+ moderasyon komutu ile sunucunuzu tam kontrol altında tutun. Ban, kick, mute, timeout, lock, unlock, slowmode ve daha fazlası tek bir botla.", "Keep your server under full control with 40+ moderation commands. Ban, kick, mute, timeout, lock, unlock, slowmode and more in one bot."],
+  
+  // Theme Settings
+  "Tema": ["Tema", "Theme"],
+  "Discord": ["Discord", "Discord"],
+  "Midnight": ["Midnight", "Midnight"],
+  "Açık": ["Açık", "Light"],
+  "Sunset": ["Sunset", "Sunset"],
+  "Düğme Stili": ["Düğme Stili", "Button Style"],
+  "Dolu": ["Dolu", "Solid"],
+  "Çerçeve": ["Çerçeve", "Outline"],
+  "Köşe Yuvarlaklığı": ["Köşe Yuvarlaklığı", "Corner Radius"],
+  
+  // Bot Card
+  "Plython Bot": ["Plython Bot", "Plython Bot"],
+  "Doğrulanmış": ["Doğrulanmış", "Verified"],
+  "Plython: Çok Amaçlı Discord Botu": ["Plython: Çok Amaçlı Discord Botu", "Plython: Multi-Purpose Discord Bot"],
+  "Güçlü moderasyon, akıllı otomasyon ve profesyonel ticket sistemi. 185+ sunucunun tercihi.": ["Güçlü moderasyon, akıllı otomasyon ve profesyonel ticket sistemi. 185+ sunucunun tercihi.", "Powerful moderation, smart automation and professional ticket system. Choice of 185+ servers."],
+  "Discord'a ekle": ["Discord'a ekle", "Add to Discord"],
+  
+  // Feature Cards
+  "Nitrosuz Emoji Kullanımı": ["Nitrosuz Emoji Kullanımı", "Emoji Usage Without Nitro"],
+  "Discord Nitro olmadan başka serverlerden emoji kullan. +emoji_adı+ veya /emoji komutu ile herhangi bir serverdeki emojiye anında erişim. Binlerce custom emoji kullanabilir, kendi emoji kütüphanenizi oluşturabilir ve sunucunuz daha eğlenceli hale getirebilirsiniz. Animasyonlu emojiler de desteklenir.": ["Discord Nitro olmadan başka serverlerden emoji kullan. +emoji_adı+ veya /emoji komutu ile herhangi bir serverdeki emojiye anında erişim. Binlerce custom emoji kullanabilir, kendi emoji kütüphanenizi oluşturabilir ve sunucunuz daha eğlenceli hale getirebilirsiniz. Animasyonlu emojiler de desteklenir.", "Use emojis from other servers without Discord Nitro. Instant access to emojis from any server with +emoji_name+ or /emoji command. You can use thousands of custom emojis, create your own emoji library and make your server more fun. Animated emojis are also supported."],
+  
+  "Özel Sunucu URL'si": ["Özel Sunucu URL'si", "Custom Server URL"],
+  "/setup komutu ile plython.gg/sunucuadınız gibi özel kısa link oluşturun. Sunucunuzu kolay hatırlanır URL ile tanıtın ve paylaşın.": ["/setup komutu ile plython.gg/sunucuadınız gibi özel kısa link oluşturun. Sunucunuzu kolay hatırlanır URL ile tanıtın ve paylaşın.", "Create a custom short link like plython.gg/yourserver with /setup command. Promote and share your server with an easy-to-remember URL."],
+  
+  "Güvenlik Ve Koruma": ["Güvenlik Ve Koruma", "Security And Protection"],
+  "Anti-raid, anti-spam, anti-scam koruması ile sunucunuzu 7/24 koruyun. Zararlı kullanıcılar otomatik tespit edilir ve engellenir.": ["Anti-raid, anti-spam, anti-scam koruması ile sunucunuzu 7/24 koruyun. Zararlı kullanıcılar otomatik tespit edilir ve engellenir.", "Protect your server 24/7 with anti-raid, anti-spam, anti-scam protection. Malicious users are automatically detected and blocked."],
+  
+  "Ticket & Destek Sistemi": ["Ticket & Destek Sistemi", "Ticket & Support System"],
+  "Profesyonel ticket paneli ile kullanıcılarınıza özel destek kanalları oluşturun. Otomatik kategori, log sistemi ve transcript özelliği dahil.": ["Profesyonel ticket paneli ile kullanıcılarınıza özel destek kanalları oluşturun. Otomatik kategori, log sistemi ve transcript özelliği dahil.", "Create dedicated support channels for your users with professional ticket panel. Includes automatic category, log system and transcript feature."],
+  
+  // Setup Section
+  "Nasıl Başlarım": ["Nasıl Başlarım", "How Do I Start"],
+  "Plython'u Sunucuna Eklemek Çok Kolay": ["Plython'u Sunucuna Eklemek Çok Kolay", "Adding Plython To Your Server Is Very Easy"],
+  "Sadece 3 basit adımda Plython'u Discord sunucunuza ekleyip kullanmaya başlayın. Teknik bilgi gerektirmez, herkes kullanabilir.": ["Sadece 3 basit adımda Plython'u Discord sunucunuza ekleyip kullanmaya başlayın. Teknik bilgi gerektirmez, herkes kullanabilir.", "Add Plython to your Discord server and start using it in just 3 simple steps. No technical knowledge required, anyone can use it."],
+  
+  "Botu Sunucuna Davet Et": ["Botu Sunucuna Davet Et", "Invite Bot To Your Server"],
+  "Discord'a Ekle butonuna tıklayın, sunucunuzu seçin ve gerekli izinleri onaylayın. Bot otomatik olarak sunucunuza katılır.": ["Discord'a Ekle butonuna tıklayın, sunucunuzu seçin ve gerekli izinleri onaylayın. Bot otomatik olarak sunucunuza katılır.", "Click Add to Discord button, select your server and approve required permissions. Bot automatically joins your server."],
+  
+  "Botun Özellikleri Otomatik Aktif": ["Botun Özellikleri Otomatik Aktif", "Bot Features Automatically Active"],
+  "Plython sunucuya katıldığında temel moderasyon ve güvenlik özellikleri hemen aktif olur. İstediğiniz ayarları /setup ile özelleştirin.": ["Plython sunucuya katıldığında temel moderasyon ve güvenlik özellikleri hemen aktif olur. İstediğiniz ayarları /setup ile özelleştirin.", "When Plython joins the server, basic moderation and security features are immediately active. Customize the settings you want with /setup."],
+  
+  "Komutları Kullanmaya Başla": ["Komutları Kullanmaya Başla", "Start Using Commands"],
+  "/help veya +help yazarak 40+ komutu keşfedin. Hem slash (/) hem de prefix (+) komutları desteklenir, istediğinizi kullanın.": ["/help veya +help yazarak 40+ komutu keşfedin. Hem slash (/) hem de prefix (+) komutları desteklenir, istediğinizi kullanın.", "Discover 40+ commands by typing /help or +help. Both slash (/) and prefix (+) commands are supported, use whichever you prefer."],
+  
+  // Comparison Section
+  "Discord sunucuları için tasarlandı": ["Discord sunucuları için tasarlandı", "Designed For Discord Servers"],
+  "Profesyonel Sunucu Yönetimi Artık Daha Kolay": ["Profesyonel Sunucu Yönetimi Artık Daha Kolay", "Professional Server Management Is Now Easier"],
+  "Plython'un sunduğu gelişmiş özellikler sayesinde sunucunuzu profesyonel bir şekilde yönetin. Premium botlara gerek yok.": ["Plython'un sunduğu gelişmiş özellikler sayesinde sunucunuzu profesyonel bir şekilde yönetin. Premium botlara gerek yok.", "Manage your server professionally with advanced features offered by Plython. No need for premium bots."],
+  
+  "Plython": ["Plython", "Plython"],
+  "Basit botlar": ["Basit botlar", "Simple Bots"],
+  "Premium botlar": ["Premium botlar", "Premium Bots"],
+  "Nitrosuz emoji kullanımı": ["Nitrosuz emoji kullanımı", "Emoji Without Nitro"],
+  "Ticket transcript sistemi": ["Ticket transcript sistemi", "Ticket Transcript System"],
+  "Ticket sistemi": ["Ticket sistemi", "Ticket System"],
+  "7/24 Çalışma süresi": ["7/24 Çalışma süresi", "24/7 Uptime"],
+  "Özel sunucu URL": ["Özel sunucu URL", "Custom Server URL"],
+  "Security Protection": ["Security Protection", "Security Protection"],
+  "Kısmen": ["Kısmen", "Partially"],
+  
+  // CTA Section
+  "Discord Sunucunuzun İhtiyacı Olan Güçlü Bot": ["Discord Sunucunuzun İhtiyacı Olan Güçlü Bot", "The Powerful Bot Your Discord Server Needs"],
+  "Plython'u hemen ücretsiz olarak sunucunuza ekleyin. 40+ komut, otomatik moderasyon ve 7/24 destek için şimdi başlayın.": ["Plython'u hemen ücretsiz olarak sunucunuza ekleyin. 40+ komut, otomatik moderasyon ve 7/24 destek için şimdi başlayın.", "Add Plython to your server for free now. Get started with 40+ commands, automatic moderation and 24/7 support."],
+  "Kurulum Rehberi": ["Kurulum Rehberi", "Setup Guide"],
+  
+  // Footer
+  "Discord sunucuları için gelişmiş çok amaçlı bot. 40+ komut, moderasyon, otomasyon, ticket sistemi ve 7/24 güvenlik koruması.": ["Discord sunucuları için gelişmiş çok amaçlı bot. 40+ komut, moderasyon, otomasyon, ticket sistemi ve 7/24 güvenlik koruması.", "Advanced multi-purpose bot for Discord servers. 40+ commands, moderation, automation, ticket system and 24/7 security protection."],
+  
+  "Platform": ["Platform", "Platform"],
+  "Komutlar": ["Komutlar", "Commands"],
+  "Discord Sunucusu": ["Discord Sunucusu", "Discord Server"],
+  "Gizlilik Politikası": ["Gizlilik Politikası", "Privacy Policy"],
+  "© 2026 Plython Bot": ["© 2026 Plython", "© 2026 Plython"],
+  "discord.gg/plython": ["discord.gg/plython", "discord.gg/plython"]
 };
 
 function t(k) {
