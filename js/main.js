@@ -1,8 +1,3 @@
-const burger = document.getElementById('burger');
-const mobileMenu = document.getElementById('mobileMenu');
-burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
-
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -102,7 +97,6 @@ chartIO.observe(svg);
 const metaEl = document.querySelector('meta[name="description"]');
 const metaKey = metaEl.content;
 const titleKey = document.title;
-const burgerEl = document.getElementById('burger');
 const languageNodes = [];
 const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT, {
   acceptNode: n => {
@@ -123,12 +117,10 @@ function applyLang(l) {
   languageNodes.forEach(o => { o.n.nodeValue = o.pre + t(o.k) + o.post; });
   metaEl.content = t(metaKey);
   document.title = t(titleKey);
-  burgerEl.setAttribute('aria-label', t('Menü'));
   renderLangs();
   setDates();
   document.getElementById('currentLang').textContent = l === 'tr' ? 'TR' : 'EN';
   
-  // Update active state
   document.querySelectorAll('.lang-option').forEach(opt => {
     opt.classList.toggle('active', opt.dataset.lang === l);
   });
@@ -136,7 +128,6 @@ function applyLang(l) {
   try { localStorage.setItem('plython-lang', l); } catch (e) { }
 }
 
-// Language dropdown
 const langDropdown = document.getElementById('langDropdown');
 const langBtn = document.getElementById('langBtn');
 const langMenu = document.getElementById('langMenu');
@@ -154,25 +145,47 @@ document.querySelectorAll('.lang-option').forEach(opt => {
   });
 });
 
-// Close dropdown when clicking outside
-document.addEventListener('click', () => {
+const menuBtn = document.getElementById('menuBtn');
+const navCta = document.getElementById('navCta');
+
+function closeMenu() {
+  menuBtn.classList.remove('open');
+  navCta.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
   langDropdown.classList.remove('open');
+}
+
+menuBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const open = !navCta.classList.contains('open');
+  menuBtn.classList.toggle('open', open);
+  navCta.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  if (!open) langDropdown.classList.remove('open');
+});
+
+navCta.addEventListener('click', (e) => {
+  if (e.target.closest('#dashboardBtn') || e.target.closest('.btn-primary')) closeMenu();
+});
+
+window.addEventListener('resize', () => { if (window.innerWidth > 720) closeMenu(); });
+
+document.addEventListener('click', (e) => {
+  langDropdown.classList.remove('open');
+  if (!e.target.closest('#navCta')) closeMenu();
 });
 
 applyLang(LANG);
 
 
-// Dashboard button - Coming Soon Toast
 const dashboardBtn = document.getElementById('dashboardBtn');
 let toastEl = null;
 
 function showToast(message) {
-  // Remove existing toast if any
   if (toastEl) {
     toastEl.remove();
   }
   
-  // Create toast
   toastEl = document.createElement('div');
   toastEl.className = 'toast';
   toastEl.innerHTML = `
@@ -187,10 +200,8 @@ function showToast(message) {
   `;
   document.body.appendChild(toastEl);
   
-  // Show toast
   setTimeout(() => toastEl.classList.add('show'), 10);
   
-  // Hide and remove after 3 seconds
   setTimeout(() => {
     toastEl.classList.remove('show');
     setTimeout(() => {
@@ -206,7 +217,6 @@ dashboardBtn.addEventListener('click', (e) => {
 });
 
 
-// Smooth scroll without hash in URL
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
@@ -223,18 +233,13 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
         behavior: 'smooth'
       });
       
-      // Update URL without hash
       if (targetId) {
         history.pushState(null, '', '/' + targetId);
       }
-      
-      // Close mobile menu if open
-      mobileMenu.classList.remove('open');
     }
   });
 });
 
-// Handle back/forward buttons
 window.addEventListener('popstate', function() {
   const path = window.location.pathname.substring(1);
   const section = document.getElementById(path);
@@ -244,12 +249,10 @@ window.addEventListener('popstate', function() {
 });
 
 
-// Scroll to top on page reload/refresh
 window.addEventListener('beforeunload', function() {
   window.scrollTo(0, 0);
 });
 
-// Also scroll to top on page load
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual';
 }
