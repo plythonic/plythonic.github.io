@@ -27,15 +27,28 @@
         <div class="nav-cta">
           <a href="#" class="lang-sel" id="dashboardBtn">Dashboard</a>
           <div class="lang-dropdown" id="langDropdown">
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+              <symbol id="fl-en" viewBox="0 0 24 24">
+                <rect x="2" y="5" width="20" height="14" rx="3" />
+                <path d="M10 5v5H2M10 19v-5H2M14 5v5h8M14 19v-5h8" />
+                <path d="M4.5 6.8L10 10M19.5 6.8L14 10M4.5 17.2L10 14M19.5 17.2L14 14" />
+              </symbol>
+              <symbol id="fl-tr" viewBox="0 0 24 24">
+                <rect x="2" y="5" width="20" height="14" rx="3" />
+                <path d="M11 8.4A4 4 0 1 0 11 15.6A3.7 3.7 0 0 1 11 8.4z" fill="currentColor" stroke="none" />
+                <polygon points="16.40,8.40 17.28,10.79 19.82,10.89 17.83,12.46 18.52,14.91 16.40,13.50 14.28,14.91 14.97,12.46 12.98,10.89 15.52,10.79" fill="currentColor" stroke="none" />
+              </symbol>
+            </svg>
             <button class="lang-btn" id="langBtn">
+              <span class="flag"><svg id="currentFlag"><use href="#fl-en" /></svg></span>
               <span id="currentLang">EN</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 4.5l3 3 3-3"/>
               </svg>
             </button>
             <div class="lang-menu" id="langMenu">
-              <button class="lang-option" data-lang="en">EN</button>
-              <button class="lang-option" data-lang="tr">TR</button>
+              <button class="lang-option" data-lang="en"><span class="flag"><svg><use href="#fl-en" /></svg></span>EN<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></button>
+              <button class="lang-option" data-lang="tr"><span class="flag"><svg><use href="#fl-tr" /></svg></span>TR<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></button>
             </div>
           </div>
           <a href="#how" class="btn btn-primary sm">Discord'a Ekle</a>
