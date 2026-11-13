@@ -256,3 +256,11 @@ if (history.scrollRestoration) {
 window.addEventListener('load', function() {
   window.scrollTo(0, 0);
 });
+
+const toTopBtn = document.getElementById('toTop');
+if (toTopBtn) {
+  const toggleToTop = () => toTopBtn.classList.toggle('show', window.scrollY > 500);
+  window.addEventListener('scroll', toggleToTop, { passive: true });
+  toggleToTop();
+  toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
