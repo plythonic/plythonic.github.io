@@ -30,7 +30,10 @@ html {
 
 body {
   background-color: var(--bg);
-  background-image: radial-gradient(ellipse 70% 520px at 50% 0%, rgba(37, 70, 160, .2), transparent 75%);
+  background-image:
+    radial-gradient(ellipse 75% 100% at 0% 0%, rgba(59, 130, 246, .34) 0%, rgba(59, 130, 246, .14) 40%, transparent 78%),
+    radial-gradient(ellipse 70% 520px at 50% 0%, rgba(37, 70, 160, .2), transparent 75%);
+  background-size: 100% 1100px, auto;
   background-repeat: no-repeat;
   color: var(--text);
   font-family: var(--sans);
@@ -167,12 +170,22 @@ h2 {
   transform: none;
 }
 
+nav.top::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, .16);
+  pointer-events: none;
+}
+
 nav.top {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(14px);
-  background: rgba(10, 10, 11, .7);
+  background: #08090b;
 }
 
 nav.top .wrap {
