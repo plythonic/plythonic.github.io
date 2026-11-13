@@ -51,29 +51,13 @@ const T = {
   "Plython, Discord sunucu yöneticileri için özel geliştirilmiş çok amaçlı bir bottur. Moderasyon, otomasyon, ticket ve güvenlik - hepsi bir arada.": ["Plython, Discord sunucu yöneticileri için özel geliştirilmiş çok amaçlı bir bottur. Moderasyon, otomasyon, ticket ve güvenlik - hepsi bir arada.", "Plython is a multi-purpose bot specially developed for Discord server administrators. Moderation, automation, ticket and security - all in one."],
   
   "Gelişmiş Moderasyon Araçları": ["Gelişmiş Moderasyon Araçları", "Advanced Moderation Tools"],
-  "40+ moderasyon komutu ile sunucunuzu tam kontrol altında tutun. Ban, kick, mute, timeout, lock, unlock, slowmode ve daha fazlası tek bir botla.": ["40+ moderasyon komutu ile sunucunuzu tam kontrol altında tutun. Ban, kick, mute, timeout, lock, unlock, slowmode ve daha fazlası tek bir botla.", "Keep your server under full control with 40+ moderation commands. Ban, kick, mute, timeout, lock, unlock, slowmode and more in one bot."],
-  
-  // Theme Settings
-  "Tema": ["Tema", "Theme"],
-  "Discord": ["Discord", "Discord"],
-  "Midnight": ["Midnight", "Midnight"],
-  "Açık": ["Açık", "Light"],
-  "Sunset": ["Sunset", "Sunset"],
-  "Düğme Stili": ["Düğme Stili", "Button Style"],
-  "Dolu": ["Dolu", "Solid"],
-  "Çerçeve": ["Çerçeve", "Outline"],
-  "Köşe Yuvarlaklığı": ["Köşe Yuvarlaklığı", "Corner Radius"],
-  
-  // Bot Card
-  "Plython Bot": ["Plython Bot", "Plython Bot"],
-  "Doğrulanmış": ["Doğrulanmış", "Verified"],
-  "Plython: Çok Amaçlı Discord Botu": ["Plython: Çok Amaçlı Discord Botu", "Plython: Multi-Purpose Discord Bot"],
-  "Güçlü moderasyon, akıllı otomasyon ve profesyonel ticket sistemi. 185+ sunucunun tercihi.": ["Güçlü moderasyon, akıllı otomasyon ve profesyonel ticket sistemi. 185+ sunucunun tercihi.", "Powerful moderation, smart automation and professional ticket system. Choice of 185+ servers."],
-  "Discord'a ekle": ["Discord'a ekle", "Add to Discord"],
+  "Ban, kick, mute, timeout, lock, unlock ve slowmode dahil 40+ komut. Slash ve prefix desteği, her işlem anında şık bir kartla raporlanır.": ["Ban, kick, mute, timeout, lock, unlock ve slowmode dahil 40+ komut. Slash ve prefix desteği, her işlem anında şık bir kartla raporlanır.", "40+ commands including ban, kick, mute, timeout, lock, unlock and slowmode. Slash and prefix support, every action is reported instantly with a clean card."],
   
   // Feature Cards
   "Nitrosuz Emoji Kullanımı": ["Nitrosuz Emoji Kullanımı", "Emoji Usage Without Nitro"],
-  "Discord Nitro olmadan başka serverlerden emoji kullan. +emoji_adı+ veya /emoji komutu ile herhangi bir serverdeki emojiye anında erişim. Binlerce custom emoji kullanabilir, kendi emoji kütüphanenizi oluşturabilir ve sunucunuz daha eğlenceli hale getirebilirsiniz. Animasyonlu emojiler de desteklenir.": ["Discord Nitro olmadan başka serverlerden emoji kullan. +emoji_adı+ veya /emoji komutu ile herhangi bir serverdeki emojiye anında erişim. Binlerce custom emoji kullanabilir, kendi emoji kütüphanenizi oluşturabilir ve sunucunuz daha eğlenceli hale getirebilirsiniz. Animasyonlu emojiler de desteklenir.", "Use emojis from other servers without Discord Nitro. Instant access to emojis from any server with +emoji_name+ or /emoji command. You can use thousands of custom emojis, create your own emoji library and make your server more fun. Animated emojis are also supported."],
+  "Nitro olmadan herhangi bir sunucunun emojisini kullanın: +emoji_adı+ yazın, Plython mesajınızı sizin adınız ve avatarınızla gönderir. Animasyonlu emojiler ve akıllı eşleştirme dahil.": ["Nitro olmadan herhangi bir sunucunun emojisini kullanın: +emoji_adı+ yazın, Plython mesajınızı sizin adınız ve avatarınızla gönderir. Animasyonlu emojiler ve akıllı eşleştirme dahil.", "Use emojis from any server without Nitro: type +emoji_name+ and Plython sends your message with your name and avatar. Animated emojis and smart matching included."],
+  "Otomasyon Ve Karşılama": ["Otomasyon Ve Karşılama", "Automation And Welcome"],
+  "Yeni üyeleri görsel karşılama kartıyla karşılayın, otorol verin ve davetleri takip edin. Çekiliş ve sayma gibi etkinlik araçları da hazır.": ["Yeni üyeleri görsel karşılama kartıyla karşılayın, otorol verin ve davetleri takip edin. Çekiliş ve sayma gibi etkinlik araçları da hazır.", "Greet new members with a visual welcome card, assign auto roles and track invites. Giveaway and counting event tools are ready too."],
   
   "Özel Sunucu URL'si": ["Özel Sunucu URL'si", "Custom Server URL"],
   "/setup komutu ile plython.gg/sunucuadınız gibi özel kısa link oluşturun. Sunucunuzu kolay hatırlanır URL ile tanıtın ve paylaşın.": ["/setup komutu ile plython.gg/sunucuadınız gibi özel kısa link oluşturun. Sunucunuzu kolay hatırlanır URL ile tanıtın ve paylaşın.", "Create a custom short link like plython.gg/yourserver with /setup command. Promote and share your server with an easy-to-remember URL."],
