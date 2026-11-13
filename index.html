@@ -10,23 +10,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=12">
+  <link rel="stylesheet" href="css/style.css?v=8">
 </head>
 
 <body>
-
-  <canvas id="bgCanvas" aria-hidden="true"></canvas>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
   <header>
     <nav class="top">
       <div class="wrap">
         <a href="#" class="logo"><span class="logo-mark">P</span>Plython</a>
-        <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navCta">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="nav-cta" id="navCta">
-          <a href="#" class="lang-sel" id="dashboardBtn" aria-label="Dashboard" title="Dashboard">Dashboard</a>
+        <div class="links">
+          <a href="#features">Özellikler</a>
+          <a href="#network">Bot İstatistikleri</a>
+          <a href="#how">Kurulum</a>
+        </div>
+        <div class="nav-cta">
+          <a href="#" class="lang-sel" id="dashboardBtn">Dashboard</a>
           <div class="lang-dropdown" id="langDropdown">
             <button class="lang-btn" id="langBtn">
               <span id="currentLang">EN</span>
@@ -40,7 +39,13 @@
             </div>
           </div>
           <a href="#how" class="btn btn-primary sm">Discord'a Ekle</a>
+          <button class="burger" id="burger" aria-label="Menü"><span></span></button>
         </div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#features">Özellikler</a>
+        <a href="#network">Bot İstatistikleri</a>
+        <a href="#how">Kurulum</a>
       </div>
     </nav>
   </header>
@@ -285,8 +290,7 @@
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
   </button>
   <script src="js/language.js?v=8"></script>
-  <script src="js/main.js?v=9"></script>
-  <script src="js/background.js?v=2"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 
 </html>
