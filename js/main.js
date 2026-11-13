@@ -202,7 +202,7 @@ function showToast(message) {
 
 dashboardBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  showToast(LANG === 'tr' ? 'Yakında hazır olacaq!' : 'Coming soon!');
+  showToast(LANG === 'tr' ? 'Dashboard yakında geliyor!' : 'Dashboard, coming soon!');
 });
 
 
