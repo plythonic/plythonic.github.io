@@ -145,8 +145,34 @@ document.querySelectorAll('.lang-option').forEach(opt => {
   });
 });
 
-document.addEventListener('click', () => {
+const menuBtn = document.getElementById('menuBtn');
+const navCta = document.getElementById('navCta');
+
+function closeMenu() {
+  menuBtn.classList.remove('open');
+  navCta.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
   langDropdown.classList.remove('open');
+}
+
+menuBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const open = !navCta.classList.contains('open');
+  menuBtn.classList.toggle('open', open);
+  navCta.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  if (!open) langDropdown.classList.remove('open');
+});
+
+navCta.addEventListener('click', (e) => {
+  if (e.target.closest('#dashboardBtn') || e.target.closest('.btn-primary')) closeMenu();
+});
+
+window.addEventListener('resize', () => { if (window.innerWidth > 720) closeMenu(); });
+
+document.addEventListener('click', (e) => {
+  langDropdown.classList.remove('open');
+  if (!e.target.closest('#navCta')) closeMenu();
 });
 
 applyLang(LANG);
