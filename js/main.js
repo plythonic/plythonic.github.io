@@ -99,27 +99,6 @@ const chartIO = new IntersectionObserver(es => {
 }, { threshold: .3 });
 chartIO.observe(svg);
 
-const editCard = document.getElementById('editCard');
-document.querySelectorAll('#themes .pill').forEach(b => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('#themes .pill').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    editCard.dataset.theme = b.dataset.t;
-  });
-});
-document.querySelectorAll('#btnStyle .pill').forEach(b => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('#btnStyle .pill').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    editCard.classList.toggle('outline', b.dataset.s === 'outline');
-  });
-});
-const radius = document.getElementById('radius');
-radius.addEventListener('input', () => {
-  editCard.style.setProperty('--c-radius', radius.value + 'px');
-  document.getElementById('radiusVal').textContent = radius.value + 'px';
-});
-
 const metaEl = document.querySelector('meta[name="description"]');
 const metaKey = metaEl.content;
 const titleKey = document.title;
