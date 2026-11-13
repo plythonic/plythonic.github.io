@@ -1347,7 +1347,7 @@ footer {
   color: var(--text);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 7px 10px 7px 10px;
+  padding: 8px 14px;
   font: 600 13px var(--sans);
   cursor: pointer;
   display: flex;
