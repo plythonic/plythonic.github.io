@@ -74,7 +74,7 @@ function setDates() {
 }
 setDates();
 
-const langData = [['Moderasyon', 32.5], ['Ticket', 18.2], ['Otomasyon', 15.8], ['Kullanıcı', 12.3], ['Sunucu', 9.7], ['Emoji', 6.2], ['Diğer', 5.3]];
+const langData = [['Moderation', 32.5], ['Ticket', 18.2], ['Automation', 15.8], ['User', 12.3], ['Server', 9.7], ['Emoji', 6.2], ['Other', 5.3]];
 const langsEl = document.getElementById('langs');
 function renderLangs() {
   const ready = langsEl.dataset.ready;
@@ -94,9 +94,6 @@ const chartIO = new IntersectionObserver(es => {
 }, { threshold: .3 });
 chartIO.observe(svg);
 
-const metaEl = document.querySelector('meta[name="description"]');
-const metaKey = metaEl.content;
-const titleKey = document.title;
 const languageNodes = [];
 const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT, {
   acceptNode: n => {
@@ -115,8 +112,6 @@ function applyLang(l) {
   LANG = l;
   document.documentElement.lang = l;
   languageNodes.forEach(o => { o.n.nodeValue = o.pre + t(o.k) + o.post; });
-  metaEl.content = t(metaKey);
-  document.title = t(titleKey);
   renderLangs();
   setDates();
   document.getElementById('currentLang').textContent = l === 'tr' ? 'TR' : 'EN';
@@ -180,15 +175,16 @@ applyLang(LANG);
 
 const dashboardBtn = document.getElementById('dashboardBtn');
 let toastEl = null;
+let toastTimers = [];
 
 function showToast(message) {
-  if (toastEl) {
-    toastEl.remove();
-  }
-  
-  toastEl = document.createElement('div');
-  toastEl.className = 'toast';
-  toastEl.innerHTML = `
+  toastTimers.forEach(clearTimeout);
+  toastTimers = [];
+  if (toastEl) toastEl.remove();
+
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `
     <div class="toast-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"/>
@@ -198,56 +194,47 @@ function showToast(message) {
     </div>
     <span>${message}</span>
   `;
-  document.body.appendChild(toastEl);
-  
-  setTimeout(() => toastEl.classList.add('show'), 10);
-  
-  setTimeout(() => {
-    toastEl.classList.remove('show');
-    setTimeout(() => {
-      if (toastEl) toastEl.remove();
-      toastEl = null;
-    }, 300);
-  }, 3000);
+  document.body.appendChild(el);
+  toastEl = el;
+
+  toastTimers.push(setTimeout(() => el.classList.add('show'), 10));
+  toastTimers.push(setTimeout(() => el.classList.remove('show'), 3000));
+  toastTimers.push(setTimeout(() => { el.remove(); if (toastEl === el) toastEl = null; }, 3300));
 }
 
 dashboardBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  showToast(LANG === 'tr' ? 'Dashboard yakında geliyor!' : 'Dashboard, coming soon!');
+  showToast(t('Dashboard, coming soon!'));
 });
 
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
+  link.addEventListener('click', function (e) {
     const targetId = this.getAttribute('href').substring(1);
+    e.preventDefault();
+    if (!targetId) {
+      // logo / "#": go to top, keep URL clean
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.replaceState(null, '', window.location.pathname);
+      return;
+    }
     const targetSection = document.getElementById(targetId);
-    
     if (targetSection) {
       const headerOffset = 84;
-      const elementPosition = targetSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      
-      if (targetId) {
-        history.pushState(null, '', '/' + targetId);
-      }
+      const offsetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      history.replaceState(null, '', '#' + targetId);
     }
   });
 });
 
-window.addEventListener('popstate', function() {
-  const path = window.location.pathname.substring(1);
-  const section = document.getElementById(path);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-});
-
+// Opening the page with #features / #how etc. scrolls to that section
+function scrollToHash() {
+  const id = window.location.hash.substring(1);
+  const el = id && document.getElementById(id);
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 84, behavior: 'smooth' });
+}
+window.addEventListener('hashchange', scrollToHash);
 
 window.addEventListener('beforeunload', function() {
   window.scrollTo(0, 0);
@@ -256,8 +243,8 @@ window.addEventListener('beforeunload', function() {
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual';
 }
-window.addEventListener('load', function() {
-  window.scrollTo(0, 0);
+window.addEventListener('load', function () {
+  if (window.location.hash) scrollToHash(); else window.scrollTo(0, 0);
 });
 
 const toTopBtn = document.getElementById('toTop');
