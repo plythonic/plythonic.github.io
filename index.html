@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Plython — Güçlü Discord Moderasyon Botu</title>
-  <meta name="description" content="Plython - Discord serveriniz üçün tam funksional moderasyon və idarəetmə botu. Pulsuz, güclü və istifadəsi asan.">
+  <title>Plython — Powerful Discord Moderation Bot</title>
+  <meta name="description" content="Plython - a fully featured moderation and management bot for your Discord server. Free, powerful and easy to use.">
   <meta name="theme-color" content="#4287f5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 
 <body>
@@ -19,12 +19,7 @@
     <nav class="top">
       <div class="wrap">
         <a href="#" class="logo"><span class="logo-mark">P</span>Plython</a>
-        <div class="links">
-          <a href="#features">Özellikler</a>
-          <a href="#network">Bot İstatistikleri</a>
-          <a href="#how">Kurulum</a>
-        </div>
-        <div class="nav-cta">
+        <div class="nav-cta" id="navCta">
           <a href="#" class="lang-sel" id="dashboardBtn">Dashboard</a>
           <div class="lang-dropdown" id="langDropdown">
             <button class="lang-btn" id="langBtn">
@@ -38,14 +33,10 @@
               <button class="lang-option" data-lang="tr">TR<svg class="tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></button>
             </div>
           </div>
-          <a href="#how" class="btn btn-primary sm">Discord'a Ekle</a>
-          <button class="burger" id="burger" aria-label="Menü"><span></span></button>
+          <a href="#how" class="btn btn-primary sm">Add to Discord</a>
+          
         </div>
-      </div>
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="#features">Özellikler</a>
-        <a href="#network">Bot İstatistikleri</a>
-        <a href="#how">Kurulum</a>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </nav>
   </header>
@@ -53,36 +44,36 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="hero-frame" id="heroFrame" style="width:100%;min-height:440px;border:1px solid rgba(255,255,255,.15);border-radius:24px;overflow:hidden;background:radial-gradient(640px circle at 50% 0%,rgba(66,135,245,.2),transparent 70%),#111114;"></div>
+        <div class="hero-frame" id="heroFrame"><img src="plythonic.png" alt="Plython" loading="eager"></div>
       </div>
     </section>
 
     <section id="network">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="eyebrow">Plython Bot İstatistikleri</span>
-          <h2>185+ Sunucuda Aktif Kullanımda</h2>
-          <p class="lead">Yüzlərcə Discord sunucusu Plython ile moderasyon ve yönetim işlemlerini otomatikleştiriyor. Küçükten büyüğe her sunucu için idealdir.</p>
+          <span class="eyebrow">Plython Bot Statistics</span>
+          <h2>Active On 185+ Servers</h2>
+          <p class="lead">Hundreds of Discord servers automate moderation and management with Plython. Ideal for servers of all sizes.</p>
         </div>
         <div class="net-top reveal">
-          <div class="mini"><small>Aktiv sunucular</small><b data-count="185" data-sep="1">0</b></div>
-          <div class="mini"><small>Toplam kullanıcı</small><b data-count="15000" data-sep="1">0</b></div>
-          <div class="mini"><small>Günlük komutlar</small><b data-count="5000" data-sep="1">0</b></div>
+          <div class="mini"><small>Active Servers</small><b data-count="185" data-sep="1">0</b></div>
+          <div class="mini"><small>Total Users</small><b data-count="15000" data-sep="1">0</b></div>
+          <div class="mini"><small>Daily Commands</small><b data-count="5000" data-sep="1">0</b></div>
           <div class="mini"><small>Uptime</small><b data-count="99.9" data-dec="1" data-suffix="%">0</b></div>
         </div>
         <div class="net-main reveal">
           <div class="panel">
-            <span class="live"><i></i>Canlı</span>
-            <h3>Günlük Komut Kullanımı</h3>
-            <p class="sub">Son 30 günde 150.000+ komut çalıştırıldı</p>
+            <span class="live"><i></i>Live</span>
+            <h3>Daily Command Usage</h3>
+            <p class="sub">150,000+ Commands Executed In Last 30 Days</p>
             <svg id="chart" viewBox="0 0 600 230" preserveAspectRatio="none"></svg>
-            <div class="chart-x"><span id="d1"></span><span id="d2"></span><span>Bugün</span></div>
+            <div class="chart-x"><span id="d1"></span><span id="d2"></span><span>Today</span></div>
           </div>
           <div class="panel">
-            <h3>En Popüler Komutlar</h3>
-            <p class="sub">Son 30 günde en çok kullanılan komut kategorileri</p>
+            <h3>Most Popular Commands</h3>
+            <p class="sub">Most Used Command Categories In Last 30 Days</p>
             <div id="langs"></div>
-            <p class="note">Moderasyon, ticket ve otomasyon komutları en çok kullanılıyor.</p>
+            <p class="note">Moderation, Ticket And Automation Commands Are Most Used.</p>
           </div>
         </div>
 
@@ -92,9 +83,9 @@
     <section id="features">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="eyebrow">Neden Plython</span>
-          <h2>Sunucunuzu Yönetmek İçin İhtiyacınız Olan Her Şey</h2>
-          <p class="lead">Plython, Discord sunucu yöneticileri için özel geliştirilmiş çok amaçlı bir bottur. Moderasyon, otomasyon, ticket ve güvenlik - hepsi bir arada.</p>
+          <span class="eyebrow">Why Plython</span>
+          <h2>Everything You Need To Manage Your Server</h2>
+          <p class="lead">Plython is a multi-purpose bot specially developed for Discord server administrators. Moderation, automation, ticket and security - all in one.</p>
         </div>
         <div class="feat-grid">
           <div class="feat reveal">
@@ -105,8 +96,8 @@
                 <path d="m9 7 8 8" />
                 <path d="m21 11-8-8" />
               </svg></div>
-            <h3>Gelişmiş Moderasyon Araçları</h3>
-            <p>Ban, kick, mute, timeout, lock, unlock ve slowmode dahil 40+ komut. Slash ve prefix desteği, her işlem anında şık bir kartla raporlanır.</p>
+            <h3>Advanced Moderation Tools</h3>
+            <p>40+ commands including ban, kick, mute, timeout, lock, unlock and slowmode. Slash and prefix support, every action is reported instantly with a clean card.</p>
           </div>
           <div class="feat reveal">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -115,37 +106,37 @@
                 <line x1="9" y1="9" x2="9.01" y2="9" />
                 <line x1="15" y1="9" x2="15.01" y2="9" />
               </svg></div>
-            <h3>Nitrosuz Emoji Kullanımı</h3>
-            <p>Nitro olmadan herhangi bir sunucunun emojisini kullanın: +emoji_adı+ yazın, Plython mesajınızı sizin adınız ve avatarınızla gönderir. Animasyonlu emojiler ve akıllı eşleştirme dahil.</p>
+            <h3>Emoji Usage Without Nitro</h3>
+            <p>Use emojis from any server without Nitro: type +emoji_name+ and Plython sends your message with your name and avatar. Animated emojis and smart matching included.</p>
           </div>
           <div class="feat reveal">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
               </svg></div>
-            <h3>Otomasyon Ve Karşılama</h3>
-            <p>Yeni üyeleri görsel karşılama kartıyla karşılayın, otorol verin ve davetleri takip edin. Çekiliş ve sayma gibi etkinlik araçları da hazır.</p>
+            <h3>Automation And Welcome</h3>
+            <p>Greet new members with a visual welcome card, assign auto roles and track invites. Giveaway and counting event tools are ready too.</p>
           </div>
           <div class="feat reveal">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.7100" />
               </svg></div>
-            <h3>Özel Sunucu URL'si</h3>
-            <p>/setup komutu ile plython.gg/sunucuadınız gibi özel kısa link oluşturun. Sunucunuzu kolay hatırlanır URL ile tanıtın ve paylaşın.</p>
+            <h3>Custom Server URL</h3>
+            <p>Create a custom short link like plython.gg/yourserver with /setup command. Promote and share your server with an easy-to-remember URL.</p>
           </div>
           <div class="feat reveal">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3l8 3v6c0 4.500-3.300 8-8 9-4.700-1-8-4.500-8-9V6l8-3z" />
                 <path d="M8.500 12l2.500 2.5 4.500-5" />
               </svg></div>
-            <h3>Güvenlik Ve Koruma</h3>
-            <p>Anti-raid, anti-spam, anti-scam koruması ile sunucunuzu 7/24 koruyun. Zararlı kullanıcılar otomatik tespit edilir ve engellenir.</p>
+            <h3>Security And Protection</h3>
+            <p>Protect your server 24/7 with anti-raid, anti-spam, anti-scam protection. Malicious users are automatically detected and blocked.</p>
           </div>
           <div class="feat reveal">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 20V10M10 20V4M16 20v-8M22 20H2" />
               </svg></div>
-            <h3>Ticket & Destek Sistemi</h3>
-            <p>Profesyonel ticket paneli ile kullanıcılarınıza özel destek kanalları oluşturun. Otomatik kategori, log sistemi ve transcript özelliği dahil.</p>
+            <h3>Ticket & Support System</h3>
+            <p>Create dedicated support channels for your users with professional ticket panel. Includes automatic category, log system and transcript feature.</p>
           </div>
         </div>
       </div>
@@ -154,25 +145,25 @@
     <section id="how">
       <div class="wrap">
         <div class="sec-head center reveal">
-          <span class="eyebrow">Nasıl Başlarım</span>
-          <h2>Plython'u Sunucuna Eklemek Çok Kolay</h2>
-          <p class="lead">Sadece 3 basit adımda Plython'u Discord sunucunuza ekleyip kullanmaya başlayın. Teknik bilgi gerektirmez, herkes kullanabilir.</p>
+          <span class="eyebrow">How Do I Start</span>
+          <h2>Adding Plython To Your Server Is Very Easy</h2>
+          <p class="lead">Add Plython to your Discord server and start using it in just 3 simple steps. No technical knowledge required, anyone can use it.</p>
         </div>
         <div class="steps">
           <div class="step reveal">
             <div class="num">1</div>
-            <h3>Botu Sunucuna Davet Et</h3>
-            <p>Discord'a Ekle butonuna tıklayın, sunucunuzu seçin ve gerekli izinleri onaylayın. Bot otomatik olarak sunucunuza katılır.</p>
+            <h3>Invite Bot To Your Server</h3>
+            <p>Click Add to Discord button, select your server and approve required permissions. Bot automatically joins your server.</p>
           </div>
           <div class="step reveal">
             <div class="num">2</div>
-            <h3>Botun Özellikleri Otomatik Aktif</h3>
-            <p>Plython sunucuya katıldığında temel moderasyon ve güvenlik özellikleri hemen aktif olur. İstediğiniz ayarları /setup ile özelleştirin.</p>
+            <h3>Bot Features Automatically Active</h3>
+            <p>When Plython joins the server, basic moderation and security features are immediately active. Customize the settings you want with /setup.</p>
           </div>
           <div class="step reveal">
             <div class="num">3</div>
-            <h3>Komutları Kullanmaya Başla</h3>
-            <p>/help veya +help yazarak 40+ komutu keşfedin. Hem slash (/) hem de prefix (+) komutları desteklenir, istediğinizi kullanın.</p>
+            <h3>Start Using Commands</h3>
+            <p>Discover 40+ commands by typing /help or +help. Both slash (/) and prefix (+) commands are supported, use whichever you prefer.</p>
           </div>
         </div>
       </div>
@@ -181,9 +172,9 @@
     <section id="compare">
       <div class="wrap">
         <div class="sec-head center reveal">
-          <span class="eyebrow">Discord sunucuları için tasarlandı</span>
-          <h2>Profesyonel Sunucu Yönetimi Artık Daha Kolay</h2>
-          <p class="lead">Plython'un sunduğu gelişmiş özellikler sayesinde sunucunuzu profesyonel bir şekilde yönetin. Premium botlara gerek yok.</p>
+          <span class="eyebrow">Designed For Discord Servers</span>
+          <h2>Professional Server Management Is Now Easier</h2>
+          <p class="lead">Manage your server professionally with advanced features offered by Plython. No need for premium bots.</p>
         </div>
         <div class="table-wrap reveal">
           <table>
@@ -191,37 +182,37 @@
               <tr>
                 <th></th>
                 <th class="c hl">Plython</th>
-                <th class="c">Basit botlar</th>
-                <th class="c">Premium botlar</th>
+                <th class="c">Simple Bots</th>
+                <th class="c">Premium Bots</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Nitrosuz emoji kullanımı</td>
+                <td>Emoji Without Nitro</td>
                 <td class="c hl yes">✓</td>
                 <td class="c no">✕</td>
                 <td class="c no">✕</td>
               </tr>
               <tr>
-                <td>Ticket transcript sistemi</td>
+                <td>Ticket Transcript System</td>
                 <td class="c hl yes">✓</td>
                 <td class="c no">✕</td>
-                <td class="c part">Kısmen</td>
+                <td class="c part">Partially</td>
               </tr>
               <tr>
-                <td>Ticket sistemi</td>
+                <td>Ticket System</td>
                 <td class="c hl yes">✓</td>
-                <td class="c part">Kısmen</td>
+                <td class="c part">Partially</td>
                 <td class="c no">✕</td>
               </tr>
               <tr>
-                <td>7/24 Çalışma süresi</td>
+                <td>24/7 Uptime</td>
                 <td class="c hl yes">✓</td>
-                <td class="c part">Kısmen</td>
-                <td class="c part">Kısmen</td>
+                <td class="c part">Partially</td>
+                <td class="c part">Partially</td>
               </tr>
               <tr>
-                <td>Özel sunucu URL</td>
+                <td>Custom Server URL</td>
                 <td class="c hl yes">✓</td>
                 <td class="c no">✕</td>
                 <td class="c no">✕</td>
@@ -229,7 +220,7 @@
               <tr>
                 <td>Security Protection</td>
                 <td class="c hl yes">✓</td>
-                <td class="c part">Kısmen</td>
+                <td class="c part">Partially</td>
                 <td class="c no">✕</td>
               </tr>
             </tbody>
@@ -245,13 +236,13 @@
     <section class="cta">
       <div class="wrap">
         <div class="cta-box reveal">
-          <h2>Discord Sunucunuzun İhtiyacı Olan Güçlü Bot</h2>
-          <p class="lead">Plython'u hemen ücretsiz olarak sunucunuza ekleyin. 40+ komut, otomatik moderasyon ve 7/24 destek için şimdi başlayın.</p>
+          <h2>The Powerful Bot Your Discord Server Needs</h2>
+          <p class="lead">Add Plython to your server for free now. Get started with 40+ commands, automatic moderation and 24/7 support.</p>
           <div class="hero-btns">
-            <a href="#" class="btn btn-primary">Discord'a Ekle <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <a href="#" class="btn btn-primary">Add to Discord <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 8h10M9 4l4 4-4 4" />
               </svg></a>
-            <a href="#how" class="btn btn-dark">Kurulum Rehberi</a>
+            <a href="#how" class="btn btn-dark">Setup Guide</a>
           </div>
         </div>
       </div>
@@ -263,22 +254,22 @@
       <div class="foot-grid">
         <div>
           <a href="#" class="logo"><span class="logo-mark">P</span>Plython</a>
-          <p>Discord sunucuları için gelişmiş çok amaçlı bot. 40+ komut, moderasyon, otomasyon, ticket sistemi ve 7/24 güvenlik koruması.</p>
+          <p>Advanced multi-purpose bot for Discord servers. 40+ commands, moderation, automation, ticket system and 24/7 security protection.</p>
         </div>
         <div>
           <h4>Platform</h4>
           <ul>
-            <li><a href="#features">Özellikler</a></li>
-            <li><a href="#network">Bot İstatistikleri</a></li>
-            <li><a href="#how">Kurulum</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#network">Bot Statistics</a></li>
+            <li><a href="#how">Setup</a></li>
           </ul>
         </div>
         <div>
-          <h4>Destek</h4>
+          <h4>Support</h4>
           <ul>
-            <li><a href="#">Komutlar</a></li>
-            <li><a href="#">Discord Sunucusu</a></li>
-            <li><a href="#">Gizlilik Politikası</a></li>
+            <li><a href="#">Commands</a></li>
+            <li><a href="#">Discord Server</a></li>
+            <li><a href="#">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
@@ -289,8 +280,8 @@
   <button class="to-top" id="toTop" type="button" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
   </button>
-  <script src="js/language.js?v=8"></script>
-  <script src="js/main.js?v=8"></script>
+  <script src="js/language.js?v=9"></script>
+  <script src="js/main.js?v=9"></script>
 </body>
 
 </html>
