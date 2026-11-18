@@ -213,7 +213,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     const targetId = this.getAttribute('href').substring(1);
     e.preventDefault();
     if (!targetId) {
-      // logo / "#": go to top, keep URL clean
       window.scrollTo({ top: 0, behavior: 'smooth' });
       history.replaceState(null, '', window.location.pathname);
       return;
@@ -228,7 +227,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Opening the page with #features / #how etc. scrolls to that section
 function scrollToHash() {
   const id = window.location.hash.substring(1);
   const el = id && document.getElementById(id);
