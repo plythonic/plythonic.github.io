@@ -208,13 +208,13 @@ dashboardBtn.addEventListener('click', (e) => {
 });
 
 
+// Section links scroll smoothly but never touch the URL (no #features, no #how ...)
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function (e) {
-    const targetId = this.getAttribute('href').substring(1);
     e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
     if (!targetId) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', window.location.pathname);
       return;
     }
     const targetSection = document.getElementById(targetId);
@@ -222,17 +222,23 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       const headerOffset = 84;
       const offsetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      history.replaceState(null, '', '#' + targetId);
     }
   });
 });
 
-function scrollToHash() {
-  const id = window.location.hash.substring(1);
-  const el = id && document.getElementById(id);
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 84, behavior: 'smooth' });
+// Header logo = page refresh (like pressing F5)
+const headerLogo = document.getElementById('headerLogo');
+if (headerLogo) {
+  headerLogo.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.reload();
+  });
 }
-window.addEventListener('hashchange', scrollToHash);
+
+// Keep the address bar clean even if the page was opened with a #hash
+if (window.location.hash) {
+  history.replaceState(null, '', window.location.pathname + window.location.search);
+}
 
 window.addEventListener('beforeunload', function() {
   window.scrollTo(0, 0);
@@ -242,7 +248,7 @@ if (history.scrollRestoration) {
   history.scrollRestoration = 'manual';
 }
 window.addEventListener('load', function () {
-  if (window.location.hash) scrollToHash(); else window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 });
 
 const toTopBtn = document.getElementById('toTop');
