@@ -207,8 +207,6 @@ dashboardBtn.addEventListener('click', (e) => {
   showToast(t('Dashboard, coming soon!'));
 });
 
-
-// Section links scroll smoothly but never touch the URL (no #features, no #how ...)
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function (e) {
     e.preventDefault();
@@ -226,7 +224,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Header logo = page refresh (like pressing F5)
 const headerLogo = document.getElementById('headerLogo');
 if (headerLogo) {
   headerLogo.addEventListener('click', function (e) {
@@ -235,7 +232,6 @@ if (headerLogo) {
   });
 }
 
-// Keep the address bar clean even if the page was opened with a #hash
 if (window.location.hash) {
   history.replaceState(null, '', window.location.pathname + window.location.search);
 }
